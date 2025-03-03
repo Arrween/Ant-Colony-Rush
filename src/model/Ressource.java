@@ -8,4 +8,12 @@ public class Ressource {
         this.poids = poids;
         this.valeur_nutritive = valeur_nutritive;
     }
+
+    public int getPoids() {
+        return poids;
+    }
+
+    public int getValeurNutritive() {
+        return valeur_nutritive;
+    }
 }
