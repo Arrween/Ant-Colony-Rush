@@ -1,12 +1,11 @@
 package view;
 
-import java.awt.*;
-import java.util.ArrayList;
+import java.awt.Dimension;
+import java.awt.Graphics;
 
 import javax.swing.*;
 
-import model.Parcours;
-import model.Position;
+import model.Terrain;
 
 public class Affichage extends JPanel {
     public static final double RATIO_X = 1.0;
