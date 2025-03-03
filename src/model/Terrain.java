@@ -1,4 +1,4 @@
-package src;
+package model;
 
 public class Terrain {
     public static final int LARGEUR = 1200;

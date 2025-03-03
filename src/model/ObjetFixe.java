@@ -1,3 +1,5 @@
+package model;
+
 public class ObjetFixe {
     private int x;
     private int y;
