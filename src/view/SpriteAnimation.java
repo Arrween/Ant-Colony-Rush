@@ -120,9 +120,20 @@ public class SpriteAnimation extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // Affichage de l'animation de la fourmi
         if (imagesCourantes != null && imagesCourantes[cadreActuel] != null) {
+            // Ici, l'image est dessinée en redimensionnant avec un facteur (exemple /10)
             g.drawImage(imagesCourantes[cadreActuel], (int) posX, (int) posY, largeurCadreCourant/10, hauteurCadreCourant/10, this);
         }
+        
+        // Dessiner une croix aux coordonnées de destination
+        int tailleCroix = 10;
+        g.drawLine(pointB_x - tailleCroix, pointB_y, pointB_x + tailleCroix, pointB_y);
+        g.drawLine(pointB_x, pointB_y - tailleCroix, pointB_x, pointB_y + tailleCroix);
+        
+        // Dessiner un cercle dont le centre est aux coordonnées de départ
+        int rayon = 35;
+        g.drawOval(pointA_x - rayon, pointA_y - rayon, 2 * rayon, 2 * rayon);
     }
     
     @Override
