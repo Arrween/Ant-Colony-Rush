@@ -27,8 +27,6 @@ public class SpriteAnimation extends JPanel implements ActionListener {
     private double posX, posY;
     // Vitesse de déplacement (en pixels par tic)
     private double vitesse = 2.0;
-    // Vecteur direction normalisé
-    private double directionX, directionY;
     
     // Constructeur avec paramètres pour les coordonnées de départ et d'arrivée
     public SpriteAnimation(int a_x, int a_y, int b_x, int b_y) {
@@ -72,13 +70,6 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         posX = pointA_x;
         posY = pointA_y;
         
-        // Calculer le vecteur direction de A à B
-        double deltaX = pointB_x - pointA_x;
-        double deltaY = pointB_y - pointA_y;
-        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        directionX = deltaX / distance;
-        directionY = deltaY / distance;
-        
         // Initialiser un chronomètre qui rafraîchit l'affichage toutes les 50ms
         chronometre = new Timer(50, this);
         chronometre.start();
@@ -93,22 +84,32 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         }
     }
 
-    // Mise à jour du cadre d'animation et de la position à chaque tic du chronomètre
+    // Mise à jour de l'animation et du déplacement de la fourmi à chaque tic du chronomètre
     @Override
     public void actionPerformed(ActionEvent e) {
         // Mise à jour de l'animation du sprite
         cadreActuel = (cadreActuel + 1) % nombreTotalCadres;
         
-        // Mise à jour de la position de la fourmi le long du trajet
-        posX += vitesse * directionX;
-        posY += vitesse * directionY;
+        // Déplacement logique : d'abord sur l'axe X, puis sur l'axe Y
+        if (posX != pointB_x) {
+            // Avancer sur l'axe X jusqu'à atteindre la colonne de destination
+            if (Math.abs(pointB_x - posX) > vitesse) {
+                posX += (pointB_x > posX) ? vitesse : -vitesse;
+            } else {
+                posX = pointB_x;
+            }
+        } else if (posY != pointB_y) {
+            // Une fois la colonne atteinte, avancer sur l'axe Y jusqu'à atteindre la ligne de destination
+            if (Math.abs(pointB_y - posY) > vitesse) {
+                posY += (pointB_y > posY) ? vitesse : -vitesse;
+            } else {
+                posY = pointB_y;
+            }
+        }
         
-        // Vérifier si la fourmi est arrivée à destination
-        double distanceRestante = Math.sqrt(Math.pow(pointB_x - posX, 2) + Math.pow(pointB_y - posY, 2));
-        if (distanceRestante < vitesse) {
-            posX = pointB_x;
-            posY = pointB_y;
-            chronometre.stop();  // Arrêter l'animation lorsque la destination est atteinte
+        // Arrêter l'animation lorsque la destination est atteinte
+        if (posX == pointB_x && posY == pointB_y) {
+            chronometre.stop();
         }
         
         repaint();
@@ -118,7 +119,7 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         // Définir ici les coordonnées de départ et d'arrivée
         int departX = 100;
         int departY = 400;
-        int arriveeX = 100;
+        int arriveeX = 200; // Destination dans une colonne différente
         int arriveeY = 100;
         
         JFrame fenetre = new JFrame("Animation de la Fourmi");

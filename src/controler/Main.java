@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import model.Terrain;
 import view.Affichage;
 
+
 public class Main {
     public static void main(String[] args) {
         // Création d'un terrain
@@ -12,6 +13,7 @@ public class Main {
         
         // Création du panneau d'affichage avec le terrain
         Affichage affichage = new Affichage(terrain);
+
         
         // Création de la fenêtre principale
         JFrame frame = new JFrame("Affichage du Terrain");
