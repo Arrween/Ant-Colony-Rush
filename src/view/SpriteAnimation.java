@@ -96,7 +96,7 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         }
         
         // Initialiser le chronomètre pour rafraîchir l'animation toutes les 50ms
-        chronometre = new Timer(50, this);
+        chronometre = new Timer(20, this);
         chronometre.start();
     }
     
