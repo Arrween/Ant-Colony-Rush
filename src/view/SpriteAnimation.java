@@ -89,7 +89,7 @@ public class SpriteAnimation extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagesCadres != null && imagesCadres[cadreActuel] != null) {
-            g.drawImage(imagesCadres[cadreActuel], (int) posX, (int) posY, this);
+            g.drawImage(imagesCadres[cadreActuel], (int) posX, (int) posY,10, 20, this);
         }
     }
 
