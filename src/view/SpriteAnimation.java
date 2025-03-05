@@ -9,16 +9,24 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class SpriteAnimation extends JPanel implements ActionListener {
-    private BufferedImage feuilleSprite;
-    private BufferedImage[] imagesCadres;
+    // Animations pour chaque direction
+    private BufferedImage[] imagesHaut;
+    private BufferedImage[] imagesBas;
+    private BufferedImage[] imagesGauche;
+    private BufferedImage[] imagesDroite;
+
+    // Animation actuellement utilisée
+    private BufferedImage[] imagesCourantes;
+    
     private int cadreActuel = 0;
     private Timer chronometre;
     
-    // Nombre total de cadres à utiliser dans l'animation (ici 62)
+    // Nombre total de cadres dans chaque animation (ici 62)
     private final int nombreTotalCadres = 62;
     // Organisation de la feuille de sprite en grille 8x8
     private final int colonnes = 8;
     private final int lignes = 8;
+
     private int largeurCadre, hauteurCadre;
     
     // Coordonnées de départ et d'arrivée
@@ -30,103 +38,122 @@ public class SpriteAnimation extends JPanel implements ActionListener {
     
     // Constructeur avec paramètres pour les coordonnées de départ et d'arrivée
     public SpriteAnimation(int a_x, int a_y, int b_x, int b_y) {
-        // Affecter les coordonnées de départ (A) et d'arrivée (B)
         pointA_x = a_x;
         pointA_y = a_y;
         pointB_x = b_x;
         pointB_y = b_y;
         
         try {
-            // Charger la feuille de sprite depuis le fichier
-            feuilleSprite = ImageIO.read(new File("ressources/ant.png"));
-            
-            // Calculer la taille de chaque cadre dans la grille
-            largeurCadre = feuilleSprite.getWidth() / colonnes;
-            hauteurCadre = feuilleSprite.getHeight() / lignes;
-            
-            // Créer un tableau pour stocker les cadres de l'animation
-            imagesCadres = new BufferedImage[nombreTotalCadres];
-            int indiceCadre = 0;
-            
-            // Parcourir la grille pour extraire les cadres
-            for (int ligne = 0; ligne < lignes; ligne++) {
-                for (int colonne = 0; colonne < colonnes; colonne++) {
-                    if (indiceCadre < nombreTotalCadres) { // Ne pas dépasser les 62 images
-                        imagesCadres[indiceCadre] = feuilleSprite.getSubimage(
-                            colonne * largeurCadre, 
-                            ligne * hauteurCadre, 
-                            largeurCadre, 
-                            hauteurCadre
-                        );
-                        indiceCadre++;
-                    }
-                }
-            }
+            // Charger les 4 animations à partir de leurs fichiers respectifs
+            imagesHaut = chargerAnimation("ressources/ant.png");
+            imagesBas = chargerAnimation("ressources/ant_bas.png");
+            imagesGauche = chargerAnimation("ressources/ant_gauche.png");
+            imagesDroite = chargerAnimation("ressources/ant_droite.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
         
-        // Initialiser la position de la fourmi au point de départ (A)
+        // Initialiser la position à partir du point de départ
         posX = pointA_x;
         posY = pointA_y;
         
-        // Initialiser un chronomètre qui rafraîchit l'affichage toutes les 50ms
+        // Choisir l'animation de départ en fonction de la direction initiale
+        if (pointB_x != posX) {
+            imagesCourantes = (pointB_x > posX) ? imagesDroite : imagesGauche;
+        } else if (pointB_y != posY) {
+            imagesCourantes = (pointB_y > posY) ? imagesBas : imagesHaut;
+        }
+        
+        // Récupérer la taille d'un cadre à partir de l'animation "haut"
+        if (imagesHaut != null && imagesHaut[0] != null) {
+            largeurCadre = imagesHaut[0].getWidth();
+            hauteurCadre = imagesHaut[0].getHeight();
+        }
+        
+        // Initialiser le chronomètre pour rafraîchir l'animation toutes les 50 ms
         chronometre = new Timer(50, this);
         chronometre.start();
     }
-
-    // Redéfinition de paintComponent pour dessiner le cadre actuel à la position actuelle
+    
+    // Méthode utilitaire pour charger un spritesheet et découper ses cadres
+    private BufferedImage[] chargerAnimation(String chemin) throws IOException {
+        BufferedImage feuille = ImageIO.read(new File(chemin));
+        int largeurCadreTemp = feuille.getWidth() / colonnes;
+        int hauteurCadreTemp = feuille.getHeight() / lignes;
+        BufferedImage[] frames = new BufferedImage[nombreTotalCadres];
+        int indice = 0;
+        for (int i = 0; i < lignes; i++) {
+            for (int j = 0; j < colonnes; j++) {
+                if (indice < nombreTotalCadres) {
+                    frames[indice] = feuille.getSubimage(j * largeurCadreTemp, i * hauteurCadreTemp, largeurCadreTemp, hauteurCadreTemp);
+                    indice++;
+                }
+            }
+        }
+        return frames;
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (imagesCadres != null && imagesCadres[cadreActuel] != null) {
-            g.drawImage(imagesCadres[cadreActuel], (int) posX, (int) posY,10, 20, this);
+        if (imagesCourantes != null && imagesCourantes[cadreActuel] != null) {
+            g.drawImage(imagesCourantes[cadreActuel], (int) posX, (int) posY, 10, 20,  this);
         }
     }
-
-    // Mise à jour de l'animation et du déplacement de la fourmi à chaque tic du chronomètre
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Mise à jour de l'animation du sprite
+        // Mise à jour de l'animation (on passe au cadre suivant)
         cadreActuel = (cadreActuel + 1) % nombreTotalCadres;
         
-        // Déplacement logique : d'abord sur l'axe X, puis sur l'axe Y
+        // Déplacement logique en 2 étapes : d'abord horizontalement, puis verticalement
         if (posX != pointB_x) {
-            // Avancer sur l'axe X jusqu'à atteindre la colonne de destination
+            // Déplacement sur l'axe X
             if (Math.abs(pointB_x - posX) > vitesse) {
-                posX += (pointB_x > posX) ? vitesse : -vitesse;
+                if (pointB_x > posX) {
+                    posX += vitesse;
+                    imagesCourantes = imagesDroite;
+                } else {
+                    posX -= vitesse;
+                    imagesCourantes = imagesGauche;
+                }
             } else {
                 posX = pointB_x;
             }
         } else if (posY != pointB_y) {
-            // Une fois la colonne atteinte, avancer sur l'axe Y jusqu'à atteindre la ligne de destination
+            // Déplacement sur l'axe Y
             if (Math.abs(pointB_y - posY) > vitesse) {
-                posY += (pointB_y > posY) ? vitesse : -vitesse;
+                if (pointB_y > posY) {
+                    posY += vitesse;
+                    imagesCourantes = imagesBas;
+                } else {
+                    posY -= vitesse;
+                    imagesCourantes = imagesHaut;
+                }
             } else {
                 posY = pointB_y;
             }
         }
         
-        // Arrêter l'animation lorsque la destination est atteinte
+        // Arrêter l'animation si la destination est atteinte
         if (posX == pointB_x && posY == pointB_y) {
             chronometre.stop();
         }
         
         repaint();
     }
-
+    
     public static void main(String[] args) {
-        // Définir ici les coordonnées de départ et d'arrivée
+        // Exemple de coordonnées de départ et d'arrivée
         int departX = 100;
         int departY = 400;
-        int arriveeX = 200; // Destination dans une colonne différente
+        int arriveeX = 200; // destinatio,
         int arriveeY = 100;
         
         JFrame fenetre = new JFrame("Animation de la Fourmi");
         SpriteAnimation panneau = new SpriteAnimation(departX, departY, arriveeX, arriveeY);
         fenetre.add(panneau);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Ajuster la taille de la fenêtre en fonction des besoins
         fenetre.setSize(400, 500);
         fenetre.setLocationRelativeTo(null);
         fenetre.setVisible(true);
