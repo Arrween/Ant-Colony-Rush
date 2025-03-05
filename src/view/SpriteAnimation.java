@@ -23,11 +23,16 @@ public class SpriteAnimation extends JPanel implements ActionListener {
     
     // Nombre total de cadres dans chaque animation (ici 62)
     private final int nombreTotalCadres = 62;
-    // Organisation de la feuille de sprite en grille 8x8
+    // Organisation en grille (pour découper les spritesheets)
     private final int colonnes = 8;
     private final int lignes = 8;
-
-    private int largeurCadre, hauteurCadre;
+    
+    // Dimensions pour les animations verticales (haut et bas)
+    private int largeurVertical, hauteurVertical;
+    // Dimensions pour les animations horizontales (gauche et droite)
+    private int largeurHorizontal, hauteurHorizontal;
+    // Dimensions du cadre actuellement utilisé (selon l'animation active)
+    private int largeurCadreCourant, hauteurCadreCourant;
     
     // Coordonnées de départ et d'arrivée
     private int pointA_x, pointA_y, pointB_x, pointB_y;
@@ -44,48 +49,67 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         pointB_y = b_y;
         
         try {
-            // Charger les 4 animations à partir de leurs fichiers respectifs
-            imagesHaut = chargerAnimation("ressources/ant.png");
-            imagesBas = chargerAnimation("ressources/ant_bas.png");
-            imagesGauche = chargerAnimation("ressources/ant_gauche.png");
-            imagesDroite = chargerAnimation("ressources/ant_droite.png");
+            // Charger la feuille pour le haut
+            BufferedImage feuilleHaut = ImageIO.read(new File("ressources/ant.png"));
+            imagesHaut = decouperSprite(feuilleHaut, colonnes, lignes, nombreTotalCadres);
+            // Charger la feuille pour le bas
+            BufferedImage feuilleBas = ImageIO.read(new File("ressources/ant_bas.png"));
+            imagesBas = decouperSprite(feuilleBas, colonnes, lignes, nombreTotalCadres);
+            // Charger la feuille pour la gauche
+            BufferedImage feuilleGauche = ImageIO.read(new File("ressources/ant_gauche.png"));
+            imagesGauche = decouperSprite(feuilleGauche, colonnes, lignes, nombreTotalCadres);
+            // Charger la feuille pour la droite
+            BufferedImage feuilleDroite = ImageIO.read(new File("ressources/ant_droite.png"));
+            imagesDroite = decouperSprite(feuilleDroite, colonnes, lignes, nombreTotalCadres);
+            
+            // Dimensions pour les animations verticales (haut et bas)
+            largeurVertical = feuilleHaut.getWidth() / colonnes;
+            hauteurVertical = feuilleHaut.getHeight() / lignes;
+            // Dimensions pour les animations horizontales (gauche et droite)
+            largeurHorizontal = feuilleGauche.getWidth() / colonnes;
+            hauteurHorizontal = feuilleGauche.getHeight() / lignes;
         } catch (IOException e) {
             e.printStackTrace();
         }
         
-        // Initialiser la position à partir du point de départ
+        // Initialiser la position de la fourmi au point de départ
         posX = pointA_x;
         posY = pointA_y;
         
-        // Choisir l'animation de départ en fonction de la direction initiale
+        // Choisir l'animation initiale en fonction du déplacement horizontal ou vertical
         if (pointB_x != posX) {
-            imagesCourantes = (pointB_x > posX) ? imagesDroite : imagesGauche;
+            if (pointB_x > posX) {
+                imagesCourantes = imagesDroite;
+            } else {
+                imagesCourantes = imagesGauche;
+            }
+            largeurCadreCourant = largeurHorizontal;
+            hauteurCadreCourant = hauteurHorizontal;
         } else if (pointB_y != posY) {
-            imagesCourantes = (pointB_y > posY) ? imagesBas : imagesHaut;
+            if (pointB_y > posY) {
+                imagesCourantes = imagesBas;
+            } else {
+                imagesCourantes = imagesHaut;
+            }
+            largeurCadreCourant = largeurVertical;
+            hauteurCadreCourant = hauteurVertical;
         }
         
-        // Récupérer la taille d'un cadre à partir de l'animation "haut"
-        if (imagesHaut != null && imagesHaut[0] != null) {
-            largeurCadre = imagesHaut[0].getWidth();
-            hauteurCadre = imagesHaut[0].getHeight();
-        }
-        
-        // Initialiser le chronomètre pour rafraîchir l'animation toutes les 50 ms
+        // Initialiser le chronomètre pour rafraîchir l'animation toutes les 50ms
         chronometre = new Timer(50, this);
         chronometre.start();
     }
     
-    // Méthode utilitaire pour charger un spritesheet et découper ses cadres
-    private BufferedImage[] chargerAnimation(String chemin) throws IOException {
-        BufferedImage feuille = ImageIO.read(new File(chemin));
-        int largeurCadreTemp = feuille.getWidth() / colonnes;
-        int hauteurCadreTemp = feuille.getHeight() / lignes;
+    // Méthode pour découper une spritesheet en un tableau d'images
+    private BufferedImage[] decouperSprite(BufferedImage feuille, int colonnes, int lignes, int nombreTotalCadres) {
         BufferedImage[] frames = new BufferedImage[nombreTotalCadres];
         int indice = 0;
+        int largeur = feuille.getWidth() / colonnes;
+        int hauteur = feuille.getHeight() / lignes;
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
                 if (indice < nombreTotalCadres) {
-                    frames[indice] = feuille.getSubimage(j * largeurCadreTemp, i * hauteurCadreTemp, largeurCadreTemp, hauteurCadreTemp);
+                    frames[indice] = feuille.getSubimage(j * largeur, i * hauteur, largeur, hauteur);
                     indice++;
                 }
             }
@@ -97,16 +121,16 @@ public class SpriteAnimation extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagesCourantes != null && imagesCourantes[cadreActuel] != null) {
-            g.drawImage(imagesCourantes[cadreActuel], (int) posX, (int) posY, 10, 20,  this);
+            g.drawImage(imagesCourantes[cadreActuel], (int) posX, (int) posY, largeurCadreCourant/10, hauteurCadreCourant/10, this);
         }
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Mise à jour de l'animation (on passe au cadre suivant)
+        // Mise à jour de l'animation (passer au cadre suivant)
         cadreActuel = (cadreActuel + 1) % nombreTotalCadres;
         
-        // Déplacement logique en 2 étapes : d'abord horizontalement, puis verticalement
+        // Déplacement en deux étapes : d'abord horizontal, puis vertical
         if (posX != pointB_x) {
             // Déplacement sur l'axe X
             if (Math.abs(pointB_x - posX) > vitesse) {
@@ -120,6 +144,9 @@ public class SpriteAnimation extends JPanel implements ActionListener {
             } else {
                 posX = pointB_x;
             }
+            // Pour un déplacement horizontal, utiliser les dimensions horizontales
+            largeurCadreCourant = largeurHorizontal;
+            hauteurCadreCourant = hauteurHorizontal;
         } else if (posY != pointB_y) {
             // Déplacement sur l'axe Y
             if (Math.abs(pointB_y - posY) > vitesse) {
@@ -133,9 +160,12 @@ public class SpriteAnimation extends JPanel implements ActionListener {
             } else {
                 posY = pointB_y;
             }
+            // Pour un déplacement vertical, utiliser les dimensions verticales
+            largeurCadreCourant = largeurVertical;
+            hauteurCadreCourant = hauteurVertical;
         }
         
-        // Arrêter l'animation si la destination est atteinte
+        // Arrêter l'animation lorsque la destination est atteinte
         if (posX == pointB_x && posY == pointB_y) {
             chronometre.stop();
         }
@@ -147,14 +177,14 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         // Exemple de coordonnées de départ et d'arrivée
         int departX = 100;
         int departY = 400;
-        int arriveeX = 200; // destinatio,
-        int arriveeY = 100;
+        int arriveeX = 250; // destination avec changement de colonne
+        int arriveeY = 150;
         
         JFrame fenetre = new JFrame("Animation de la Fourmi");
         SpriteAnimation panneau = new SpriteAnimation(departX, departY, arriveeX, arriveeY);
         fenetre.add(panneau);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(400, 500);
+        fenetre.setSize(500, 500);
         fenetre.setLocationRelativeTo(null);
         fenetre.setVisible(true);
     }
