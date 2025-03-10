@@ -1,8 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.awt.Point;
 
 public class Terrain {
     private static final int TAILLE_PIXEL = 20;
@@ -11,10 +9,18 @@ public class Terrain {
     public static final int LARGEUR = TAILLE_PIXEL * NB_PIXELS_LAR;
     public static final int HAUTEUR = TAILLE_PIXEL * NB_PIXELS_HAU;
 
-    //ObjetFixe[][] grid;
     ArrayList<ObjetFixe> elts;
 
     public Terrain() {
         elts = new ArrayList<ObjetFixe>();
+    }
+
+    public ObjetFixe getEltClic(int x, int y){
+        for (ObjetFixe elt : elts) {
+            if (elt.hitBoxCliquee(x, y)) {
+                return elt;
+            }
+        }
+        return null;
     }
 }

@@ -26,3 +26,4 @@ public class Affichage extends JPanel {
     }
 
 }
+
