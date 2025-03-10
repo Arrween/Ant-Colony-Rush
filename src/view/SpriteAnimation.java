@@ -8,6 +8,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import controler.ReactionClic;
+import model.Terrain;
+
 public class SpriteAnimation extends JPanel implements ActionListener {
     // Animations pour chaque direction
     private BufferedImage[] imagesHaut;
@@ -183,20 +186,41 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         
         repaint();
     }
+
+    //////////// pour les tests ////////////
+    public void setCoordDest(int x, int y) {
+        pointB_x = x;
+        pointB_y = y;
+    }
+    ////////////////////////////////////////
     
     public static void main(String[] args) {
         // Exemple de coordonnées de départ et d'arrivée
         int departX = 100;
         int departY = 400;
-        int arriveeX = 250; // destination avec changement de colonne
-        int arriveeY = 150;
+        Terrain t = new Terrain();
+        Point p = new Point(0, 0);
+        ReactionClic rc = new ReactionClic(t, p);
         
         JFrame fenetre = new JFrame("Animation de la Fourmi");
-        SpriteAnimation panneau = new SpriteAnimation(departX, departY, arriveeX, arriveeY);
-        fenetre.add(panneau);
+        fenetre.addMouseListener(rc);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre.setSize(500, 500);
         fenetre.setLocationRelativeTo(null);
         fenetre.setVisible(true);
+
+        try {fenetre.revalidate();
+            fenetre.repaint();
+            
+            Thread.sleep((5000)); // Attendre 2 secondes (2000 ms)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        SpriteAnimation panneau = new SpriteAnimation(departX, departY, (int)p.getX(), (int)p.getY());
+        fenetre.add(panneau);
+        fenetre.revalidate();
+        fenetre.repaint();
+
     }
 }

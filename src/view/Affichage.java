@@ -13,7 +13,7 @@ public class Affichage extends JPanel {
     public static final Dimension PANELSIZE = new Dimension((int) (Terrain.LARGEUR * RATIO_X),
             (int) (Terrain.HAUTEUR * RATIO_Y));
     private Terrain t;
-
+ 
     public Affichage(Terrain ter) {
         super();
         this.setPreferredSize(PANELSIZE);
