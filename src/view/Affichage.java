@@ -25,9 +25,8 @@ public class Affichage extends JPanel {
         ImageIcon icon = new ImageIcon("ressources/nid.png");
         image = icon.getImage();
 
-        Random random = new Random();
-        this.x = random.nextInt(Terrain.LARGEUR);
-        this.y = random.nextInt(Terrain.HAUTEUR);
+        this.x = Terrain.RANDOM.nextInt(Terrain.LARGEUR);
+        this.y = Terrain.RANDOM.nextInt(Terrain.HAUTEUR);
     }
 
     @Override
