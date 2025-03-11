@@ -8,6 +8,8 @@ public class Terrain {
     public static final int LARGEUR = 1200;
     public static final int HAUTEUR = 800;
 
+    public static final Random RANDOM = new Random();
+
     ArrayList<ObjetFixe> elts;
     ArrayList<Fourmi> fourmisEnExpe;
 
@@ -15,7 +17,7 @@ public class Terrain {
         Random rand = new Random();
         int x = rand.nextInt(LARGEUR);
         int y = rand.nextInt(HAUTEUR);
-        elts.add(new Nid(0, 10, x, y));
+        elts.add(new Nid(10, x, y));
         elts = new ArrayList<ObjetFixe>();
         fourmisEnExpe = new ArrayList<Fourmi>();
     }

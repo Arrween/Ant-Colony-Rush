@@ -2,12 +2,12 @@ package model;
 
 public class Ressource extends ObjetFixe {
     private int poids;
-    private int valeur_nutritive;
+    private int valeurNutritive;
 
-    public Ressource(int poids, int valeur_nutritive, int x, int y) {
+    public Ressource(int poids, int vn, int x, int y) {
         super(x, y, 0);
         this.poids = poids;
-        this.valeur_nutritive = valeur_nutritive;
+        this.valeurNutritive = vn;
     }
 
     public int getPoids() {
@@ -15,7 +15,7 @@ public class Ressource extends ObjetFixe {
     }
 
     public int getValeurNutritive() {
-        return valeur_nutritive;
+        return valeurNutritive;
     }
 
     public int getNbrFourmis() {
@@ -23,6 +23,8 @@ public class Ressource extends ObjetFixe {
     }
 
     public void majEnergieFourmis() {
-
+        for (Fourmi fourmi : fourmis) {
+            fourmi.decrEnergie();
+        }
     }
 }
