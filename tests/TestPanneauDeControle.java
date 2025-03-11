@@ -22,6 +22,24 @@ public class TestPanneauDeControle {
             fourmis.add(new Fourmi(10, 20, 100));
             fourmis.add(new Fourmi(30, 40, 80));
             fourmis.add(new Fourmi(50, 60, 60));
+            fourmis.add(new Fourmi(10, 20, 100));
+            fourmis.add(new Fourmi(30, 40, 80));
+            fourmis.add(new Fourmi(50, 60, 60));
+            fourmis.add(new Fourmi(10, 20, 100));
+            fourmis.add(new Fourmi(30, 40, 80));
+            fourmis.add(new Fourmi(50, 60, 60));
+            fourmis.add(new Fourmi(10, 20, 100));
+            fourmis.add(new Fourmi(30, 40, 80));
+            fourmis.add(new Fourmi(50, 60, 60));
+            fourmis.add(new Fourmi(10, 20, 100));
+            fourmis.add(new Fourmi(30, 40, 80));
+            fourmis.add(new Fourmi(50, 60, 60));
+            fourmis.add(new Fourmi(10, 20, 100));
+            fourmis.add(new Fourmi(30, 40, 80));
+            fourmis.add(new Fourmi(50, 60, 60));
+            fourmis.add(new Fourmi(10, 20, 100));
+            fourmis.add(new Fourmi(30, 40, 80));
+            fourmis.add(new Fourmi(50, 60, 60));
 
             // Valeur nutritive des ressources initiale (exemple)
             int valeurNutritiveRessources = 50;
