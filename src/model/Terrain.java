@@ -15,11 +15,12 @@ public class Terrain {
 
     public Terrain() {
         Random rand = new Random();
+        
         int x = rand.nextInt(LARGEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
         int y = rand.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
-        elts.add(new Nid(0, x, y));
         // expliquer à la team
         elts = new ArrayList<ObjetFixe>();
+        elts.add(new Nid(0, x, y));
         fourmisEnExpe = new ArrayList<Fourmi>();
     }
     public static ArrayList<ObjetFixe> GetObjetsFixes(){

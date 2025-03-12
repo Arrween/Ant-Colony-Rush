@@ -1,7 +1,7 @@
 package model;
 
-import java.util.ArrayList;
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class ObjetFixe {
     private int x;
@@ -12,6 +12,7 @@ public abstract class ObjetFixe {
     public ObjetFixe(int x, int y, int nbFourmis) {
         this.x = x;
         this.y = y;
+        this.fourmis = new ArrayList<Fourmi>();
         for (int i = 0; i < nbFourmis; i++) {
             fourmis.add(new Fourmi(x, y));
         }
