@@ -41,14 +41,14 @@ public class Terrain {
         }
     }
 
-    public void ajouterAbris(int nombre){
-        for (int i = 0; i < nombre; i++){
-            Abri abri = GenerationAbri.genererAbri();
-            elts.add(abri);
+    public void ajouterAbris(int nombre) {
+        for (int i = 0; i < nombre; i++) {
+            Abri abris = GenerationAbri.genererAbri();
+            elts.add(abris);
         }
     }
 
-    public ObjetFixe getEltClic(int x, int y){
+    public ObjetFixe getEltClic(int x, int y) {
         for (ObjetFixe elt : elts) {
             if (elt.hitBoxCliquee(x, y)) {
                 return elt;
@@ -57,11 +57,11 @@ public class Terrain {
         return null;
     }
 
-    public void majEnergieFourmis(){
+    public void majEnergieFourmis() {
         for (Fourmi fourmi : fourmisEnExpe) {
             fourmi.decrEnergie();
         }
-        for (ObjetFixe elt : elts){
+        for  (ObjetFixe elt : elts) {
             elt.majEnergieFourmis();
         }
     }

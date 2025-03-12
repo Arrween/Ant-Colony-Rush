@@ -1,12 +1,10 @@
 package controler;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Point;
-
 import model.Terrain;
 import view.Affichage;
-import view.SpriteAnimation;
 
 public class ReactionClic implements MouseListener {
 
@@ -21,11 +19,11 @@ public class ReactionClic implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        t.getEltClic((int)(e.getX()/(Affichage.RATIO_X)), (int)(e.getY()/(Affichage.RATIO_Y)));
+        t.getEltClic((int) (e.getX() / (Affichage.RATIO_X)), (int) (e.getY() / (Affichage.RATIO_Y)));
 
-        p.setLocation((int)(e.getX()/(Affichage.RATIO_X)), (int)(e.getY()/(Affichage.RATIO_Y)));
+        p.setLocation((int) (e.getX() / (Affichage.RATIO_X)), (int) (e.getY() / (Affichage.RATIO_Y)));
 
-        System.out.println("Clic en (" + p.getX() + ", " + p.getY() + ")"); 
+        System.out.println("Clic en (" + p.getX() + ", " + p.getY() + ")");
     }
 
     @Override

@@ -31,10 +31,12 @@ public class Fourmi {
     }
 
     public void incrEnergie() {
-        if (energie < MAX_ENERGIE) energie++;
+        if (energie < MAX_ENERGIE)
+            energie++;
     }
 
     public void decrEnergie() {
-        if (energie > 0) energie--;
+        if (energie > 0)
+            energie--;
     }
 }
