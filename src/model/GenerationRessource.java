@@ -22,8 +22,8 @@ public class GenerationRessource {
             int vn = valeurNutritive[RandomIndex];
             ArrayList<ObjetFixe> elts = Terrain.GetObjetsFixes();
 
-            int x = aleatoire.nextInt(LARGEUR - 2 * ObjetFixe.RAYON_HITBOX) + ObjetFixe.RAYON_HITBOX;
-            int y = aleatoire.nextInt(HAUTEUR - 2 * ObjetFixe.RAYON_HITBOX) + ObjetFixe.RAYON_HITBOX;
+            int x = aleatoire.nextInt(LARGEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
+            int y = aleatoire.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
 
             
             for (ObjetFixe elt : elts) {

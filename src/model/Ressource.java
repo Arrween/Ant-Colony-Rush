@@ -14,6 +14,11 @@ public class Ressource extends ObjetFixe {
         this.imageRessource = new ImageIcon("../ressources/images/ressource" + poids + ".png").getImage();
     }
 
+    @Override
+    public Image getImage() {
+        return imageRessource;
+    }
+
     public int getPoids() {
         return poids;
     }

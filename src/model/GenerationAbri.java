@@ -10,9 +10,9 @@ public class GenerationAbri {
     private static final int LARGEUR = Terrain.LARGEUR;
 
     public static Abri genererAbri() {
-        int[] capacité = { 1, 2, 3, 4, 5 };
+        int[] capacité = { 1, 2, 3};
         Abri abri = null;
-        int RandomIndex = aleatoire.nextInt(5);
+        int RandomIndex = aleatoire.nextInt(3);
 
         int i = 0;
         while (i < 1) {
@@ -21,8 +21,8 @@ public class GenerationAbri {
             int c = capacité[RandomIndex];
             ArrayList<ObjetFixe> elts = Terrain.GetObjetsFixes();
 
-            int x = aleatoire.nextInt(LARGEUR - 2 * ObjetFixe.RAYON_HITBOX) + ObjetFixe.RAYON_HITBOX;
-            int y = aleatoire.nextInt(HAUTEUR - 2 * ObjetFixe.RAYON_HITBOX) + ObjetFixe.RAYON_HITBOX;
+            int x = aleatoire.nextInt(LARGEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
+            int y = aleatoire.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
 
             for (ObjetFixe elt : elts) {
                 if (elt.hitBoxCliquee(x, y)) {

@@ -13,6 +13,11 @@ public class Abri extends ObjetFixe {
         this.imageAbri = new ImageIcon("../ressources/images/Abri" + capacite + ".png").getImage();
     }
 
+    @Override
+    public Image getImage() {
+        return imageAbri;
+    }
+
     public void majEnergieFourmis() {
         for (Fourmi fourmi : fourmis) {
             fourmi.decrEnergie();

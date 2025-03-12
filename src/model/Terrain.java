@@ -10,15 +10,16 @@ public class Terrain {
 
     public static final Random RANDOM = new Random();
 
-    static ArrayList<ObjetFixe> elts;
+    static ArrayList<ObjetFixe> elts = new ArrayList<ObjetFixe>();
     ArrayList<Fourmi> fourmisEnExpe;
 
     public Terrain() {
         Random rand = new Random();
-        int x = rand.nextInt(LARGEUR - 2 * ObjetFixe.RAYON_HITBOX) + ObjetFixe.RAYON_HITBOX;
-        int y = rand.nextInt(HAUTEUR - 2 * ObjetFixe.RAYON_HITBOX) + ObjetFixe.RAYON_HITBOX;
-        elts.add(new Nid(10, x, y));
-        elts = new ArrayList<ObjetFixe>();
+        int x = rand.nextInt(LARGEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
+        int y = rand.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
+        elts.add(new Nid(0, x, y));
+        // à voir
+        // elts = new ArrayList<ObjetFixe>();
         fourmisEnExpe = new ArrayList<Fourmi>();
     }
     public static ArrayList<ObjetFixe> GetObjetsFixes(){

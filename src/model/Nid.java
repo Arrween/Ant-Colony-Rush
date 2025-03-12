@@ -14,6 +14,11 @@ public class Nid extends ObjetFixe {
         this.imageNid = new ImageIcon("../ressources/images/nid.png").getImage();
     }
 
+    @Override
+    public Image getImage() {
+        return imageNid;
+    }
+
     public void majEnergieFourmis() {
         for (Fourmi fourmi : fourmis) {
             fourmi.incrEnergie();
