@@ -1,7 +1,8 @@
 package model;
+import java.awt.*;
 
 public class Abri extends ObjetFixe {
-    private int capacite;
+    private int capacite;    
 
     public Abri(int capacite, int x, int y) {
         super(x, y, 0);

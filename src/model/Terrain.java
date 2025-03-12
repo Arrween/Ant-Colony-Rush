@@ -27,11 +27,17 @@ public class Terrain {
 
     public void ajouterRessources(int nombre){
         for (int i=0; i< nombre; i++){
-            Ressource ress = GenerationRessource.genererRessources();
+            Ressource ress = GenerationRessource.genererRessource();
             elts.add(ress);
         }
     }
 
+    public void ajouterAbris(int nombre){
+        for (int i=0; i< nombre; i++){
+            Abri abris = GenerationAbri.genererAbri();
+            elts.add(abris);
+        }
+    }
 
     public ObjetFixe getEltClic(int x, int y){
         for (ObjetFixe elt : elts) {
