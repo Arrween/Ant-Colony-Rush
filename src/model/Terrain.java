@@ -18,8 +18,8 @@ public class Terrain {
         int x = rand.nextInt(LARGEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
         int y = rand.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
         elts.add(new Nid(0, x, y));
-        // à voir
-        // elts = new ArrayList<ObjetFixe>();
+        // expliquer à la team
+        elts = new ArrayList<ObjetFixe>();
         fourmisEnExpe = new ArrayList<Fourmi>();
     }
     public static ArrayList<ObjetFixe> GetObjetsFixes(){

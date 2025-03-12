@@ -18,13 +18,14 @@ public class TestTerrain extends JPanel {
         super.paintComponent(g);
 
         for (ObjetFixe obj : Terrain.GetObjetsFixes()) {
-            Image img = obj.getImage();
-            if (img != null) {
-                g.drawImage(img, obj.getX(), obj.getY(), this);
+            if (obj instanceof Ressource) {
+                g.setColor(Color.GREEN);
+            } else if (obj instanceof Abri) {
+                g.setColor(Color.BLUE);
             } else {
                 g.setColor(Color.RED);
-                g.fillOval(obj.getX(), obj.getY(), 10, 10); // Dessiner un cercle rouge si l'image n'est pas trouvée
             }
+            g.fillOval(obj.getX(), obj.getY(), 10, 10); // Dessiner un cercle pour chaque objet
         }
     }
 
