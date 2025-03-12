@@ -11,6 +11,7 @@ public class Nid extends ObjetFixe {
     public Nid(int nbFourmis, int x, int y) {
         super(x, y, nbFourmis);
         this.score = 0;
+        this.imageNid = new ImageIcon("../ressources/images/nid.png").getImage();
     }
 
     public void majEnergieFourmis() {
