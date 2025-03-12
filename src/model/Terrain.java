@@ -1,6 +1,6 @@
 package model;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,7 +10,7 @@ public class Terrain {
 
     public static final Random RANDOM = new Random();
 
-    ArrayList<ObjetFixe> elts;
+    static ArrayList<ObjetFixe> elts;
     ArrayList<Fourmi> fourmisEnExpe;
 
     public Terrain() {
@@ -21,6 +21,17 @@ public class Terrain {
         elts = new ArrayList<ObjetFixe>();
         fourmisEnExpe = new ArrayList<Fourmi>();
     }
+    public static ArrayList<ObjetFixe> GetObjetsFixes(){
+        return elts;
+    }
+
+    public void ajouterRessources(int nombre){
+        for (int i=0; i< nombre; i++){
+            Ressource ress = GenerationRessource.genererRessources();
+            elts.add(ress);
+        }
+    }
+
 
     public ObjetFixe getEltClic(int x, int y){
         for (ObjetFixe elt : elts) {
