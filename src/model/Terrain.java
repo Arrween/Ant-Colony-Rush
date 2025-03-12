@@ -15,8 +15,8 @@ public class Terrain {
 
     public Terrain() {
         Random rand = new Random();
-        int x = rand.nextInt(LARGEUR);
-        int y = rand.nextInt(HAUTEUR);
+        int x = rand.nextInt(LARGEUR - 2 * ObjetFixe.RAYON_HITBOX) + ObjetFixe.RAYON_HITBOX;
+        int y = rand.nextInt(HAUTEUR - 2 * ObjetFixe.RAYON_HITBOX) + ObjetFixe.RAYON_HITBOX;
         elts.add(new Nid(10, x, y));
         elts = new ArrayList<ObjetFixe>();
         fourmisEnExpe = new ArrayList<Fourmi>();
