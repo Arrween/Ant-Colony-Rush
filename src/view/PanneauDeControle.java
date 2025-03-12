@@ -1,61 +1,54 @@
 package view;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import model.Fourmi;
 
 public class PanneauDeControle extends JPanel {
 
-    private JLabel lblValeurNutritiveRessources;
-    private JPanel pnlFourmis;
+    private JLabel lblValeurNutritiveRessources; // Label pour afficher la valeur nutritive des ressources
+    private JPanel pnlFourmis; // Panel pour afficher les fourmis
 
     public PanneauDeControle(int valeurNutritiveRessources, List<Fourmi> fourmis) {
         setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(300, 500)); // Taille de la fenêtre
 
-        lblValeurNutritiveRessources = new JLabel("Valeur nutritive des ressources : " + valeurNutritiveRessources);
+        lblValeurNutritiveRessources = new JLabel("SCORE : " + valeurNutritiveRessources,
+                SwingConstants.CENTER);
+        lblValeurNutritiveRessources.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(lblValeurNutritiveRessources, BorderLayout.NORTH);
 
-        pnlFourmis = new JPanel();
-        pnlFourmis.setLayout(new BoxLayout(pnlFourmis, BoxLayout.Y_AXIS));
-        int cpt = 1;
-        for (Fourmi fourmi : fourmis) {
-            FourmiButton fourmiButton = new FourmiButton(fourmi, cpt);
+        pnlFourmis = new JPanel(new GridLayout(0, 1, 5, 5));
+        for (int i = 0; i < fourmis.size(); i++) {
+            FourmiButton fourmiButton = new FourmiButton(fourmis.get(i), i + 1);
+            fourmiButton.setPreferredSize(new Dimension(250, 40));
             pnlFourmis.add(fourmiButton);
-            cpt++;
         }
 
         JScrollPane scrollPane = new JScrollPane(pnlFourmis);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(scrollPane, BorderLayout.CENTER);
 
-        // Je veux un bouton pour ajouter une fourmi
         JButton btnAjouterFourmi = new JButton("Ajouter une fourmi");
-        // btnAjouterFourmi.addActionListener(e -> {
-        // Fourmi fourmi = new Fourmi(0,0);
-        // FourmiButton fourmiButton = new FourmiButton(fourmi, cpt);
-        // pnlFourmis.add(fourmiButton);
-        // cpt++;
-        // revalidate();
-        // repaint();
-        // });
-        // Là on va utiliser la méthode ajouterFourmi de model.Fourmi
-
-        add(btnAjouterFourmi, BorderLayout.SOUTH);
+        btnAjouterFourmi.setPreferredSize(new Dimension(280, 40));
+        JPanel southPanel = new JPanel();
+        southPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        southPanel.add(btnAjouterFourmi);
+        add(southPanel, BorderLayout.SOUTH);
     }
 
-    // Les updates à utiliser dans le controler pour mettre à jour les valeurs de
-    // manière dynamique
+    // Mise à jour dynamique
     public void updateValeurNutritiveRessources(int valeurNutritiveRessources) {
         lblValeurNutritiveRessources.setText("Valeur nutritive des ressources : " + valeurNutritiveRessources);
     }
 
     public void updateFourmis(List<Fourmi> fourmis) {
         pnlFourmis.removeAll();
-        int cpt = 1;
-        for (Fourmi fourmi : fourmis) {
-            FourmiButton fourmiButton = new FourmiButton(fourmi, cpt);
+        for (int i = 0; i < fourmis.size(); i++) {
+            FourmiButton fourmiButton = new FourmiButton(fourmis.get(i), i + 1);
+            fourmiButton.setPreferredSize(new Dimension(250, 40));
             pnlFourmis.add(fourmiButton);
-            cpt++;
         }
         revalidate();
         repaint();
