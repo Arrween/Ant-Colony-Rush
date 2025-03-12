@@ -4,7 +4,6 @@ import controler.ReactionClic;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -52,16 +51,16 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         
         try {
             // Charger la feuille pour le haut
-            BufferedImage feuilleHaut = ImageIO.read(new File("ressources/ant.png"));
+            BufferedImage feuilleHaut = ImageIO.read(getClass().getResource("/ressources/ant.png"));
             imagesHaut = decouperSprite(feuilleHaut, colonnes, lignes, nombreTotalCadres);
             // Charger la feuille pour le bas
-            BufferedImage feuilleBas = ImageIO.read(new File("ressources/ant_bas.png"));
+            BufferedImage feuilleBas = ImageIO.read(getClass().getResource("/ressources/ant_bas.png"));
             imagesBas = decouperSprite(feuilleBas, colonnes, lignes, nombreTotalCadres);
             // Charger la feuille pour la gauche
-            BufferedImage feuilleGauche = ImageIO.read(new File("ressources/ant_gauche.png"));
+            BufferedImage feuilleGauche = ImageIO.read(getClass().getResource("/ressources/ant_gauche.png"));
             imagesGauche = decouperSprite(feuilleGauche, colonnes, lignes, nombreTotalCadres);
             // Charger la feuille pour la droite
-            BufferedImage feuilleDroite = ImageIO.read(new File("ressources/ant_droite.png"));
+            BufferedImage feuilleDroite = ImageIO.read(getClass().getResource("/ressources/ant_droite.png"));   
             imagesDroite = decouperSprite(feuilleDroite, colonnes, lignes, nombreTotalCadres);
             
             // Dimensions pour les animations verticales (haut et bas)
