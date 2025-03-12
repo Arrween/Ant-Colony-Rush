@@ -13,7 +13,10 @@ public class GenerationRessource {
         int[] valeurNutritive = {10,30,60,100};
 
         Ressource[] ressources = new Ressource[nombreDeRessources];
-        for (int i = 0; i < nombreDeRessources; i++) {
+
+        int i = 0;
+        while (i < nombreDeRessources) {
+            boolean caseLibre = true;
             int RandomIndex = aleatoire.nextInt(4);
             int p = poids[RandomIndex];
             int vn = valeurNutritive[RandomIndex];
@@ -21,9 +24,15 @@ public class GenerationRessource {
             int x = aleatoire.nextInt(LARGEUR); 
             int y = aleatoire.nextInt(HAUTEUR);
             
-            //TODO : éviter des objets fixes sur la meme case
-            //Les étapes à suivre : génération du nid -> génération des ressources -> génération des abris
+            // for (int j = 0; j < i; j++) {
+            //     if (ressources[j].getX == x && ressources[j].getY() == y) {
+                    
+            //     }
+            // }
+
+
             ressources[i] = new Ressource(p, vn, x, y);
+            i++;
         }
 
         return ressources;
