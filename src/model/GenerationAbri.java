@@ -10,7 +10,7 @@ public class GenerationAbri {
     private static final int LARGEUR = Terrain.LARGEUR;
 
     public static Abri genererAbri() {
-        int[] capacité = { 1, 2, 3};
+        int[] capacité = { 1, 2, 3 };
         Abri abri = null;
         int RandomIndex = aleatoire.nextInt(3);
 

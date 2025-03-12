@@ -1,8 +1,7 @@
 package tests;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import javax.swing.*;
 import model.*;
 
 public class TestTerrain extends JPanel {

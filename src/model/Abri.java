@@ -1,4 +1,5 @@
 package model;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -6,11 +7,11 @@ public class Abri extends ObjetFixe {
     private int capacite;
     private Image imageAbri; // L'image représentant l'abri
 
-
     public Abri(int capacite, int x, int y) {
         super(x, y, 0);
         this.capacite = capacite;
-        this.imageAbri = new ImageIcon(getClass().getResource("/ressources/images/Abri" + capacite + ".png")).getImage();
+        this.imageAbri = new ImageIcon(getClass().getResource("/ressources/images/Abri" + capacite + ".png"))
+                .getImage();
     }
 
     @Override

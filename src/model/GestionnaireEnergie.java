@@ -10,10 +10,13 @@ public class GestionnaireEnergie extends Thread {
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             t.majEnergieFourmis();
-            try { Thread.sleep(DELAY); }
-            catch (Exception e) { e.printStackTrace(); }
+            try {
+                Thread.sleep(DELAY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
