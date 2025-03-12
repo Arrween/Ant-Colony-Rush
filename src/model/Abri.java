@@ -1,12 +1,21 @@
 package model;
+import java.awt.*;
+import javax.swing.*;
 
 public class Abri extends ObjetFixe {
     private int capacite;
-    private int x;
-    private int y;
+    private Image imageAbri; // L'image représentant l'abri
+
 
     public Abri(int capacite, int x, int y) {
-        super(x, y);
+        super(x, y, 0);
         this.capacite = capacite;
+        this.imageAbri = new ImageIcon("../ressources/images/Abri" + capacite + ".png").getImage();
+    }
+
+    public void majEnergieFourmis() {
+        for (Fourmi fourmi : fourmis) {
+            fourmi.decrEnergie();
+        }
     }
 }
