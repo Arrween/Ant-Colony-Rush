@@ -1,13 +1,11 @@
 package view;
 
-import controler.ReactionClic;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import model.Terrain;
 
 public class SpriteAnimation extends JPanel implements ActionListener {
     // Animations pour chaque direction
@@ -51,16 +49,16 @@ public class SpriteAnimation extends JPanel implements ActionListener {
 
         try {
             // Charger la feuille pour le haut
-            BufferedImage feuilleHaut = ImageIO.read(getClass().getResource("/ressources/ant.png"));
+            BufferedImage feuilleHaut = ImageIO.read(getClass().getResource("/ressources/Ant/ant.png"));
             imagesHaut = decouperSprite(feuilleHaut, colonnes, lignes, nombreTotalCadres);
             // Charger la feuille pour le bas
-            BufferedImage feuilleBas = ImageIO.read(getClass().getResource("/ressources/ant_bas.png"));
+            BufferedImage feuilleBas = ImageIO.read(getClass().getResource("/ressources/Ant/ant_bas.png"));
             imagesBas = decouperSprite(feuilleBas, colonnes, lignes, nombreTotalCadres);
             // Charger la feuille pour la gauche
-            BufferedImage feuilleGauche = ImageIO.read(getClass().getResource("/ressources/ant_gauche.png"));
+            BufferedImage feuilleGauche = ImageIO.read(getClass().getResource("/ressources/Ant/ant_gauche.png"));
             imagesGauche = decouperSprite(feuilleGauche, colonnes, lignes, nombreTotalCadres);
             // Charger la feuille pour la droite
-            BufferedImage feuilleDroite = ImageIO.read(getClass().getResource("/ressources/ant_droite.png"));
+            BufferedImage feuilleDroite = ImageIO.read(getClass().getResource("/ressources/Ant/ant_droite.png"));
             imagesDroite = decouperSprite(feuilleDroite, colonnes, lignes, nombreTotalCadres);
 
             // Dimensions pour les animations verticales (haut et bas)
@@ -194,34 +192,4 @@ public class SpriteAnimation extends JPanel implements ActionListener {
     }
     ////////////////////////////////////////
 
-    public static void main(String[] args) {
-        // Exemple de coordonnées de départ et d'arrivée
-        int departX = 100;
-        int departY = 400;
-        Terrain t = new Terrain();
-        Point p = new Point(0, 0);
-        ReactionClic rc = new ReactionClic(t, p);
-
-        JFrame fenetre = new JFrame("Animation de la Fourmi");
-        fenetre.addMouseListener(rc);
-        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(500, 500);
-        fenetre.setLocationRelativeTo(null);
-        fenetre.setVisible(true);
-
-        try {
-            fenetre.revalidate();
-            fenetre.repaint();
-
-            Thread.sleep((5000)); // Attendre 2 secondes (2000 ms)
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        SpriteAnimation panneau = new SpriteAnimation(departX, departY, (int) p.getX(), (int) p.getY());
-        fenetre.add(panneau);
-        fenetre.revalidate();
-        fenetre.repaint();
-
-    }
 }

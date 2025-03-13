@@ -22,20 +22,20 @@ public class Terrain {
         int y = rand.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
 
         // Création du Nid avec un nombre initial de fourmis (ici, 10)
-        Nid nid = new Nid(10, x, y);
+        Nid nid = new Nid(20, x, y);
         elts.add(nid);
 
         // Ajout des abris et ressources de base
-        ajouterAbris(10);      // Exemple : ajout de 3 abris
-        ajouterRessources(30);  // Exemple : ajout de 5 ressources
+        ajouterAbris(10); // Exemple : ajout de 3 abris
+        ajouterRessources(30); // Exemple : ajout de 5 ressources
     }
 
-    public static ArrayList<ObjetFixe> GetObjetsFixes(){
+    public static ArrayList<ObjetFixe> GetObjetsFixes() {
         return elts;
     }
 
-    public void ajouterRessources(int nombre){
-        for (int i = 0; i < nombre; i++){
+    public void ajouterRessources(int nombre) {
+        for (int i = 0; i < nombre; i++) {
             Ressource ress = GenerationRessource.genererRessource();
             elts.add(ress);
         }
@@ -61,7 +61,7 @@ public class Terrain {
         for (Fourmi fourmi : fourmisEnExpe) {
             fourmi.decrEnergie();
         }
-        for  (ObjetFixe elt : elts) {
+        for (ObjetFixe elt : elts) {
             elt.majEnergieFourmis();
         }
     }
