@@ -19,7 +19,7 @@ public class Crapaud {
         this.y = startY;
         this.visionRange = visionRange;
         randomizeDirection();
-        imageCrapaud = new ImageIcon(getClass().getResource("/ressources/Frog/idle.png")).getImage();
+        imageCrapaud = new ImageIcon(getClass().getResource("/ressources/Frog/Idle.png")).getImage();
     }
 
     public int getX() { return x; }
