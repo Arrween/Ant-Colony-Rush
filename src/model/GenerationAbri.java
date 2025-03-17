@@ -25,7 +25,7 @@ public class GenerationAbri {
             int y = aleatoire.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
 
             for (ObjetFixe elt : elts) {
-                if (elt.hitBoxCliquee(x, y)) {
+                if (elt.hitBoxAbri(x, y)) {
                     caseLibre = false;
                     break;
                 }
