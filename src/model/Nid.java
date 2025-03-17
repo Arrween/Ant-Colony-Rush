@@ -23,4 +23,12 @@ public class Nid extends ObjetFixe {
             fourmi.incrEnergie();
         }
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public java.util.List<Fourmi> getFourmis() {
+        return fourmis;
+    }
 }
