@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Terrain {
-    public static final int LARGEUR = 1200;
+    public static final int LARGEUR = 800;
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
 
@@ -27,7 +27,7 @@ public class Terrain {
 
         // Ajout des abris et ressources de base
         ajouterAbris(10);      // Exemple : ajout de 3 abris
-        ajouterRessources(30);  // Exemple : ajout de 5 ressources
+        ajouterRessources(20);  // Exemple : ajout de 5 ressources
     }
 
     public static ArrayList<ObjetFixe> GetObjetsFixes(){
