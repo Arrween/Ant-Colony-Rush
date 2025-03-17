@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Terrain {
-    public static final int LARGEUR = 1200;
+    public static final int LARGEUR = 800;
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
 
