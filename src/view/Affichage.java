@@ -28,7 +28,7 @@ public class Affichage extends JPanel {
             if (img != null) {
                 // Centrer l'image autour des coordonnées (x, y)
                 g.drawImage(img, obj.getX() - ObjetFixe.HALF_SIZE, obj.getY() - ObjetFixe.HALF_SIZE, 
-                            2 * ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, this);
+                            2 * ObjetFixe.HALF_SIZE , 2 * ObjetFixe.HALF_SIZE , this);
             }
         }
     }

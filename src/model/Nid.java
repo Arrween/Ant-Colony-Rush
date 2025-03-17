@@ -24,11 +24,19 @@ public class Nid extends ObjetFixe {
         }
     }
 
+    public void majScore() {
+
+    }
+
     public int getScore() {
         return score;
     }
 
     public java.util.List<Fourmi> getFourmis() {
         return fourmis;
+    }
+
+    public void ajouterFourmi() {
+        fourmis.add(new Fourmi(getX(), getY()));
     }
 }

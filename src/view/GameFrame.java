@@ -37,7 +37,7 @@ public class GameFrame extends JFrame implements TerrainPanel.ControlPanelListen
         // On met à jour le panneau de contrôle avec les informations du nid
         controlPanelContainer.removeAll();
         // Ici, nous utilisons le score du nid et la liste de ses fourmis
-        PanneauDeControle panneau = new PanneauDeControle(nid.getScore(), nid.getFourmis());
+        PanneauDeControle panneau = new PanneauDeControle(nid);
         controlPanelContainer.add(panneau, BorderLayout.CENTER);
         controlPanelContainer.revalidate();
         controlPanelContainer.repaint();
