@@ -26,8 +26,8 @@ public class Terrain {
         elts.add(nid);
 
         // Ajout des abris et ressources de base
-        ajouterAbris(155); // Exemple : ajout de 3 abris
-        ajouterRessources(0); // Exemple : ajout de 5 ressources
+        ajouterAbris(15); // Exemple : ajout de 3 abris
+        ajouterRessources(20); // Exemple : ajout de 5 ressources
     }
 
     public static ArrayList<ObjetFixe> GetObjetsFixes() {

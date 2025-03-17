@@ -1,7 +1,6 @@
 package main;
 
 import javax.swing.SwingUtilities;
-
 import model.GestionnaireEnergie;
 import model.Terrain;
 import view.GameFrame;
