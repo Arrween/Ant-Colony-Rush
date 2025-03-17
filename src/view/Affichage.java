@@ -22,6 +22,8 @@ public class Affichage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        //afficher le fond
+        g.drawImage(Terrain.BACKGROUND, 0, 0, (int)PANELSIZE.getWidth() , (int)PANELSIZE.getHeight() , this);
         // Afficher chacun des objets fixes du terrain
         for (ObjetFixe obj : Terrain.GetObjetsFixes()) {
             Image img = obj.getImage();
