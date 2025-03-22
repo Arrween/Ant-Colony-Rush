@@ -26,7 +26,7 @@ public class GenerationRessource {
             int y = aleatoire.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
 
             for (ObjetFixe elt : elts) {
-                if (elt.hitBoxCliquee(x, y)) {
+                if (elt.hitBoxRess(x, y)) {
                     caseLibre = false;
                     break;
                 }
