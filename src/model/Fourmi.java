@@ -2,17 +2,24 @@ package model;
 
 public class Fourmi {
     public final static int MAX_ENERGIE = 100;
+
+    private static int compteur = 0;
+
+    private int numero;
+
     private int x;
     private int y;
     private int energie;
 
     public Fourmi(int x, int y) {
+        numero = ++compteur;
         this.x = x;
         this.y = y;
         this.energie = MAX_ENERGIE;
     }
 
     public Fourmi(int x, int y, int energie) {
+        numero = ++compteur;
         this.x = x;
         this.y = y;
         this.energie = energie;
@@ -38,5 +45,9 @@ public class Fourmi {
     public void decrEnergie() {
         if (energie > 0)
             energie--;
+    }
+
+    public int getId() {
+        return numero;
     }
 }

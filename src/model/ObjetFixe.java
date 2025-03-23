@@ -40,4 +40,22 @@ public abstract class ObjetFixe {
     public abstract void majEnergieFourmis();
 
     public abstract Image getImage();
+
+    public void ajouterFourmi(Fourmi f) {
+        fourmis.add(f);
+    }
+
+    public Fourmi getFourmiAndRemove(int idFourmi) {
+        for (Fourmi f : fourmis) {
+            if (f.getId() == idFourmi) {
+                fourmis.remove(f);
+                return f;
+            }
+        }
+        return null;
+    }
+
+    public int getNbFourmis() {
+        return fourmis.size();
+    }
 }

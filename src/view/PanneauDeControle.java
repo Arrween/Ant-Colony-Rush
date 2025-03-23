@@ -3,6 +3,8 @@ package view;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
+
+import controler.DestSelector;
 import model.Fourmi;
 import model.Nid;
 
@@ -12,7 +14,7 @@ public class PanneauDeControle extends JPanel {
     private JLabel lblScore; // Label pour afficher la valeur nutritive des ressources
     private JPanel pnlFourmis; // Panel pour afficher les fourmis
 
-    public PanneauDeControle(Nid nid) {
+    public PanneauDeControle(Nid nid, DestSelector ds) {
         this.nid = nid;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 500)); // Taille de la fenêtre
@@ -45,7 +47,7 @@ public class PanneauDeControle extends JPanel {
 
         pnlFourmis = new JPanel(new GridLayout(0, 1, 5, 5));
         for (int i = 0; i < nid.getFourmis().size(); i++) {
-            FourmiButton fourmiButton = new FourmiButton(nid.getFourmis().get(i), i + 1);
+            FourmiButton fourmiButton = new FourmiButton(nid.getFourmis().get(i), ds, nid);
             fourmiButton.setPreferredSize(new Dimension(250, 40));
             pnlFourmis.add(fourmiButton);
         }
@@ -62,7 +64,7 @@ public class PanneauDeControle extends JPanel {
             // Appel au modèle pour ajouter une fourmi
             nid.ajouterFourmi();
             // Met à jour la liste des fourmis dans l'affichage
-            updateFourmis(nid.getFourmis());
+            updateFourmis(nid.getFourmis(), ds);
         });
         JPanel southPanel = new JPanel();
         southPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -75,13 +77,11 @@ public class PanneauDeControle extends JPanel {
         lblScore.setText("SCORE : " + score);
     }
 
-    public void updateFourmis(List<Fourmi> fourmis) {
+    public void updateFourmis(List<Fourmi> fourmis, DestSelector ds) {
         pnlFourmis.removeAll();
-        int cpt = 1;
         for (Fourmi fourmi : fourmis) {
-            FourmiButton fourmiButton = new FourmiButton(fourmi, cpt);
+            FourmiButton fourmiButton = new FourmiButton(fourmi, ds, nid);
             pnlFourmis.add(fourmiButton);
-            cpt++;
         }
         revalidate();
         repaint();

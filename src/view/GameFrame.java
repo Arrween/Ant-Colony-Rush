@@ -2,6 +2,8 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+
+import controler.DestSelector;
 import model.Nid;
 import model.Terrain;
 
@@ -9,6 +11,7 @@ public class GameFrame extends JFrame implements TerrainPanel.ControlPanelListen
     private Terrain terrain;
     private TerrainPanel terrainPanel;
     private JPanel controlPanelContainer; // Panneau qui accueillera le PanneauDeControle
+    private DestSelector destSelector; //controler
 
     public GameFrame(Terrain t) {
         setTitle("Jeu Fourmis");
@@ -26,6 +29,10 @@ public class GameFrame extends JFrame implements TerrainPanel.ControlPanelListen
         controlPanelContainer.setPreferredSize(new Dimension(350, terrainPanel.getPreferredSize().height));
         add(controlPanelContainer, BorderLayout.EAST);
 
+        //ajout du listener de clic pour séléctionner les destinations
+        destSelector = new DestSelector(terrain);
+        terrainPanel.addMouseListener(destSelector);
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -37,7 +44,7 @@ public class GameFrame extends JFrame implements TerrainPanel.ControlPanelListen
         // On met à jour le panneau de contrôle avec les informations du nid
         controlPanelContainer.removeAll();
         // Ici, nous utilisons le score du nid et la liste de ses fourmis
-        PanneauDeControle panneau = new PanneauDeControle(nid);
+        PanneauDeControle panneau = new PanneauDeControle(nid, destSelector);
         controlPanelContainer.add(panneau, BorderLayout.CENTER);
         controlPanelContainer.revalidate();
         controlPanelContainer.repaint();
