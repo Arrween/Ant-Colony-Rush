@@ -9,6 +9,7 @@ public abstract class ObjetFixe {
     protected ArrayList<Fourmi> fourmis;
     public static final int HALF_SIZE = 20;
     public static final int RAYON_HITBOX = 100;
+    public static final int RAYON_HITBOX_R = 40;
 
     public ObjetFixe(int x, int y, int nbFourmis) {
         this.x = x;
@@ -30,6 +31,10 @@ public abstract class ObjetFixe {
     public boolean hitBoxAbri(int x, int y) {
         return (this.x - x) * (this.x - x) + (this.y - y) * (this.y - y) <=
             RAYON_HITBOX * RAYON_HITBOX;
+    }
+    public boolean hitBoxRess(int x, int y) {
+        return (this.x - x) * (this.x - x) + (this.y - y) * (this.y - y) <=
+            RAYON_HITBOX_R * RAYON_HITBOX_R;
     }
 
     public boolean hitBoxCliquee(int x, int y) {
