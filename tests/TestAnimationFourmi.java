@@ -1,6 +1,6 @@
 package tests;
 
-import controler.ReactionClic;
+import controler.DestSelector;
 import java.awt.Point;
 import javax.swing.JFrame;
 import model.Terrain;
@@ -13,7 +13,7 @@ public class TestAnimationFourmi {
         int departY = 400;
         Terrain t = new Terrain();
         Point p = new Point(0, 0);
-        ReactionClic rc = new ReactionClic(t, p);
+        DestSelector rc = new DestSelector(t);
 
         JFrame fenetre = new JFrame("Animation de la Fourmi");
         fenetre.addMouseListener(rc);

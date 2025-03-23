@@ -16,12 +16,12 @@ public class Terrain {
 
     // Liste des objets fixes présents sur le terrain (Nid, abris, ressources)
     static ArrayList<ObjetFixe> elts;
-    ArrayList<Fourmi> fourmisEnExpe;
+    ArrayList<Deplacement> expeditions;
 
     public Terrain() {
         // Initialiser la liste avant toute utilisation
         elts = new ArrayList<ObjetFixe>();
-        fourmisEnExpe = new ArrayList<Fourmi>();
+        expeditions = new ArrayList<Deplacement>();
 
         Random rand = new Random();
         int x = rand.nextInt(LARGEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
@@ -32,8 +32,8 @@ public class Terrain {
         elts.add(nid);
 
         // Ajout des abris et ressources de base
-        ajouterAbris(20); // Je fixe le max à 40
-        ajouterRessources(50); // Je fixe le max à 200
+        ajouterAbris(15); // Exemple : ajout de 3 abris
+        ajouterRessources(20); // Exemple : ajout de 5 ressources
     }
 
     public static ArrayList<ObjetFixe> GetObjetsFixes() {
@@ -64,11 +64,37 @@ public class Terrain {
     }
 
     public void majEnergieFourmis() {
-        for (Fourmi fourmi : fourmisEnExpe) {
-            fourmi.decrEnergie();
+        for (Deplacement d : expeditions) {
+            d.decrEnergieFourmi();
         }
         for (ObjetFixe elt : elts) {
             elt.majEnergieFourmis();
         }
+    }
+
+    /* 
+    public void supprimerDeplacement(int idDeplacement) {
+        expeditions.removeIf(d -> d.getId() == idDeplacement);
+    }*/
+
+    public void supprimeDeplacementsFinis() {
+        expeditions.removeIf(d -> d.isDone());
+    }
+
+    public void deplacerFourmi(int idFourmi, ObjetFixe depart, ObjetFixe arrivee) {
+        //retirer la fourmi de l'objet de départ
+        Fourmi f = depart.getFourmiAndRemove(idFourmi);
+        //créer une instance de déplacement avec la fourmi et la destination
+        expeditions.add(new Deplacement(this, f, arrivee, depart));
+    }
+
+    public void avancerDeplacements() {
+        for (Deplacement d : expeditions) {
+            d.avancer();
+        }
+    }
+
+    public ArrayList<Deplacement> getDeplacements() {
+        return expeditions;
     }
 }

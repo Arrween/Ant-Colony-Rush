@@ -75,6 +75,8 @@ public class Crapaud {
             }
             obj.fourmis.removeAll(toRemove);
         }
+
+        /*
         // Vérifier également les fourmis en expédition
         ArrayList<Fourmi> toRemoveExp = new ArrayList<>();
         for (Fourmi ant : terrain.fourmisEnExpe) {
@@ -84,6 +86,24 @@ public class Crapaud {
             }
         }
         terrain.fourmisEnExpe.removeAll(toRemoveExp);
+        */
+
+
+        // Vérifier également les fourmis en expédition
+        ArrayList<Deplacement> toRemoveDepl = new ArrayList<>();
+        for (Deplacement depl : terrain.expeditions) {
+            double distance = Math.sqrt(Math.pow(depl.getX() - x, 2) + Math.pow(depl.getY() - y, 2));
+            if(distance <= visionRange) {
+                toRemoveDepl.add(depl);
+            }
+        }
+        terrain.expeditions.removeAll(toRemoveDepl);
+
+
+
+
+
+
     }
 
     private void randomizeDirection() {

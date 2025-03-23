@@ -10,15 +10,25 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import controler.DestSelector;
 import model.Fourmi;
+import model.ObjetFixe;
 
 public class FourmiDetail extends JFrame {
 
     private Fourmi fourmi;
 
-    public FourmiDetail(Fourmi fourmi, int index) {
+    private DestSelector destSelector;
+
+    //garder une référence de l'objetFixe dans lequel la fourmi est
+    private ObjetFixe objF;
+
+    public FourmiDetail(Fourmi fourmi, DestSelector ds, ObjetFixe o) {
         this.fourmi = fourmi;
-        setTitle("Détail de la fourmi " + index);
+        destSelector = ds;
+        objF = o;
+        setTitle("Détail de la fourmi " + fourmi.getId());
         setSize(400, 250);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -50,7 +60,7 @@ public class FourmiDetail extends JFrame {
 
         JButton expeditionButton = new JButton("Envoyer en expedition");
         expeditionButton.addActionListener(e -> {
-            // controler
+            destSelector.setActive(objF, fourmi.getId());
         });
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
