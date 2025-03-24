@@ -1,10 +1,10 @@
 package view;
 
-import javax.swing.*;
 import java.awt.*;
-import model.Terrain;
-import model.ObjetFixe;
+import javax.swing.*;
 import model.Crapaud;
+import model.ObjetFixe;
+import model.Terrain;
 
 public class AffichageJeu extends JPanel {
     public static final Dimension PANELSIZE = new Dimension(Terrain.LARGEUR, Terrain.HAUTEUR);
@@ -24,8 +24,8 @@ public class AffichageJeu extends JPanel {
         for (ObjetFixe obj : Terrain.GetObjetsFixes()) {
             Image img = obj.getImage();
             if (img != null) {
-                g.drawImage(img, obj.getX() - model.ObjetFixe.HALF_SIZE, obj.getY() - model.ObjetFixe.HALF_SIZE, 
-                    2 * model.ObjetFixe.HALF_SIZE, 2 * model.ObjetFixe.HALF_SIZE, this);
+                g.drawImage(img, obj.getX() - model.ObjetFixe.HALF_SIZE, obj.getY() - model.ObjetFixe.HALF_SIZE,
+                        2 * model.ObjetFixe.HALF_SIZE, 2 * model.ObjetFixe.HALF_SIZE, this);
             }
         }
         // Afficher le crapaud
@@ -35,7 +35,7 @@ public class AffichageJeu extends JPanel {
             // Facultatif : dessiner le champ de vision en rouge
             g.setColor(Color.RED);
             g.drawOval(crapaud.getX() - crapaud.getVisionRange(), crapaud.getY() - crapaud.getVisionRange(),
-                       2 * crapaud.getVisionRange(), 2 * crapaud.getVisionRange());
+                    2 * crapaud.getVisionRange(), 2 * crapaud.getVisionRange());
         }
     }
 }

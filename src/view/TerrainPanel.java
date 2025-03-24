@@ -1,12 +1,12 @@
 package view;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import model.Terrain;
-import model.ObjetFixe;
+import javax.swing.*;
 import model.Deplacement;
 import model.Nid;
+import model.ObjetFixe;
+import model.Terrain;
 
 public class TerrainPanel extends JPanel {
     private Terrain terrain;
@@ -61,7 +61,7 @@ public class TerrainPanel extends JPanel {
                 g.drawString(Integer.toString(obj.getNbFourmis()), obj.getX() - 5, obj.getY() + 5);
             }
         }
-        //parcours des Deplacements et affichage
+        // parcours des Deplacements et affichage
         for (Deplacement dep : terrain.getDeplacements()) {
             g.drawLine(dep.getDepX(), dep.getDepY(), dep.getDestX(), dep.getDestY());
             g.drawOval(dep.getX(), dep.getY(), 5, 5);

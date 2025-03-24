@@ -1,9 +1,8 @@
 package view;
 
+import controler.DestSelector;
 import java.awt.*;
 import javax.swing.*;
-
-import controler.DestSelector;
 import model.Nid;
 import model.Terrain;
 
@@ -11,7 +10,7 @@ public class GameFrame extends JFrame implements TerrainPanel.ControlPanelListen
     private Terrain terrain;
     private TerrainPanel terrainPanel;
     private JPanel controlPanelContainer; // Panneau qui accueillera le PanneauDeControle
-    private DestSelector destSelector; //controler
+    private DestSelector destSelector; // controler
 
     public GameFrame(Terrain t) {
         setTitle("Jeu Fourmis");
@@ -29,7 +28,7 @@ public class GameFrame extends JFrame implements TerrainPanel.ControlPanelListen
         controlPanelContainer.setPreferredSize(new Dimension(350, terrainPanel.getPreferredSize().height));
         add(controlPanelContainer, BorderLayout.EAST);
 
-        //ajout du listener de clic pour séléctionner les destinations
+        // ajout du listener de clic pour séléctionner les destinations
         destSelector = new DestSelector(terrain);
         terrainPanel.addMouseListener(destSelector);
 

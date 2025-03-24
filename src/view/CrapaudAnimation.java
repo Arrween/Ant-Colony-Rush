@@ -11,28 +11,31 @@ import model.Crapaud;
 public class CrapaudAnimation extends JPanel implements ActionListener {
     // Délai entre les cadres (en ms)
     private static final int FRAME_DELAY = 50;
+
     // Enumération des états d'animation
-    public enum AnimationState { IDLE, JUMP, LAND, TURN }
-    
+    public enum AnimationState {
+        IDLE, JUMP, LAND, TURN
+    }
+
     private AnimationState currentState;
     private int frameIndex;
     private Timer timer;
-    
+
     // Tableaux de cadres pour chaque état
     private BufferedImage[] idleFrames;
     private BufferedImage[] jumpFrames;
     private BufferedImage[] landFrames;
     private BufferedImage[] turnFrames;
-    
+
     // Nombre de cadres pour chaque animation
     private int totalFramesIdle;
     private int totalFramesJump;
     private int totalFramesLand;
     private int totalFramesTurn;
-    
+
     // Référence au crapaud (pour connaître sa position)
     private Crapaud crapaud;
-    
+
     public CrapaudAnimation(Crapaud crapaud) {
         this.crapaud = crapaud;
         currentState = AnimationState.IDLE; // État par défaut
@@ -41,7 +44,7 @@ public class CrapaudAnimation extends JPanel implements ActionListener {
         timer = new Timer(FRAME_DELAY, this);
         timer.start();
     }
-    
+
     // Charge les spritesheets et découpe en cadres
     private void loadSprites() {
         try {
@@ -58,10 +61,11 @@ public class CrapaudAnimation extends JPanel implements ActionListener {
                 int y = (i / columns) * frameHeight;
                 idleFrames[i] = idleSheet.getSubimage(x, y, frameWidth, frameHeight);
             }
-            
+
             // État JUMP
             BufferedImage jumpSheet = ImageIO.read(getClass().getResource("/ressources/Frog/Jump.png"));
-            columns = 4; rows = 1;
+            columns = 4;
+            rows = 1;
             totalFramesJump = columns * rows;
             jumpFrames = new BufferedImage[totalFramesJump];
             frameWidth = jumpSheet.getWidth() / columns;
@@ -71,10 +75,11 @@ public class CrapaudAnimation extends JPanel implements ActionListener {
                 int y = (i / columns) * frameHeight;
                 jumpFrames[i] = jumpSheet.getSubimage(x, y, frameWidth, frameHeight);
             }
-            
+
             // État LAND
             BufferedImage landSheet = ImageIO.read(getClass().getResource("/ressources/Frog/Land.png"));
-            columns = 4; rows = 1;
+            columns = 4;
+            rows = 1;
             totalFramesLand = columns * rows;
             landFrames = new BufferedImage[totalFramesLand];
             frameWidth = landSheet.getWidth() / columns;
@@ -84,10 +89,11 @@ public class CrapaudAnimation extends JPanel implements ActionListener {
                 int y = (i / columns) * frameHeight;
                 landFrames[i] = landSheet.getSubimage(x, y, frameWidth, frameHeight);
             }
-            
+
             // État TURN
             BufferedImage turnSheet = ImageIO.read(getClass().getResource("/ressources/Frog/Turn.png"));
-            columns = 4; rows = 1;
+            columns = 4;
+            rows = 1;
             totalFramesTurn = columns * rows;
             turnFrames = new BufferedImage[totalFramesTurn];
             frameWidth = turnSheet.getWidth() / columns;
@@ -101,39 +107,45 @@ public class CrapaudAnimation extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
-    
+
     // Méthode appelée par le Timer pour mettre à jour l'animation
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Ici vous pouvez ajouter une logique pour changer d'état selon le comportement du crapaud.
-        // Par exemple, si le crapaud vient de changer de direction, vous pouvez passer en TURN pendant quelques frames.
+        // Ici vous pouvez ajouter une logique pour changer d'état selon le comportement
+        // du crapaud.
+        // Par exemple, si le crapaud vient de changer de direction, vous pouvez passer
+        // en TURN pendant quelques frames.
         // Pour cet exemple, on reste toujours en IDLE.
         currentState = AnimationState.IDLE;
-        
+
         frameIndex++;
         switch (currentState) {
             case IDLE:
-                if(frameIndex >= totalFramesIdle) frameIndex = 0;
+                if (frameIndex >= totalFramesIdle)
+                    frameIndex = 0;
                 break;
             case JUMP:
-                if(frameIndex >= totalFramesJump) frameIndex = 0;
+                if (frameIndex >= totalFramesJump)
+                    frameIndex = 0;
                 break;
             case LAND:
-                if(frameIndex >= totalFramesLand) frameIndex = 0;
+                if (frameIndex >= totalFramesLand)
+                    frameIndex = 0;
                 break;
             case TURN:
-                if(frameIndex >= totalFramesTurn) frameIndex = 0;
+                if (frameIndex >= totalFramesTurn)
+                    frameIndex = 0;
                 break;
         }
-        
+
         repaint();
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         BufferedImage currentFrame = null;
-        switch(currentState) {
+        switch (currentState) {
             case IDLE:
                 currentFrame = idleFrames[frameIndex];
                 break;
@@ -147,10 +159,10 @@ public class CrapaudAnimation extends JPanel implements ActionListener {
                 currentFrame = turnFrames[frameIndex];
                 break;
         }
-        if(currentFrame != null) {
+        if (currentFrame != null) {
             // Centrer le dessin sur la position du crapaud
-            int drawX = crapaud.getX() - currentFrame.getWidth()/2;
-            int drawY = crapaud.getY() - currentFrame.getHeight()/2;
+            int drawX = crapaud.getX() - currentFrame.getWidth() / 2;
+            int drawY = crapaud.getY() - currentFrame.getHeight() / 2;
             g.drawImage(currentFrame, drawX, drawY, this);
         }
     }

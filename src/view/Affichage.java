@@ -22,15 +22,15 @@ public class Affichage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //afficher le fond
-        g.drawImage(Terrain.BACKGROUND, 0, 0, (int)PANELSIZE.getWidth() , (int)PANELSIZE.getHeight() , this);
+        // afficher le fond
+        g.drawImage(Terrain.BACKGROUND, 0, 0, (int) PANELSIZE.getWidth(), (int) PANELSIZE.getHeight(), this);
         // Afficher chacun des objets fixes du terrain
         for (ObjetFixe obj : Terrain.GetObjetsFixes()) {
             Image img = obj.getImage();
             if (img != null) {
                 // Centrer l'image autour des coordonnées (x, y)
-                g.drawImage(img, obj.getX() - ObjetFixe.HALF_SIZE, obj.getY() - ObjetFixe.HALF_SIZE, 
-                            2 * ObjetFixe.HALF_SIZE , 2 * ObjetFixe.HALF_SIZE , this);
+                g.drawImage(img, obj.getX() - ObjetFixe.HALF_SIZE, obj.getY() - ObjetFixe.HALF_SIZE,
+                        2 * ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, this);
             }
         }
     }

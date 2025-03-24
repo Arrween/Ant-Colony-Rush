@@ -19,6 +19,6 @@ public class RepaintGameFrame extends Thread {
                 e.printStackTrace();
             }
         }
-    }   
-    
+    }
+
 }

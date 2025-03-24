@@ -29,12 +29,11 @@ public abstract class ObjetFixe {
     }
 
     public boolean hitBoxAbri(int x, int y) {
-        return (this.x - x) * (this.x - x) + (this.y - y) * (this.y - y) <=
-            RAYON_HITBOX * RAYON_HITBOX;
+        return (this.x - x) * (this.x - x) + (this.y - y) * (this.y - y) <= RAYON_HITBOX * RAYON_HITBOX;
     }
+
     public boolean hitBoxRess(int x, int y) {
-        return (this.x - x) * (this.x - x) + (this.y - y) * (this.y - y) <=
-            RAYON_HITBOX_R * RAYON_HITBOX_R;
+        return (this.x - x) * (this.x - x) + (this.y - y) * (this.y - y) <= RAYON_HITBOX_R * RAYON_HITBOX_R;
     }
 
     public boolean hitBoxCliquee(int x, int y) {

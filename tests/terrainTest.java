@@ -13,7 +13,7 @@ public class terrainTest {
         Terrain terrain = new Terrain();
         // Création du panneau d'affichage pour le terrain
         Affichage affichage = new Affichage(terrain);
-        
+
         frame.add(affichage);
         frame.pack();
         frame.setLocationRelativeTo(null);

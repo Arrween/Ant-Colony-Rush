@@ -1,5 +1,6 @@
 package view;
 
+import controler.DestSelector;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -10,8 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import controler.DestSelector;
 import model.Fourmi;
 import model.ObjetFixe;
 
@@ -21,7 +20,7 @@ public class FourmiDetail extends JFrame {
 
     private DestSelector destSelector;
 
-    //garder une référence de l'objetFixe dans lequel la fourmi est
+    // garder une référence de l'objetFixe dans lequel la fourmi est
     private ObjetFixe objF;
 
     public FourmiDetail(Fourmi fourmi, DestSelector ds, ObjetFixe o) {

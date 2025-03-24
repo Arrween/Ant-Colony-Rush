@@ -58,30 +58,31 @@ public class Deplacement {
 
     public void avancer() {
         System.out.println("Fourmi " + f.getId() + " en déplacement");
-        //algo de déplacmenent////
+        // algo de déplacmenent////
         if (currentX < destX) {
-            currentX+=10;
+            currentX += 10;
             if (currentX > destX) {
                 currentX = destX;
             }
         } else if (currentX > destX) {
-            currentX-=10;
+            currentX -= 10;
             if (currentX < destX) {
                 currentX = destX;
             }
         } else if (currentY < destY) {
-            currentY+=10;
+            currentY += 10;
             if (currentY > destY) {
                 currentY = destY;
             }
         } else if (currentY > destY) {
-            currentY-=10;
+            currentY -= 10;
             if (currentY < destY) {
                 currentY = destY;
             }
         }
 
-        //si déplacment fini ajouter la fourmi à l'objet destination et supprimer le déplacement de la liste de déplacements du terrain
+        // si déplacment fini ajouter la fourmi à l'objet destination et supprimer le
+        // déplacement de la liste de déplacements du terrain
         if (!isDone && currentX == destX && currentY == destY) {
             dest.ajouterFourmi(f);
             isDone = true;

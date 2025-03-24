@@ -11,7 +11,6 @@ public class Terrain {
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
 
-
     public static final Image BACKGROUND = new ImageIcon("/ressources/Grass/Grass_01-128x128.png").getImage();
 
     // Liste des objets fixes présents sur le terrain (Nid, abris, ressources)
@@ -72,19 +71,20 @@ public class Terrain {
         }
     }
 
-    /* 
-    public void supprimerDeplacement(int idDeplacement) {
-        expeditions.removeIf(d -> d.getId() == idDeplacement);
-    }*/
+    /*
+     * public void supprimerDeplacement(int idDeplacement) {
+     * expeditions.removeIf(d -> d.getId() == idDeplacement);
+     * }
+     */
 
     public void supprimeDeplacementsFinis() {
         expeditions.removeIf(d -> d.isDone());
     }
 
     public void deplacerFourmi(int idFourmi, ObjetFixe depart, ObjetFixe arrivee) {
-        //retirer la fourmi de l'objet de départ
+        // retirer la fourmi de l'objet de départ
         Fourmi f = depart.getFourmiAndRemove(idFourmi);
-        //créer une instance de déplacement avec la fourmi et la destination
+        // créer une instance de déplacement avec la fourmi et la destination
         expeditions.add(new Deplacement(this, f, arrivee, depart));
     }
 

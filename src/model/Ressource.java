@@ -13,7 +13,7 @@ public class Ressource extends ObjetFixe {
         this.poids = poids;
         this.valeurNutritive = vn;
         this.imageRessource = new ImageIcon(getClass().getResource("/ressources/Resources/ressource" + poids + ".png"))
-                                    .getImage();
+                .getImage();
     }
 
     @Override

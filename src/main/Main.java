@@ -1,8 +1,5 @@
 package main;
 
-import javax.swing.SwingUtilities;
-
-import model.Fourmi;
 import model.GestionnaireDeplacement;
 import model.GestionnaireEnergie;
 import model.Terrain;
@@ -21,9 +18,9 @@ public class Main {
         rgf.start();
 
         /*
-        SwingUtilities.invokeLater(() -> {
-            new GameFrame(t);
-        });
-        */
+         * SwingUtilities.invokeLater(() -> {
+         * new GameFrame(t);
+         * });
+         */
     }
 }
