@@ -1,8 +1,5 @@
 package main;
 
-import javax.swing.SwingUtilities;
-
-import model.Fourmi;
 import model.GestionnaireDeplacement;
 import model.GestionnaireEnergie;
 import model.Terrain;

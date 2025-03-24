@@ -1,8 +1,7 @@
 package view;
 
-import javax.swing.JButton;
-
 import controler.DestSelector;
+import javax.swing.JButton;
 import model.Fourmi;
 import model.ObjetFixe;
 

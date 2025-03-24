@@ -1,5 +1,6 @@
 package view;
 
+import controler.DestSelector;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -10,8 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import controler.DestSelector;
 import model.Fourmi;
 import model.ObjetFixe;
 

@@ -1,13 +1,10 @@
 package controler;
 
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import model.ObjetFixe;
 import model.Terrain;
 import view.Affichage;
-import view.FourmiDetail;
 
 public class DestSelector implements MouseListener {
 

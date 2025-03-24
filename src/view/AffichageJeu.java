@@ -1,10 +1,10 @@
 package view;
 
-import javax.swing.*;
 import java.awt.*;
-import model.Terrain;
-import model.ObjetFixe;
+import javax.swing.*;
 import model.Crapaud;
+import model.ObjetFixe;
+import model.Terrain;
 
 public class AffichageJeu extends JPanel {
     public static final Dimension PANELSIZE = new Dimension(Terrain.LARGEUR, Terrain.HAUTEUR);

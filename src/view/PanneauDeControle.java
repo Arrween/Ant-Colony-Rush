@@ -1,10 +1,9 @@
 package view;
 
+import controler.DestSelector;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
-
-import controler.DestSelector;
 import model.Fourmi;
 import model.Nid;
 

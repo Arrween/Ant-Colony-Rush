@@ -1,12 +1,12 @@
 package view;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import model.Terrain;
-import model.ObjetFixe;
+import javax.swing.*;
 import model.Deplacement;
 import model.Nid;
+import model.ObjetFixe;
+import model.Terrain;
 
 public class TerrainPanel extends JPanel {
     private Terrain terrain;

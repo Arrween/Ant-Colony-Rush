@@ -1,9 +1,8 @@
 package view;
 
+import controler.DestSelector;
 import java.awt.*;
 import javax.swing.*;
-
-import controler.DestSelector;
 import model.Nid;
 import model.Terrain;
 
