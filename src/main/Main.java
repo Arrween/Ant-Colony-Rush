@@ -1,20 +1,15 @@
 package main;
 
-import model.GestionnaireDeplacement;
-import model.GestionnaireEnergie;
-import model.Terrain;
-import view.GameFrame;
-import view.RepaintGameFrame;
+import controller.StartMenuController;
+import view.MenuDemarrage;
 
 public class Main {
     public static void main(String[] args) {
-        Terrain t = new Terrain();
-        GestionnaireEnergie ge = new GestionnaireEnergie(t);
-        GestionnaireDeplacement gd = new GestionnaireDeplacement(t);
-        GameFrame gf = new GameFrame(t);
-        RepaintGameFrame rgf = new RepaintGameFrame(gf);
-        ge.start();
-        gd.start();
-        rgf.start();
+        // Création et affichage de la fenêtre du menu de démarrage
+        MenuDemarrage startMenuFrame = new MenuDemarrage();
+        startMenuFrame.setVisible(true);
+
+        // Création du contrôleur du menu de démarrage
+        new StartMenuController(startMenuFrame);
     }
 }

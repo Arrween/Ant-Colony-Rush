@@ -11,15 +11,15 @@ public class TerrainController extends MouseAdapter {
 
     private Terrain terrain;
     private TerrainPanel.ControlPanelListener controlListener;
-    private DestSelector destSelector;
+    private DestitationSelectionnee destSelector;
 
     public TerrainController(Terrain terrain, TerrainPanel.ControlPanelListener controlListener) {
         this.terrain = terrain;
         this.controlListener = controlListener;
-        this.destSelector = new DestSelector(terrain);
+        this.destSelector = new DestitationSelectionnee(terrain);
     }
 
-    public DestSelector getDestSelector() {
+    public DestitationSelectionnee getDestSelector() {
         return destSelector;
     }
 
