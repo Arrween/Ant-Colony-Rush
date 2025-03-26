@@ -35,7 +35,7 @@ public class Terrain {
         ajouterRessources(20); // Exemple : ajout de 5 ressources
     }
 
-    public static ArrayList<ObjetFixe> GetObjetsFixes() {
+    public static ArrayList<ObjetFixe> getObjetsFixes() {
         return elts;
     }
 

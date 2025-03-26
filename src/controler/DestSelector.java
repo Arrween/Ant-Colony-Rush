@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import model.ObjetFixe;
 import model.Terrain;
-import view.Affichage;
+// import view.Affichage;
 
 public class DestSelector implements MouseListener {
 
@@ -26,7 +26,9 @@ public class DestSelector implements MouseListener {
         if (active) {
             ObjetFixe dest = null;
             while (dest == null) {
-                dest = t.getEltClic((int) (e.getX() / (Affichage.RATIO_X)), (int) (e.getY() / (Affichage.RATIO_Y)));
+                // dest = t.getEltClic((int) (e.getX() / (Affichage.RATIO_X)), (int) (e.getY() /
+                // (Affichage.RATIO_Y)));
+                dest = t.getEltClic((int) (e.getX()), (int) (e.getY()));
             }
             t.deplacerFourmi(idFourmi, depart, dest);
 

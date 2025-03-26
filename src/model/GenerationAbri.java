@@ -19,7 +19,7 @@ public class GenerationAbri {
             boolean caseLibre = true;
 
             int c = capacité[RandomIndex];
-            ArrayList<ObjetFixe> elts = Terrain.GetObjetsFixes();
+            ArrayList<ObjetFixe> elts = Terrain.getObjetsFixes();
 
             int x = aleatoire.nextInt(LARGEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
             int y = aleatoire.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;

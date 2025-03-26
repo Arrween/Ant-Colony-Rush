@@ -47,7 +47,7 @@ public class TerrainPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Parcours des objets fixes et affichage de leur image
-        for (ObjetFixe obj : Terrain.GetObjetsFixes()) {
+        for (ObjetFixe obj : Terrain.getObjetsFixes()) {
             Image img = obj.getImage();
             if (img != null) {
                 // Affichage centré sur (x,y) avec une taille de 2 * HALF_SIZE

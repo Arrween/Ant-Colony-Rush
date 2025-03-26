@@ -20,7 +20,7 @@ public class GenerationRessource {
 
             int p = poids[RandomIndex];
             int vn = valeurNutritive[RandomIndex];
-            ArrayList<ObjetFixe> elts = Terrain.GetObjetsFixes();
+            ArrayList<ObjetFixe> elts = Terrain.getObjetsFixes();
 
             int x = aleatoire.nextInt(LARGEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
             int y = aleatoire.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;

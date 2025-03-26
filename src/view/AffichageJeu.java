@@ -21,7 +21,7 @@ public class AffichageJeu extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Afficher tous les objets fixes (nid, abris, ressources)
-        for (ObjetFixe obj : Terrain.GetObjetsFixes()) {
+        for (ObjetFixe obj : Terrain.getObjetsFixes()) {
             Image img = obj.getImage();
             if (img != null) {
                 g.drawImage(img, obj.getX() - model.ObjetFixe.HALF_SIZE, obj.getY() - model.ObjetFixe.HALF_SIZE,
