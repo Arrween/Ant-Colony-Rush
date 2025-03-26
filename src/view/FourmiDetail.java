@@ -1,6 +1,6 @@
 package view;
 
-import controler.DestSelector;
+import controller.DestSelector;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;

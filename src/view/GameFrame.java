@@ -1,6 +1,6 @@
 package view;
 
-import controler.DestSelector;
+import controller.TerrainController;
 import java.awt.*;
 import javax.swing.*;
 import model.Nid;
@@ -10,7 +10,7 @@ public class GameFrame extends JFrame implements TerrainPanel.ControlPanelListen
     private Terrain terrain;
     private TerrainPanel terrainPanel;
     private JPanel controlPanelContainer; // Panneau qui accueillera le PanneauDeControle
-    private DestSelector destSelector; // controler
+    private TerrainController compositeController;
 
     public GameFrame(Terrain t) {
         setTitle("Jeu Fourmis");
@@ -28,25 +28,23 @@ public class GameFrame extends JFrame implements TerrainPanel.ControlPanelListen
         controlPanelContainer.setPreferredSize(new Dimension(350, terrainPanel.getPreferredSize().height));
         add(controlPanelContainer, BorderLayout.EAST);
 
-        // ajout du listener de clic pour séléctionner les destinations
-        destSelector = new DestSelector(terrain);
-        terrainPanel.addMouseListener(destSelector);
+        // Création du contrôleur composite et ajout au TerrainPanel
+        compositeController = new TerrainController(terrain, this);
+        terrainPanel.addMouseListener(compositeController);
 
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    // Méthode appelée lorsque le nid est cliqué dans le TerrainPanel
+    // Méthode appelée lorsque le Nid est cliqué dans le TerrainPanel
     @Override
     public void nidClicked(Nid nid) {
-        // On met à jour le panneau de contrôle avec les informations du nid
+        // Met à jour le panneau de contrôle avec les informations du Nid
         controlPanelContainer.removeAll();
-        // Ici, nous utilisons le score du nid et la liste de ses fourmis
-        PanneauDeControle panneau = new PanneauDeControle(nid, destSelector);
+        PanneauDeControle panneau = new PanneauDeControle(nid, compositeController.getDestSelector());
         controlPanelContainer.add(panneau, BorderLayout.CENTER);
         controlPanelContainer.revalidate();
         controlPanelContainer.repaint();
     }
-
 }
