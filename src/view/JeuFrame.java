@@ -6,13 +6,13 @@ import javax.swing.*;
 import model.Nid;
 import model.Terrain;
 
-public class GameFrame extends JFrame implements TerrainPanel.ControlPanelListener {
+public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListener {
     private Terrain terrain;
     private TerrainPanel terrainPanel;
     private JPanel controlPanelContainer; // Panneau qui accueillera le PanneauDeControle
     private TerrainController compositeController;
 
-    public GameFrame(Terrain t) {
+    public JeuFrame(Terrain t) {
         setTitle("Jeu Fourmis");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());

@@ -1,6 +1,6 @@
 package view;
 
-import controller.DestSelector;
+import controller.DestitationSelectionnee;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -18,12 +18,12 @@ public class FourmiDetail extends JFrame {
 
     private Fourmi fourmi;
 
-    private DestSelector destSelector;
+    private DestitationSelectionnee destSelector;
 
     // garder une référence de l'objetFixe dans lequel la fourmi est
     private ObjetFixe objF;
 
-    public FourmiDetail(Fourmi fourmi, DestSelector ds, ObjetFixe o) {
+    public FourmiDetail(Fourmi fourmi, DestitationSelectionnee ds, ObjetFixe o) {
         this.fourmi = fourmi;
         destSelector = ds;
         objF = o;

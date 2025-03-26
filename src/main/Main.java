@@ -16,11 +16,5 @@ public class Main {
         ge.start();
         gd.start();
         rgf.start();
-
-        /*
-         * SwingUtilities.invokeLater(() -> {
-         * new GameFrame(t);
-         * });
-         */
     }
 }

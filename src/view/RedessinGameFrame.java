@@ -1,10 +1,10 @@
 package view;
 
-public class RepaintGameFrame extends Thread {
-    private GameFrame gameFrame;
+public class RedessinGameFrame extends Thread {
+    private JeuFrame gameFrame;
     public final int DELAY = 100;
 
-    public RepaintGameFrame(GameFrame gameFrame) {
+    public RedessinGameFrame(JeuFrame gameFrame) {
         this.gameFrame = gameFrame;
     }
 
