@@ -1,6 +1,6 @@
 package view;
 
-import controller.DestitationSelectionnee;
+import controller.DestinationSelectionnee;
 import javax.swing.JButton;
 import model.Fourmi;
 import model.ObjetFixe;
@@ -10,7 +10,7 @@ public class FourmiButton extends JButton {
     private Fourmi fourmi;
     private int index;
 
-    public FourmiButton(Fourmi fourmi, DestitationSelectionnee ds, ObjetFixe o) {
+    public FourmiButton(Fourmi fourmi, DestinationSelectionnee ds, ObjetFixe o) {
         super("Fourmi " + fourmi.getId());
         this.fourmi = fourmi;
         this.index = index;

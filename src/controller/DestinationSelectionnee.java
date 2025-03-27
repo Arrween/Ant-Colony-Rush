@@ -4,14 +4,14 @@ import java.awt.event.MouseEvent;
 import model.ObjetFixe;
 import model.Terrain;
 
-public class DestitationSelectionnee {
+public class DestinationSelectionnee {
 
     private Terrain terrain;
     private boolean active;
     private ObjetFixe depart;
     private Integer idFourmi;
 
-    public DestitationSelectionnee(Terrain terrain) {
+    public DestinationSelectionnee(Terrain terrain) {
         this.terrain = terrain;
         this.active = false;
         this.depart = null;

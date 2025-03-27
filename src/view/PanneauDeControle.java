@@ -1,6 +1,6 @@
 package view;
 
-import controller.DestitationSelectionnee;
+import controller.DestinationSelectionnee;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
@@ -13,7 +13,7 @@ public class PanneauDeControle extends JPanel {
     private JLabel lblScore; // Label pour afficher la valeur nutritive des ressources
     private JPanel pnlFourmis; // Panel pour afficher les fourmis
 
-    public PanneauDeControle(Nid nid, DestitationSelectionnee ds) {
+    public PanneauDeControle(Nid nid, DestinationSelectionnee ds) {
         this.nid = nid;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 500)); // Taille de la fenêtre
@@ -76,7 +76,7 @@ public class PanneauDeControle extends JPanel {
         lblScore.setText("SCORE : " + score);
     }
 
-    public void updateFourmis(List<Fourmi> fourmis, DestitationSelectionnee ds) {
+    public void updateFourmis(List<Fourmi> fourmis, DestinationSelectionnee ds) {
         pnlFourmis.removeAll();
         for (Fourmi fourmi : fourmis) {
             FourmiButton fourmiButton = new FourmiButton(fourmi, ds, nid);

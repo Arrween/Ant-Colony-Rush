@@ -22,14 +22,25 @@ public class Crapaud {
         imageCrapaud = new ImageIcon(getClass().getResource("/ressources/Ant/fourmiTest.png")).getImage();
     }
 
-    public int getX() { return x; }
-    public int getY() { return y; }
-    public int getVisionRange() { return visionRange; }
-    public Image getImage() { return imageCrapaud; }
+    public int getX() { 
+        return x; 
+    }
+
+    public int getY() { 
+        return y; 
+    }
+
+    public int getVisionRange() {
+        return visionRange; 
+        }
+
+    public Image getImage() { 
+        return imageCrapaud;
+    }
 
     public void update(Terrain terrain) {
-        // Modification aléatoire de la direction (5 % de chance)
-        if(random.nextDouble() < 0.05) {  
+        // Modification aléatoire de la direction (1 % de chance)
+        if(random.nextDouble() < 0.01) {  
             randomizeDirection();
         }
 

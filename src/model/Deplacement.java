@@ -1,5 +1,7 @@
 package model;
 
+import view.SpriteAnimation;
+
 public class Deplacement {
     private Terrain t;
     private Fourmi f;
@@ -10,6 +12,9 @@ public class Deplacement {
     private static int compteur = 0;
 
     private int numero;
+
+    private SpriteAnimation animationFourmi;
+    private double vitesse = 1.0 ;
 
     public Deplacement(Terrain t, Fourmi f, ObjetFixe dest, ObjetFixe depart) {
         this.t = t;
@@ -22,6 +27,10 @@ public class Deplacement {
         numero = ++compteur;
         depX = depart.getX();
         depY = depart.getY();
+
+        // Initialiser l'animation
+        animationFourmi = new SpriteAnimation();
+        updateDirection(); // Choix initial de la direction
     }
 
     public void decrEnergieFourmi() {
@@ -56,8 +65,16 @@ public class Deplacement {
         return depY;
     }
 
+    // Méthode appelée périodiquement (par le Timer du contrôleur)
     public void avancer() {
-        System.out.println("Fourmi " + f.getId() + " en déplacement");
+        // System.out.println("Fourmi " + f.getId() + " en déplacement");
+        // Mise à jour de la position, direction et animation de la fourmi
+        updatePosition();
+        updateDirection();
+        animationFourmi.updateFrame();
+    }
+
+    private void updatePosition() {
         // algo de déplacmenent////
         if (currentX < destX) {
             currentX += 10;
@@ -89,7 +106,31 @@ public class Deplacement {
         }
     }
 
+    // Choix de la direction de l'animation
+    private void updateDirection(){
+        if (Math.abs(destX - currentX) > 0.0001) {
+            if (destX > currentX) {
+                animationFourmi.setDirectionDroite();
+            } else {
+                animationFourmi.setDirectionGauche();
+            }
+        }
+        // Sinon, on regarde la différence en Y
+        else if (Math.abs(destY - currentY) > 0.0001) {
+            if (destY > currentY) {
+                animationFourmi.setDirectionBas();
+            } else {
+                animationFourmi.setDirectionHaut();
+            }
+        }
+    }
+
     public boolean isDone() {
         return isDone;
+    }
+
+    // Accès à l'animation, pour dessiner la frame courante
+    public SpriteAnimation getSpriteAnim() {
+        return animationFourmi;
     }
 }

@@ -42,12 +42,27 @@ public class TerrainPanel extends JPanel {
         // Affichage des déplacements
         for (var dep : terrain.getDeplacements()) {
             g.drawLine(dep.getDepX(), dep.getDepY(), dep.getDestX(), dep.getDestY());
-            g.drawOval(dep.getX(), dep.getY(), 5, 5);
+            SpriteAnimation anim = dep.getSpriteAnim();
+            if (anim != null) {
+                // Image courante
+                var frame = anim.getCurrentSprite();
+                if (frame != null) {
+                    int x = dep.getX();
+                    int y = dep.getY();
+
+                    g.drawImage(frame,
+                                x,
+                                y,
+                                anim.getLargeurCadreCourant() / 10,  // ou une échelle différente
+                                anim.getHauteurCadreCourant() / 10,
+                                this);
+                }
+            }
         }
 
-        Crapaud cr = terrain.getCrapaud(); 
-        if (cr != null) { 
-            g.drawImage(cr.getImage(), cr.getX() - ObjetFixe.HALF_SIZE, cr.getY() - ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, this); 
+        Crapaud crapaud = terrain.getCrapaud(); 
+        if (crapaud != null) { 
+            g.drawImage(crapaud.getImage(), crapaud.getX() - ObjetFixe.HALF_SIZE, crapaud.getY() - ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, this); 
         }
         terrain.updateCrapaud() ;
     }

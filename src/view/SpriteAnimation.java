@@ -1,13 +1,10 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.*;
 
-public class SpriteAnimation extends JPanel implements ActionListener {
+public class SpriteAnimation {
     // Animations pour chaque direction
     private BufferedImage[] imagesHaut;
     private BufferedImage[] imagesBas;
@@ -18,7 +15,6 @@ public class SpriteAnimation extends JPanel implements ActionListener {
     private BufferedImage[] imagesCourantes;
 
     private int cadreActuel = 0;
-    private Timer chronometre;
 
     // Nombre total de cadres dans chaque animation (ici 62)
     private final int nombreTotalCadres = 62;
@@ -33,19 +29,14 @@ public class SpriteAnimation extends JPanel implements ActionListener {
     // Dimensions du cadre actuellement utilisé (selon l'animation active)
     private int largeurCadreCourant, hauteurCadreCourant;
 
-    // Coordonnées de départ et d'arrivée
-    private int pointA_x, pointA_y, pointB_x, pointB_y;
-    // Position actuelle de la fourmi
-    private double posX, posY;
-    // Vitesse de déplacement (en pixels par tic)
+    // Position et destination
+    private double posX, posY; 
+    private double destX, destY;
+    // Vitesse
     private double vitesse = 2.0;
 
     // Constructeur avec paramètres pour les coordonnées de départ et d'arrivée
-    public SpriteAnimation(int a_x, int a_y, int b_x, int b_y) {
-        pointA_x = a_x;
-        pointA_y = a_y;
-        pointB_x = b_x;
-        pointB_y = b_y;
+    public SpriteAnimation() {
 
         try {
             // Charger la feuille pour le haut
@@ -67,37 +58,15 @@ public class SpriteAnimation extends JPanel implements ActionListener {
             // Dimensions pour les animations horizontales (gauche et droite)
             largeurHorizontal = feuilleGauche.getWidth() / colonnes;
             hauteurHorizontal = feuilleGauche.getHeight() / lignes;
+        
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Initialiser la position de la fourmi au point de départ
-        posX = pointA_x;
-        posY = pointA_y;
-
-        // Choisir l'animation initiale en fonction du déplacement horizontal ou
-        // vertical
-        if (pointB_x != posX) {
-            if (pointB_x > posX) {
-                imagesCourantes = imagesDroite;
-            } else {
-                imagesCourantes = imagesGauche;
-            }
-            largeurCadreCourant = largeurHorizontal;
-            hauteurCadreCourant = hauteurHorizontal;
-        } else if (pointB_y != posY) {
-            if (pointB_y > posY) {
-                imagesCourantes = imagesBas;
-            } else {
-                imagesCourantes = imagesHaut;
-            }
-            largeurCadreCourant = largeurVertical;
-            hauteurCadreCourant = hauteurVertical;
-        }
-
-        // Initialiser le chronomètre pour rafraîchir l'animation toutes les 50ms
-        chronometre = new Timer(20, this);
-        chronometre.start();
+        // Par défaut, on peut choisir Bas, Haut, etc.
+        imagesCourantes = imagesDroite;
+        largeurCadreCourant = largeurHorizontal;
+        hauteurCadreCourant = hauteurHorizontal;
     }
 
     // Méthode pour découper une spritesheet en un tableau d'images
@@ -106,6 +75,7 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         int indice = 0;
         int largeur = feuille.getWidth() / colonnes;
         int hauteur = feuille.getHeight() / lignes;
+
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
                 if (indice < nombreTotalCadres) {
@@ -117,79 +87,54 @@ public class SpriteAnimation extends JPanel implements ActionListener {
         return frames;
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        // Affichage de l'animation de la fourmi
-        if (imagesCourantes != null && imagesCourantes[cadreActuel] != null) {
-            // Ici, l'image est dessinée en redimensionnant avec un facteur (exemple /10)
-            g.drawImage(imagesCourantes[cadreActuel], (int) posX, (int) posY, largeurCadreCourant / 10,
-                    hauteurCadreCourant / 10, this);
-        }
-
-        // Dessiner une croix aux coordonnées de destination
-        int tailleCroix = 10;
-        g.drawLine(pointB_x - tailleCroix, pointB_y, pointB_x + tailleCroix, pointB_y);
-        g.drawLine(pointB_x, pointB_y - tailleCroix, pointB_x, pointB_y + tailleCroix);
-
-        // Dessiner un cercle dont le centre est aux coordonnées de départ
-        int rayon = 35;
-        g.drawOval(pointA_x - rayon, pointA_y - rayon, 2 * rayon, 2 * rayon);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Mise à jour de l'animation (passer au cadre suivant)
+    public void updateFrame() {
+        // Avance à la frame suivante
         cadreActuel = (cadreActuel + 1) % nombreTotalCadres;
-
-        // Déplacement en deux étapes : d'abord horizontal, puis vertical
-        if (posX != pointB_x) {
-            // Déplacement sur l'axe X
-            if (Math.abs(pointB_x - posX) > vitesse) {
-                if (pointB_x > posX) {
-                    posX += vitesse;
-                    imagesCourantes = imagesDroite;
-                } else {
-                    posX -= vitesse;
-                    imagesCourantes = imagesGauche;
-                }
-            } else {
-                posX = pointB_x;
-            }
-            // Pour un déplacement horizontal, utiliser les dimensions horizontales
-            largeurCadreCourant = largeurHorizontal;
-            hauteurCadreCourant = hauteurHorizontal;
-        } else if (posY != pointB_y) {
-            // Déplacement sur l'axe Y
-            if (Math.abs(pointB_y - posY) > vitesse) {
-                if (pointB_y > posY) {
-                    posY += vitesse;
-                    imagesCourantes = imagesBas;
-                } else {
-                    posY -= vitesse;
-                    imagesCourantes = imagesHaut;
-                }
-            } else {
-                posY = pointB_y;
-            }
-            // Pour un déplacement vertical, utiliser les dimensions verticales
-            largeurCadreCourant = largeurVertical;
-            hauteurCadreCourant = hauteurVertical;
-        }
-
-        // Arrêter l'animation lorsque la destination est atteinte
-        if (posX == pointB_x && posY == pointB_y) {
-            chronometre.stop();
-        }
-
-        repaint();
     }
 
-    //////////// pour les tests ////////////
-    public void setCoordDest(int x, int y) {
-        pointB_x = x;
-        pointB_y = y;
+    // --- Sélecteurs de direction ---
+    public void setDirectionHaut() {
+        imagesCourantes = imagesHaut;
+        largeurCadreCourant = largeurVertical;
+        hauteurCadreCourant = hauteurVertical;
     }
-    ////////////////////////////////////////
 
+    public void setDirectionBas() {
+        imagesCourantes = imagesBas;
+        largeurCadreCourant = largeurVertical;
+        hauteurCadreCourant = hauteurVertical;
+    }
+
+    public void setDirectionGauche() {
+        imagesCourantes = imagesGauche;
+        largeurCadreCourant = largeurHorizontal;
+        hauteurCadreCourant = hauteurHorizontal;
+    }
+
+    public void setDirectionDroite() {
+        imagesCourantes = imagesDroite;
+        largeurCadreCourant = largeurHorizontal;
+        hauteurCadreCourant = hauteurHorizontal;
+    }
+
+    // --- Accesseurs ---
+    public BufferedImage getCurrentSprite() {
+        return imagesCourantes[cadreActuel];
+    }
+
+    public int getLargeurCadreCourant() { return largeurCadreCourant; }
+    public int getHauteurCadreCourant() { return hauteurCadreCourant; }
+
+    public double getPosX() { return posX; }
+    public double getPosY() { return posY; }
+    public void setPos(double x, double y) { this.posX = x; this.posY = y; }
+
+    public void setDestination(double x, double y) {
+        this.destX = x;
+        this.destY = y;
+    }
+
+    public void setVitesse(double v) {
+        this.vitesse = v;
+    }
 }

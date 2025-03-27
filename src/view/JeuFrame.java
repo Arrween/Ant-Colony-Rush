@@ -29,7 +29,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         add(controlPanelContainer, BorderLayout.EAST);
 
         // Création du contrôleur composite et ajout au TerrainPanel
-        compositeController = new TerrainController(terrain, this);
+        compositeController = new TerrainController(terrain, terrainPanel, this);
         terrainPanel.addMouseListener(compositeController);
 
         pack();

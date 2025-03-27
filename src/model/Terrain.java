@@ -104,6 +104,13 @@ public class Terrain {
         return expeditions;
     }
 
+    public void updateDeplacements() {
+        for (Deplacement dep : getDeplacements()) {
+            dep.avancer();
+        }
+    }
+    
+
     public Crapaud getCrapaud() { 
         return crapaud; 
     }
