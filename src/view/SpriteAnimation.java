@@ -33,7 +33,7 @@ public class SpriteAnimation {
     private double posX, posY; 
     private double destX, destY;
     // Vitesse
-    private double vitesse = 2.0;
+    private double vitesse = 5.0;
 
     // Constructeur avec paramètres pour les coordonnées de départ et d'arrivée
     public SpriteAnimation() {

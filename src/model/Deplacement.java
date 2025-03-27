@@ -14,7 +14,7 @@ public class Deplacement {
     private int numero;
 
     private SpriteAnimation animationFourmi;
-    private double vitesse = 1.0 ;
+    private double vitesse = 2.0; // Vitesse de déplacement de la fourmi
 
     public Deplacement(Terrain t, Fourmi f, ObjetFixe dest, ObjetFixe depart) {
         this.t = t;
@@ -77,22 +77,22 @@ public class Deplacement {
     private void updatePosition() {
         // algo de déplacmenent////
         if (currentX < destX) {
-            currentX += 10;
+            currentX += vitesse;
             if (currentX > destX) {
                 currentX = destX;
             }
         } else if (currentX > destX) {
-            currentX -= 10;
+            currentX -= vitesse;
             if (currentX < destX) {
                 currentX = destX;
             }
         } else if (currentY < destY) {
-            currentY += 10;
+            currentY += vitesse;
             if (currentY > destY) {
                 currentY = destY;
             }
         } else if (currentY > destY) {
-            currentY -= 10;
+            currentY -= vitesse;
             if (currentY < destY) {
                 currentY = destY;
             }
