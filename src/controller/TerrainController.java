@@ -67,6 +67,7 @@ public class TerrainController extends MouseAdapter implements ActionListener {
         for (Deplacement d : terrain.getDeplacements()) {
             d.avancer();
         }
+        terrain.updateCrapaud();           // déplacer & animer le crapaud
         // On redessine le TerrainPanel
         terrainPanel.repaint();
     }

@@ -1,9 +1,10 @@
 package model;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.ImageIcon;
+import view.CrapaudAnimation;
 
 public class Crapaud {
     private int x;
@@ -11,6 +12,9 @@ public class Crapaud {
     private int visionRange;
     private int dx;
     private int dy;
+
+    private CrapaudAnimation animation;
+
     private Image imageCrapaud;
     private static final Random random = new Random();
 
@@ -19,7 +23,7 @@ public class Crapaud {
         this.y = startY;
         this.visionRange = visionRange;
         randomizeDirection();
-        imageCrapaud = new ImageIcon(getClass().getResource("/ressources/Ant/fourmiTest.png")).getImage();
+        animation = new CrapaudAnimation();
     }
 
     public int getX() { 
@@ -28,6 +32,18 @@ public class Crapaud {
 
     public int getY() { 
         return y; 
+    }
+
+    public BufferedImage getCurrentFrame() {
+        return animation.getCurrentFrame();
+    }
+
+    public int getFrameWidth() {
+        return animation.getWidth();
+    }
+
+    public int getFrameHeight() {
+        return animation.getHeight();
     }
 
     public int getVisionRange() {

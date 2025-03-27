@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 import model.Crapaud;
 import model.ObjetFixe;
@@ -60,10 +61,13 @@ public class TerrainPanel extends JPanel {
             }
         }
 
-        Crapaud crapaud = terrain.getCrapaud(); 
-        if (crapaud != null) { 
-            g.drawImage(crapaud.getImage(), crapaud.getX() - ObjetFixe.HALF_SIZE, crapaud.getY() - ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, this); 
+        Crapaud crapaud = terrain.getCrapaud();
+        if (crapaud != null) {
+            BufferedImage frame = crapaud.getCurrentFrame();
+            int drawX = crapaud.getX() - frame.getWidth() / 2;
+            int drawY = crapaud.getY() - frame.getHeight() / 2;
+            g.drawImage(frame, drawX, drawY, 100, 100, this);
         }
-        terrain.updateCrapaud() ;
+
     }
 }

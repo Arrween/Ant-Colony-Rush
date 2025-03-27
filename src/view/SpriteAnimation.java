@@ -31,9 +31,6 @@ public class SpriteAnimation {
 
     // Position et destination
     private double posX, posY; 
-    private double destX, destY;
-    // Vitesse
-    private double vitesse = 5.0;
 
     // Constructeur avec paramètres pour les coordonnées de départ et d'arrivée
     public SpriteAnimation() {
@@ -129,12 +126,4 @@ public class SpriteAnimation {
     public double getPosY() { return posY; }
     public void setPos(double x, double y) { this.posX = x; this.posY = y; }
 
-    public void setDestination(double x, double y) {
-        this.destX = x;
-        this.destY = y;
-    }
-
-    public void setVitesse(double v) {
-        this.vitesse = v;
-    }
 }
