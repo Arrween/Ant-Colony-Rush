@@ -2,6 +2,7 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import model.Crapaud;
 import model.ObjetFixe;
 import model.Terrain;
 
@@ -43,5 +44,11 @@ public class TerrainPanel extends JPanel {
             g.drawLine(dep.getDepX(), dep.getDepY(), dep.getDestX(), dep.getDestY());
             g.drawOval(dep.getX(), dep.getY(), 5, 5);
         }
+
+        Crapaud cr = terrain.getCrapaud(); 
+        if (cr != null) { 
+            g.drawImage(cr.getImage(), cr.getX() - ObjetFixe.HALF_SIZE, cr.getY() - ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, 2 * ObjetFixe.HALF_SIZE, this); 
+        }
+        terrain.updateCrapaud() ;
     }
 }

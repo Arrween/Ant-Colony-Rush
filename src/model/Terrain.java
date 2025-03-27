@@ -3,13 +3,13 @@ package model;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.swing.ImageIcon;
 
 public class Terrain {
     public static final int LARGEUR = 800;
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
+    private Crapaud crapaud ;
 
     public static final Image BACKGROUND = new ImageIcon("/ressources/Grass/Grass_01-128x128.png").getImage();
 
@@ -33,6 +33,12 @@ public class Terrain {
         // Ajout des abris et ressources de base
         ajouterAbris(15); // Exemple : ajout de 3 abris
         ajouterRessources(20); // Exemple : ajout de 5 ressources
+
+        // Initialisation du crapaud
+        int startX = RANDOM.nextInt(LARGEUR);
+        int startY = RANDOM.nextInt(HAUTEUR);
+        int visionRange = 100; // Valeur à ajuster selon vos besoins
+        crapaud = new Crapaud(startX, startY, visionRange);
     }
 
     public static ArrayList<ObjetFixe> getObjetsFixes() {
@@ -96,5 +102,13 @@ public class Terrain {
 
     public ArrayList<Deplacement> getDeplacements() {
         return expeditions;
+    }
+
+    public Crapaud getCrapaud() { 
+        return crapaud; 
+    }
+
+    public void updateCrapaud() { 
+        crapaud.update(this); 
     }
 }
