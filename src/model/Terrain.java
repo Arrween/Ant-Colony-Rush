@@ -38,7 +38,7 @@ public class Terrain {
         int startX = RANDOM.nextInt(LARGEUR);
         int startY = RANDOM.nextInt(HAUTEUR);
         int visionRange = 100; // Valeur à ajuster selon vos besoins
-        crapaud = new Crapaud(startX, startY, visionRange);
+        crapaud = new Crapaud(this, startX, startY, visionRange);
     }
 
     public static ArrayList<ObjetFixe> getObjetsFixes() {
@@ -119,10 +119,14 @@ public class Terrain {
     }
 
     public void updateCrapaud() { 
-        crapaud.update(this); 
+        crapaud.update(100); //valeur arbitraire pour l'instant
     }
 
     public Nid getNid() {
         return (Nid) elts.get(0);
+    }
+
+    public void removeRessource(int idRessource) {
+        elts.removeIf(elt -> elt.getId() == idRessource);
     }
 }
