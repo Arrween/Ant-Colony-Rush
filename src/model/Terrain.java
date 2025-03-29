@@ -91,13 +91,16 @@ public class Terrain {
         // retirer la fourmi de l'objet de départ
         Fourmi f = depart.getFourmiAndRemove(idFourmi);
         // créer une instance de déplacement avec la fourmi et la destination
-        expeditions.add(new Deplacement(this, f, arrivee, depart));
+        expeditions.add(new DeplacementSimple(this, f, arrivee, depart));
     }
 
-    public void avancerDeplacements() {
-        for (Deplacement d : expeditions) {
-            d.avancer();
-        }
+    public void ramenerRessourceALaMaison(int idRessource, ObjetFixe depart) {
+        //récuperer la ressource
+        Ressource r = (Ressource) elts.stream().filter(elt -> elt.getId() == idRessource).findFirst().get();
+        //retirer la ressource de la liste des objets fixes
+        elts.removeIf(elt -> elt.getId() == idRessource);
+        //créer une instance de transport avec la ressource et le nid
+        expeditions.add(new Transport(this, r, depart));
     }
 
     public ArrayList<Deplacement> getDeplacements() {
@@ -105,7 +108,7 @@ public class Terrain {
     }
 
     public void updateDeplacements() {
-        for (Deplacement dep : getDeplacements()) {
+        for (Deplacement dep : expeditions) {
             dep.avancer();
         }
     }
@@ -117,5 +120,9 @@ public class Terrain {
 
     public void updateCrapaud() { 
         crapaud.update(this); 
+    }
+
+    public Nid getNid() {
+        return (Nid) elts.get(0);
     }
 }

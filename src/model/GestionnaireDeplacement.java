@@ -11,7 +11,7 @@ public class GestionnaireDeplacement extends Thread {
     @Override
     public void run() {
         while (true) {
-            t.avancerDeplacements();
+            t.updateDeplacements();
             t.supprimeDeplacementsFinis();
             try {
                 Thread.sleep(DELAY);
