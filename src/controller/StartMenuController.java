@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
+import model.GestionnaireCrapaud;
 import model.GestionnaireDeplacement;
 import model.GestionnaireEnergie;
 import model.Terrain;
@@ -68,6 +70,7 @@ public class StartMenuController {
         // Création des gestionnaires (Threads)
         GestionnaireEnergie gestionnaireEnergie = new GestionnaireEnergie(terrain);
         GestionnaireDeplacement gestionnaireDeplacement = new GestionnaireDeplacement(terrain, terrainPanel);
+        GestionnaireCrapaud gestionnaireCrapaud = new GestionnaireCrapaud(terrain);
 
         // Création de la fenêtre de jeu
         JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel);
@@ -78,6 +81,7 @@ public class StartMenuController {
         // Démarrer les threads
         gestionnaireEnergie.start();
         gestionnaireDeplacement.start();
+        gestionnaireCrapaud.start();
         redessinJeuFrame.start();
 
         // Fermer la fenêtre du menu de démarrage

@@ -25,8 +25,7 @@ public class GestionnaireDeplacement extends Thread {
     @Override
     public void run() {
         while (true) {
-            // Mise à jour du modèle
-            t.avancerDeplacements();
+            t.updateDeplacements();
             t.supprimeDeplacementsFinis();
             t.updateCrapaud();
 
