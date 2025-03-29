@@ -1,9 +1,9 @@
-package view;
+package controller;
 
-import controller.DestinationSelectionnee;
 import javax.swing.JButton;
 import model.Fourmi;
 import model.ObjetFixe;
+import view.FourmiDetail;
 
 public class FourmiButton extends JButton {
 
