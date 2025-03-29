@@ -38,4 +38,8 @@ public class Ressource extends ObjetFixe {
             fourmi.decrEnergie();
         }
     }
+
+    public boolean isReadyToGo() {
+        return fourmis.size() >= poids;
+    }
 }
