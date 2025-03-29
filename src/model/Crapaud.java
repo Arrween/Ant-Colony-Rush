@@ -207,5 +207,8 @@ public class Crapaud {
     public boolean isAsleep() {
         return isAsleep;
     }
- 
+
+    public double getSatiete() {
+        return satiete/(double)MAX_SATIETE;
+    }
 }
