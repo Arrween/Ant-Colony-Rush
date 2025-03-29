@@ -10,19 +10,33 @@ import view.DifficultePanel;
 import view.JeuFrame;
 import view.MenuDemarrage;
 import view.RedessinJeuFrame;
+import view.TerrainPanel;
 
+/**
+ * Contrôleur pour le menu de démarrage (StartMenu).
+ * Gère les actions sur les boutons Start et Difficulty.
+ */
 public class StartMenuController {
+
     private MenuDemarrage startMenuFrame;
     private DifficultePanel difficultePanel;
 
+    /**
+     * Constructeur qui reçoit la fenêtre du menu de démarrage
+     * et récupère le panneau de difficulté.
+     */
     public StartMenuController(MenuDemarrage frame) {
         this.startMenuFrame = frame;
         this.difficultePanel = frame.getDifficultePanel();
         initController();
     }
 
+    /**
+     * Méthode d'initialisation des écouteurs sur les boutons
+     * Start et Difficulty.
+     */
     private void initController() {
-        // Enregistrer l'écouteur sur le bouton Start
+        // Écouteur sur le bouton "Start"
         difficultePanel.setStartButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,7 +44,7 @@ public class StartMenuController {
             }
         });
 
-        // Enregistrer l'écouteur sur le bouton Difficulté
+        // Écouteur sur le bouton "Difficulté"
         difficultePanel.setDifficulteButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,30 +53,44 @@ public class StartMenuController {
         });
     }
 
-    // Méthode qui lance le jeu !!!!!
-
+    /**
+     * Lance la partie. Ici, nous créons le Terrain, les gestionnaires
+     * (énergie, déplacement), la fenêtre de jeu, etc.
+     */
     private void launchGame() {
-        // Ici, plus tard on pourra récupérer la difficulté sélectionnée
-        // avec difficultePanel.getDifficulteSelectionnee()
+        // Récupération de la difficulté sélectionnée si besoin :
+        // String difficulty = difficultePanel.getDifficulteSelectionnee();
 
+        // Création du modèle principal
         Terrain terrain = new Terrain();
+        TerrainPanel terrainPanel = new TerrainPanel(terrain);
+
+        // Création des gestionnaires (Threads)
         GestionnaireEnergie gestionnaireEnergie = new GestionnaireEnergie(terrain);
-        GestionnaireDeplacement gestionnaireDeplacement = new GestionnaireDeplacement(terrain);
+        GestionnaireDeplacement gestionnaireDeplacement = new GestionnaireDeplacement(terrain, terrainPanel);
 
-        JeuFrame jeuFrame = new JeuFrame(terrain);
+        // Création de la fenêtre de jeu
+        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel);
 
+        // Thread de redessin régulier
         RedessinJeuFrame redessinJeuFrame = new RedessinJeuFrame(jeuFrame);
+
+        // Démarrer les threads
         gestionnaireEnergie.start();
         gestionnaireDeplacement.start();
         redessinJeuFrame.start();
+
         // Fermer la fenêtre du menu de démarrage
         startMenuFrame.dispose();
     }
 
-    // Affiche une boîte de dialogue pour choisir la difficulté
+    /**
+     * Affiche une boîte de dialogue pour sélectionner la difficulté.
+     */
     private void showDifficultyDialog() {
         String[] options = { "Facile", "Moyen", "Difficile" };
         String current = difficultePanel.getDifficulteSelectionnee();
+
         String chosen = (String) JOptionPane.showInputDialog(
                 startMenuFrame,
                 "Choisissez la difficulté :",
@@ -71,6 +99,8 @@ public class StartMenuController {
                 null,
                 options,
                 current);
+
+        // Mise à jour de la difficulté dans le panneau si un choix est validé
         if (chosen != null) {
             difficultePanel.setSelectedDifficulty(chosen);
         }

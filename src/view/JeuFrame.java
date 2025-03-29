@@ -12,14 +12,14 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     private JPanel controlPanelContainer; // Panneau qui accueillera le PanneauDeControle
     private TerrainController compositeController;
 
-    public JeuFrame(Terrain t) {
+    public JeuFrame(Terrain t, TerrainPanel panel) {
         setTitle("Jeu Fourmis");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         // Création du terrain et du TerrainPanel
         terrain = t;
-        terrainPanel = new TerrainPanel(terrain);
+        terrainPanel = panel;
         terrainPanel.setControlPanelListener(this);
         add(terrainPanel, BorderLayout.CENTER);
 
