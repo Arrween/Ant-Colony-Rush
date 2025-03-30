@@ -30,7 +30,7 @@ public class SpriteAnimation {
     private int largeurCadreCourant, hauteurCadreCourant;
 
     // Position et destination
-    private double posX, posY; 
+    private double posX, posY;
 
     // Constructeur avec paramètres pour les coordonnées de départ et d'arrivée
     public SpriteAnimation() {
@@ -55,7 +55,7 @@ public class SpriteAnimation {
             // Dimensions pour les animations horizontales (gauche et droite)
             largeurHorizontal = feuilleGauche.getWidth() / colonnes;
             hauteurHorizontal = feuilleGauche.getHeight() / lignes;
-        
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,11 +119,25 @@ public class SpriteAnimation {
         return imagesCourantes[cadreActuel];
     }
 
-    public int getLargeurCadreCourant() { return largeurCadreCourant; }
-    public int getHauteurCadreCourant() { return hauteurCadreCourant; }
+    public int getLargeurCadreCourant() {
+        return largeurCadreCourant;
+    }
 
-    public double getPosX() { return posX; }
-    public double getPosY() { return posY; }
-    public void setPos(double x, double y) { this.posX = x; this.posY = y; }
+    public int getHauteurCadreCourant() {
+        return hauteurCadreCourant;
+    }
+
+    public double getPosX() {
+        return posX;
+    }
+
+    public double getPosY() {
+        return posY;
+    }
+
+    public void setPos(double x, double y) {
+        this.posX = x;
+        this.posY = y;
+    }
 
 }

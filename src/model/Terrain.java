@@ -9,7 +9,7 @@ public class Terrain {
     public static final int LARGEUR = 800;
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
-    private Crapaud crapaud ;
+    private Crapaud crapaud;
 
     public static final Image BACKGROUND = new ImageIcon("/ressources/Grass/Grass_01-128x128.png").getImage();
 
@@ -109,13 +109,12 @@ public class Terrain {
             dep.avancer();
         }
     }
-    
 
-    public Crapaud getCrapaud() { 
-        return crapaud; 
+    public Crapaud getCrapaud() {
+        return crapaud;
     }
 
-    public void updateCrapaud() { 
-        crapaud.update(this); 
+    public void updateCrapaud() {
+        crapaud.update(this);
     }
 }

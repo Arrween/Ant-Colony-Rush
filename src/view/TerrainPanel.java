@@ -1,9 +1,7 @@
 package view;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import javax.swing.*;
-import model.Crapaud;
 import model.ObjetFixe;
 import model.Terrain;
 
@@ -20,8 +18,8 @@ public class TerrainPanel extends JPanel {
         setPreferredSize(new Dimension(Terrain.LARGEUR, Terrain.HAUTEUR));
     }
 
-    public void setControlPanelListener(ControlPanelListener listener) {
-        this.controlListener = listener;
+    public void setEcouteurPanneauDeControle(ControlPanelListener ecouteur) {
+        this.controlListener = ecouteur;
     }
 
     @Override
@@ -45,29 +43,26 @@ public class TerrainPanel extends JPanel {
             g.drawLine(dep.getDepX(), dep.getDepY(), dep.getDestX(), dep.getDestY());
             SpriteAnimation anim = dep.getSpriteAnim();
             if (anim != null) {
-                // Image courante
                 var frame = anim.getCurrentSprite();
                 if (frame != null) {
                     int x = dep.getX();
                     int y = dep.getY();
-
                     g.drawImage(frame,
-                                x,
-                                y,
-                                anim.getLargeurCadreCourant() / 10,  // ou une échelle différente
-                                anim.getHauteurCadreCourant() / 10,
-                                this);
+                            x,
+                            y,
+                            anim.getLargeurCadreCourant() / 10,
+                            anim.getHauteurCadreCourant() / 10,
+                            this);
                 }
             }
         }
-
-        Crapaud crapaud = terrain.getCrapaud();
+        // Affichage du crapaud
+        model.Crapaud crapaud = terrain.getCrapaud();
         if (crapaud != null) {
-            BufferedImage frame = crapaud.getCurrentFrame();
+            java.awt.image.BufferedImage frame = crapaud.getCurrentFrame();
             int drawX = crapaud.getX() - frame.getWidth() / 2;
             int drawY = crapaud.getY() - frame.getHeight() / 2;
             g.drawImage(frame, drawX, drawY, 100, 100, this);
         }
-
     }
 }

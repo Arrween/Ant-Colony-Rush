@@ -14,20 +14,20 @@ import view.TerrainPanel;
 public class TerrainController extends MouseAdapter implements ActionListener {
 
     private Terrain terrain;
-    private TerrainPanel terrainPanel;                  // Pour pouvoir faire un repaint()
+    private TerrainPanel terrainPanel; // Pour pouvoir faire un repaint()
     private TerrainPanel.ControlPanelListener controlListener;
-    private DestinationSelectionnee destSelector;       // Renommage pour corriger la faute
+    private DestinationSelectionnee destSelector; // Renommage pour corriger la faute
 
     private Timer timer;
 
     /**
      * Constructeur du contrôleur, recevant :
-     *  - le modèle (Terrain)
-     *  - la vue (TerrainPanel) pour pouvoir redessiner
-     *  - le controlListener (pour la gestion du clic sur les Nids).
+     * - le modèle (Terrain)
+     * - la vue (TerrainPanel) pour pouvoir redessiner
+     * - le controlListener (pour la gestion du clic sur les Nids).
      */
-    public TerrainController(Terrain terrain, TerrainPanel terrainPanel, 
-                             TerrainPanel.ControlPanelListener controlListener) {
+    public TerrainController(Terrain terrain, TerrainPanel terrainPanel,
+            TerrainPanel.ControlPanelListener controlListener) {
         this.terrain = terrain;
         this.terrainPanel = terrainPanel;
         this.controlListener = controlListener;
@@ -67,7 +67,7 @@ public class TerrainController extends MouseAdapter implements ActionListener {
         for (Deplacement d : terrain.getDeplacements()) {
             d.avancer();
         }
-        terrain.updateCrapaud();           // déplacer & animer le crapaud
+        terrain.updateCrapaud(); // déplacer & animer le crapaud
         // On redessine le TerrainPanel
         terrainPanel.repaint();
     }
