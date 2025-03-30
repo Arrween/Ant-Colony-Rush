@@ -2,40 +2,36 @@ package model;
 
 import view.SpriteAnimation;
 
-public class Deplacement {
+public abstract class Deplacement {
     private Terrain t;
-    private Fourmi f;
-    private int currentX, currentY, destX, destY, depX, depY;
-    private ObjetFixe dest;
-    private boolean isDone = false;
+    protected int currentX, currentY, destX, destY, depX, depY;
+    protected ObjetFixe dest;
+    protected boolean isDone = false;
 
     private static int compteur = 0;
-
     private int numero;
 
-    private SpriteAnimation animationFourmi;
-    private double vitesse = 2.0; // Vitesse de déplacement de la fourmi
+    protected SpriteAnimation animationFourmi;
+    protected double vitesse; // Vitesse de déplacement de la fourmi
 
-    public Deplacement(Terrain t, Fourmi f, ObjetFixe dest, ObjetFixe depart) {
+    public Deplacement(Terrain t, ObjetFixe dest, ObjetFixe depart) {
         this.t = t;
-        this.f = f;
-        this.currentX = f.getX();
-        this.currentY = f.getY();
+        this.currentX = depart.getX();
+        this.currentY = depart.getY();
         this.dest = dest;
         this.destX = dest.getX();
         this.destY = dest.getY();
         numero = ++compteur;
         depX = depart.getX();
         depY = depart.getY();
+        vitesse = 1.0; // Vitesse de déplacement par défaut
 
         // Initialiser l'animation
         animationFourmi = new SpriteAnimation();
         updateDirection(); // Choix initial de la direction
     }
 
-    public void decrEnergieFourmi() {
-        f.decrEnergie();
-    }
+    public abstract void decrEnergieFourmi() ;
 
     public int getId() {
         return numero;
@@ -66,15 +62,9 @@ public class Deplacement {
     }
 
     // Méthode appelée périodiquement (par le Timer du contrôleur)
-    public void avancer() {
-        // System.out.println("Fourmi " + f.getId() + " en déplacement");
-        // Mise à jour de la position, direction et animation de la fourmi
-        updatePosition();
-        updateDirection();
-        animationFourmi.updateFrame();
-    }
+    public abstract void avancer();
 
-    private void updatePosition() {
+    protected void updatePosition() {
         // algo de déplacmenent////
         if (currentX < destX) {
             currentX += vitesse;
@@ -97,17 +87,10 @@ public class Deplacement {
                 currentY = destY;
             }
         }
-
-        // si déplacment fini ajouter la fourmi à l'objet destination et supprimer le
-        // déplacement de la liste de déplacements du terrain
-        if (!isDone && currentX == destX && currentY == destY) {
-            dest.ajouterFourmi(f);
-            isDone = true;
-        }
     }
 
     // Choix de la direction de l'animation
-    private void updateDirection(){
+    protected void updateDirection(){
         if (Math.abs(destX - currentX) > 0.0001) {
             if (destX > currentX) {
                 animationFourmi.setDirectionDroite();
@@ -124,6 +107,8 @@ public class Deplacement {
             }
         }
     }
+
+    protected abstract void updateVitesse();
 
     public boolean isDone() {
         return isDone;

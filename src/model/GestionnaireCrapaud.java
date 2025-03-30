@@ -1,18 +1,17 @@
 package model;
 
-public class GestionnaireDeplacement extends Thread {
-    private Terrain t;
+public class GestionnaireCrapaud extends Thread {
+    private Crapaud c;
     public final int DELAY = 100;
 
-    public GestionnaireDeplacement(Terrain t) {
-        this.t = t;
+    public GestionnaireCrapaud(Terrain t) {
+        this.c = t.getCrapaud();
     }
 
     @Override
     public void run() {
         while (true) {
-            t.updateDeplacements();
-            t.supprimeDeplacementsFinis();
+            c.update(DELAY);
             try {
                 Thread.sleep(DELAY);
             } catch (Exception e) {

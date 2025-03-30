@@ -32,8 +32,8 @@ public class Nid extends ObjetFixe {
         return score;
     }
 
-    public java.util.List<Fourmi> getFourmis() {
-        return fourmis;
+    public void incrScore(int valeur) {
+        score += valeur;
     }
 
     public void ajouterFourmi() {

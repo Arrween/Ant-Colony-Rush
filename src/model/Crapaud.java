@@ -4,26 +4,43 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Collectors;
+
 import view.CrapaudAnimation;
 
 public class Crapaud {
+    private Terrain terrain;
+
     private int x;
     private int y;
     private int visionRange;
     private int dx;
     private int dy;
 
+    private final static int MAX_SATIETE = 10; // à partir de là, il s'endort
+    private final static int SATIETE_AU_REVEIL = 5; // il se réveille à ce niveau de satiété
+    private final static int SEUIL_FAIM = 3; // en dessous de ça, il mange aussi les ressources
+    private int satiete;
+
+    private final static int DUREE_SIESTE = 10000;
+    private int remainingSleepTime;
+    private boolean isAsleep;
+
     private CrapaudAnimation animation;
 
     private Image imageCrapaud;
     private static final Random random = new Random();
 
-    public Crapaud(int startX, int startY, int visionRange) {
+    public Crapaud(Terrain t, int startX, int startY, int visionRange) {
+        terrain = t;
         this.x = startX;
         this.y = startY;
         this.visionRange = visionRange;
         randomizeDirection();
         animation = new CrapaudAnimation();
+        satiete = SATIETE_AU_REVEIL;
+        remainingSleepTime = 0;
+        isAsleep = false;
     }
 
     public int getX() { 
@@ -54,7 +71,13 @@ public class Crapaud {
         return imageCrapaud;
     }
 
-    public void update(Terrain terrain) {
+    public void update(int timeSinceLastUpdate) {
+        //s'il dort, ne rien faire
+        if (isAsleep) {
+            sleep(timeSinceLastUpdate);
+            return;
+        }
+
         // Modification aléatoire de la direction (1 % de chance)
         if(random.nextDouble() < 0.01) {  
             randomizeDirection();
@@ -73,8 +96,9 @@ public class Crapaud {
             newY = y + dy;
         }
 
-        // Interaction avec les objets fixes
         ArrayList<ObjetFixe> objets = Terrain.getObjetsFixes();
+
+        // Interaction avec les objets fixes
         for (ObjetFixe obj : objets) {
             if(obj.hitBoxCliquee(newX, newY)) {
                 // En cas de ressource, changer de direction
@@ -91,27 +115,60 @@ public class Crapaud {
         x = newX;
         y = newY;
 
-        // Consommation des fourmis visibles dans le cône de vision de 90°
-        for (ObjetFixe obj : objets) {
-            ArrayList<Fourmi> toRemove = new ArrayList<>();
-            for (Fourmi ant : obj.fourmis) {
-                double distance = Math.hypot(ant.getX() - x, ant.getY() - y);
-                if(distance <= visionRange && isInVisionCone(ant.getX(), ant.getY())) {
-                    toRemove.add(ant);
+
+        // Consommation des fourmis situées dans les ressources visibles dans le cône de vision de 90°
+        // on récupère les ressources
+        ArrayList<Ressource> rsrc = objets.stream()
+            .filter(Ressource.class::isInstance)
+            .map(Ressource.class::cast)
+            .collect(Collectors.toCollection(ArrayList::new));
+
+        if (satiete <= SEUIL_FAIM) {
+            //le crapaud regarde en priorité les ressources
+            for (Ressource r : rsrc) {
+                //on vérifie si la ressource est visible par le crapaud
+                double distance = Math.hypot(r.getX() - x, r.getY() - y);
+                if(distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
+                    //la ressource est visible
+                    terrain.removeRessource(r.getId());
+                    satiete += r.fourmis.size() + r.getValeurNutritive();
+                    //on verifie s'il a maintenant dépassé le seuil de satiete
+                    if (satiete >= MAX_SATIETE) {
+                        fallAsleep();
+                    }
+                    return; //on ne mange qu'une chose par appel
                 }
             }
-            obj.fourmis.removeAll(toRemove);
-        }
+        } else {
+            // le crapaud regarde en priorité les fourmis en déplacement, et ensuite les fourmis dans les ressoruces
+            for (Deplacement depl : terrain.expeditions) {
+                double distance = Math.hypot(depl.getX() - x, depl.getY() - y);
+                if(distance <= visionRange && isInVisionCone(depl.getX(), depl.getY())) {
+                    terrain.expeditions.remove(depl);
+                    satiete++;
+                    if (satiete >= MAX_SATIETE) {
+                        fallAsleep();
+                    }
+                    return; //on ne mange qu'une chose par appel
+                }
+            }
 
-        // Traitement similaire pour les fourmis en expédition
-        ArrayList<Deplacement> toRemoveDepl = new ArrayList<>();
-        for (Deplacement depl : terrain.expeditions) {
-            double distance = Math.hypot(depl.getX() - x, depl.getY() - y);
-            if(distance <= visionRange && isInVisionCone(depl.getX(), depl.getY())) {
-                toRemoveDepl.add(depl);
+            for (Ressource r : rsrc) {
+                //on vérifie si la ressource est visible par le crapaud
+                double distance = Math.hypot(r.getX() - x, r.getY() - y);
+                if(distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
+                    //la ressource est visible
+                    if (r.fourmis.size() > 0) {
+                        r.fourmis.remove(0);
+                        satiete++;
+                        if (satiete >= MAX_SATIETE) {
+                            fallAsleep();
+                        }
+                        return; //on ne mange qu'une chose par appel
+                    }
+                }
             }
         }
-        terrain.expeditions.removeAll(toRemoveDepl);
     }
 
     // Vérifie si une cible se trouve dans le cône de vision à 90° par rapport à la direction de déplacement
@@ -134,5 +191,24 @@ public class Crapaud {
         }
     }
 
+    private void sleep(int time) {
+        remainingSleepTime -= time;
+        if(remainingSleepTime <= 0) {
+            isAsleep = false;
+            satiete = SATIETE_AU_REVEIL;
+        }
+    } 
 
+    private void fallAsleep() {
+        isAsleep = true;
+        remainingSleepTime = DUREE_SIESTE;
+    }
+
+    public boolean isAsleep() {
+        return isAsleep;
+    }
+
+    public double getSatiete() {
+        return satiete/(double)MAX_SATIETE;
+    }
 }

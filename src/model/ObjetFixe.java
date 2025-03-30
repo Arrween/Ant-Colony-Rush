@@ -11,6 +11,9 @@ public abstract class ObjetFixe {
     public static final int RAYON_HITBOX = 100;
     public static final int RAYON_HITBOX_R = 40;
 
+    private static int compteur = 0;
+    private int numero;
+
     public ObjetFixe(int x, int y, int nbFourmis) {
         this.x = x;
         this.y = y;
@@ -18,6 +21,7 @@ public abstract class ObjetFixe {
         for (int i = 0; i < nbFourmis; i++) {
             fourmis.add(new Fourmi(x, y));
         }
+        numero = ++compteur;
     }
 
     public int getX() {
@@ -61,5 +65,13 @@ public abstract class ObjetFixe {
 
     public int getNbFourmis() {
         return fourmis.size();
+    }
+
+    public ArrayList<Fourmi> getFourmis() {
+        return fourmis;
+    }
+
+    public int getId() {
+        return numero;
     }
 }
