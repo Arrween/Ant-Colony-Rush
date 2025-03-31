@@ -210,4 +210,8 @@ public class Crapaud {
     public double getSatiete() {
         return satiete/(double)MAX_SATIETE;
     }
+
+    public void decrSatiete() {
+        satiete--;
+    }
 }

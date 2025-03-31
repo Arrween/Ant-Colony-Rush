@@ -3,7 +3,7 @@ package model;
 import view.SpriteAnimation;
 
 public abstract class Deplacement {
-    private Terrain t;
+    protected Terrain t;
     protected int currentX, currentY, destX, destY, depX, depY;
     protected ObjetFixe dest;
     protected boolean isDone = false;
@@ -125,4 +125,6 @@ public abstract class Deplacement {
     public SpriteAnimation getSpriteAnim() {
         return animationFourmi;
     }
+
+    public abstract void eliminerFourmisMortes();
 }
