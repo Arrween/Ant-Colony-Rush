@@ -65,7 +65,7 @@ public class TerrainPanel extends JPanel {
             java.awt.image.BufferedImage frame = crapaud.getCurrentFrame();
             int drawX = crapaud.getX() - frame.getWidth() / 2;
             int drawY = crapaud.getY() - frame.getHeight() / 2;
-            g.drawImage(frame, drawX, drawY, 100, 100, this);
+            g.drawImage(frame, drawX, drawY, 150, 150, this);
         }
     }
 }
