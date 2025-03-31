@@ -1,7 +1,7 @@
 package model;
 
 public class Score {
-    private int Score  = 5 ;
+    private int Score  = 10 ;
 
     // Getter pour les Score
     public int getScore() {
@@ -14,5 +14,9 @@ public class Score {
 
     public void diminuerScore(){
         this.Score -= 3;
+    }
+
+    public boolean AjoutFourmiPossible() {
+        return Score >= 3;
     }
 }

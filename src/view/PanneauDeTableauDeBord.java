@@ -13,14 +13,13 @@ public class PanneauDeTableauDeBord extends JPanel {
     private int secondesEcoulees; // Compteur en secondes
 
 
-    public PanneauDeTableauDeBord() {
+    public PanneauDeTableauDeBord(Score scoreInstance) {
         setLayout(new BorderLayout());
 
         lblChrono = new JLabel("Temps : 00:00", SwingConstants.CENTER);
         lblChrono.setFont(new Font("Arial", Font.BOLD, 16));
         add(lblChrono, BorderLayout.NORTH);
 
-        Score scoreInstance = new Score();
         int score = scoreInstance.getScore();
         lblScore = new JLabel("Score : " + score, SwingConstants.CENTER);
         lblScore.setFont(new Font("Arial", Font.BOLD, 16));
@@ -36,6 +35,7 @@ public class PanneauDeTableauDeBord extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 secondesEcoulees++;
                 mettreAJourChrono(secondesEcoulees);
+                mettreAJourScore(score);
             }
         });
         timer.start();
