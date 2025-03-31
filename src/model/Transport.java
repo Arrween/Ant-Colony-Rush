@@ -40,4 +40,13 @@ public class Transport extends Deplacement {
             isDone = true;
         }
     }
+
+    public void eliminerFourmisMortes() {
+        ressource.eliminerFourmisMortes();
+        if (!ressource.isReadyToGo()) {
+            ressource.isDropped(currentX, currentY);
+            t.ajouterRessource(ressource);
+            t.expeditions.removeIf(d -> d.getId() == this.getId());
+        }
+    }
 }

@@ -42,4 +42,9 @@ public class Ressource extends ObjetFixe {
     public boolean isReadyToGo() {
         return fourmis.size() >= poids;
     }
+
+    public void isDropped(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }

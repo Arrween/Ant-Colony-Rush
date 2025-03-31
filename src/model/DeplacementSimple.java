@@ -33,4 +33,10 @@ public class DeplacementSimple extends Deplacement{
             isDone = true;
         }
     }
+
+    public void eliminerFourmisMortes() {
+        if (f.isDead()) {
+            t.expeditions.removeIf(d -> d.getId() == this.getId());
+        }
+    }
 }

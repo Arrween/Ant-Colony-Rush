@@ -130,4 +130,20 @@ public class Terrain {
         elts.removeIf(elt -> elt.getId() == idRessource);
     }
 
+    public void elimineFourmisMortesEnExpedition() {
+        for (Deplacement d : expeditions) {
+            d.eliminerFourmisMortes();
+        }
+    }
+
+    public void elimineFourmisMortesEnAttente() {
+        for (ObjetFixe elt : elts) {
+            elt.eliminerFourmisMortes();
+        }
+    }
+
+    public void ajouterRessource(Ressource r) {
+        elts.add(r);
+    }
+
 }

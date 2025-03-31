@@ -57,4 +57,8 @@ public class Fourmi {
         System.out.println("Vitesse de la fourmi " + numero + " : " + res);
         return res;
     }
+
+    public boolean isDead() {
+        return energie <= 0;
+    }
 }
