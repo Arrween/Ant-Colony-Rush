@@ -4,6 +4,7 @@ import controller.TerrainController;
 import java.awt.*;
 import javax.swing.*;
 import model.Nid;
+import model.Ressource;
 import model.Terrain;
 
 public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListener {
@@ -32,6 +33,11 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         terrainControleur = new TerrainController(terrain, terrainPanel, this);
         terrainPanel.addMouseListener(terrainControleur);
 
+        // Enregistrer le contrôleur comme écouteur de clavier
+        addKeyListener(terrainControleur);
+        setFocusable(true);
+        requestFocusInWindow();
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -44,6 +50,12 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     @Override
     public void nidClicked(Nid nid) {
         PanneauDeControle panneauDetail = new PanneauDeControle(nid, terrainControleur.getDestSelector());
+        conteneurPanneau.afficherPanneauDetail(panneauDetail);
+    }
+
+    @Override
+    public void ressourceClicked(Ressource ressource) {
+        RessourcesDetails panneauDetail = new RessourcesDetails(ressource);
         conteneurPanneau.afficherPanneauDetail(panneauDetail);
     }
 }

@@ -2,23 +2,28 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import model.Deplacement;
 import model.Nid;
 import model.ObjetFixe;
+import model.Ressource;
 import model.Terrain;
 import view.TerrainPanel;
 
-public class TerrainController extends MouseAdapter implements ActionListener {
+public class TerrainController extends MouseAdapter implements ActionListener, KeyListener {
 
     private Terrain terrain;
     private TerrainPanel terrainPanel; // Pour pouvoir faire un repaint()
     private TerrainPanel.ControlPanelListener controlListener;
     private DestinationSelectionnee destSelector; // Renommage pour corriger la faute
-
     private Timer timer;
+    private int lastMouseX;
+    private int lastMouseY;
 
     /**
      * Constructeur du contrôleur, recevant :
@@ -46,6 +51,11 @@ public class TerrainController extends MouseAdapter implements ActionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // On récupère les coordonnées du clic de la souris
+        // et on les stocke pour les utiliser dans la méthode keyPressed
+        // (pour savoir quelle ressource déplacer)
+        lastMouseX = e.getX();
+        lastMouseY = e.getY();
         // Si la sélection de destination est active, on délègue le clic
         if (destSelector.isActive()) {
             destSelector.handleMouseClicked(e);
@@ -57,6 +67,11 @@ public class TerrainController extends MouseAdapter implements ActionListener {
             Nid nid = (Nid) clickedObj;
             if (controlListener != null) {
                 controlListener.nidClicked(nid);
+            }
+        } else if (clickedObj instanceof Ressource) {
+            Ressource ressource = (Ressource) clickedObj;
+            if (controlListener != null) {
+                controlListener.ressourceClicked(ressource);
             }
         }
     }
@@ -70,5 +85,31 @@ public class TerrainController extends MouseAdapter implements ActionListener {
         terrain.updateCrapaud(); // déplacer & animer le crapaud
         // On redessine le TerrainPanel
         terrainPanel.repaint();
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            // Vérifier si une ressource est sélectionnée
+            ObjetFixe selectedObj = terrain.getEltClic(lastMouseX, lastMouseY);
+            if (selectedObj instanceof Ressource ressource) {
+                if (ressource.isReadyToGo()) {
+                    ressource.deplacerVersNid(terrain, terrain.getNid());
+                    terrainPanel.repaint(); // Mettre à jour l'affichage
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pas assez de fourmis pour déplacer la ressource !");
+                }
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Implémentation vide ou logique supplémentaire
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Implémentation vide ou logique supplémentaire
     }
 }

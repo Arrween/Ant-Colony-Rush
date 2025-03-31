@@ -2,7 +2,6 @@ package view;
 
 import controller.DestinationSelectionnee;
 import controller.FourmiButton;
-
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;

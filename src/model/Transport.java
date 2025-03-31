@@ -9,7 +9,7 @@ public class Transport extends Deplacement {
         super(t, t.getNid(), depart);
         this.ressource = r;
     }
-    
+
     public void decrEnergieFourmi() {
         ressource.majEnergieFourmis();
     }
@@ -24,16 +24,17 @@ public class Transport extends Deplacement {
     }
 
     public void avancer() {
-        //algo de déplacmenent////
+        // algo de déplacmenent////
         // Mise à jour de la vitesse, position, direction et animation de la fourmi
         updateVitesse();
         updatePosition();
         updateDirection();
         animationFourmi.updateFrame();
 
-        //si déplacment fini, incrémenter score du nid, ajouter les fourmis au nid et marquer comme fini
+        // si déplacment fini, incrémenter score du nid, ajouter les fourmis au nid et
+        // marquer comme fini
         if (!isDone && currentX == destX && currentY == destY) {
-            ((Nid)dest).incrScore(ressource.getValeurNutritive());
+            ((Nid) dest).incrScore(ressource.getValeurNutritive());
             for (Fourmi f : ressource.getFourmis()) {
                 dest.ajouterFourmi(f);
             }

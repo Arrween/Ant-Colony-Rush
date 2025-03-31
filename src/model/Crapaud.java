@@ -42,12 +42,12 @@ public class Crapaud {
         isAsleep = false;
     }
 
-    public int getX() { 
-        return x; 
+    public int getX() {
+        return x;
     }
 
-    public int getY() { 
-        return y; 
+    public int getY() {
+        return y;
     }
 
     public BufferedImage getCurrentFrame() {
@@ -63,22 +63,22 @@ public class Crapaud {
     }
 
     public int getVisionRange() {
-        return visionRange; 
-        }
+        return visionRange;
+    }
 
-    public Image getImage() { 
+    public Image getImage() {
         return imageCrapaud;
     }
 
     public void update(int timeSinceLastUpdate) {
-        //s'il dort, ne rien faire
+        // s'il dort, ne rien faire
         if (isAsleep) {
             sleep(timeSinceLastUpdate);
             return;
         }
 
         // Modification aléatoire de la direction (1 % de chance)
-        if(random.nextDouble() < 0.01) {  
+        if (random.nextDouble() < 0.01) {
             randomizeDirection();
         }
 
@@ -86,11 +86,11 @@ public class Crapaud {
         int newY = y + dy;
 
         // Vérification des limites du terrain
-        if(newX < 0 || newX > Terrain.LARGEUR) {
+        if (newX < 0 || newX > Terrain.LARGEUR) {
             dx = -dx;
             newX = x + dx;
         }
-        if(newY < 0 || newY > Terrain.HAUTEUR) {
+        if (newY < 0 || newY > Terrain.HAUTEUR) {
             dy = -dy;
             newY = y + dy;
         }
@@ -99,7 +99,7 @@ public class Crapaud {
 
         // Interaction avec les objets fixes
         for (ObjetFixe obj : objets) {
-            if(obj.hitBoxCliquee(newX, newY)) {
+            if (obj.hitBoxCliquee(newX, newY)) {
                 // En cas de ressource, changer de direction
                 if (obj instanceof Ressource) {
                     randomizeDirection();
@@ -114,63 +114,65 @@ public class Crapaud {
         x = newX;
         y = newY;
 
-
-        // Consommation des fourmis situées dans les ressources visibles dans le cône de vision de 90°
+        // Consommation des fourmis situées dans les ressources visibles dans le cône de
+        // vision de 90°
         // on récupère les ressources
         ArrayList<Ressource> rsrc = objets.stream()
-            .filter(Ressource.class::isInstance)
-            .map(Ressource.class::cast)
-            .collect(Collectors.toCollection(ArrayList::new));
+                .filter(Ressource.class::isInstance)
+                .map(Ressource.class::cast)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         if (satiete <= SEUIL_FAIM) {
-            //le crapaud regarde en priorité les ressources
+            // le crapaud regarde en priorité les ressources
             for (Ressource r : rsrc) {
-                //on vérifie si la ressource est visible par le crapaud
+                // on vérifie si la ressource est visible par le crapaud
                 double distance = Math.hypot(r.getX() - x, r.getY() - y);
-                if(distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
-                    //la ressource est visible
+                if (distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
+                    // la ressource est visible
                     terrain.removeRessource(r.getId());
                     satiete += r.fourmis.size() + r.getValeurNutritive();
-                    //on verifie s'il a maintenant dépassé le seuil de satiete
+                    // on verifie s'il a maintenant dépassé le seuil de satiete
                     if (satiete >= MAX_SATIETE) {
                         fallAsleep();
                     }
-                    return; //on ne mange qu'une chose par appel
+                    return; // on ne mange qu'une chose par appel
                 }
             }
         } else {
-            // le crapaud regarde en priorité les fourmis en déplacement, et ensuite les fourmis dans les ressoruces
+            // le crapaud regarde en priorité les fourmis en déplacement, et ensuite les
+            // fourmis dans les ressoruces
             for (Deplacement depl : terrain.expeditions) {
                 double distance = Math.hypot(depl.getX() - x, depl.getY() - y);
-                if(distance <= visionRange && isInVisionCone(depl.getX(), depl.getY())) {
+                if (distance <= visionRange && isInVisionCone(depl.getX(), depl.getY())) {
                     terrain.expeditions.remove(depl);
                     satiete++;
                     if (satiete >= MAX_SATIETE) {
                         fallAsleep();
                     }
-                    return; //on ne mange qu'une chose par appel
+                    return; // on ne mange qu'une chose par appel
                 }
             }
 
             for (Ressource r : rsrc) {
-                //on vérifie si la ressource est visible par le crapaud
+                // on vérifie si la ressource est visible par le crapaud
                 double distance = Math.hypot(r.getX() - x, r.getY() - y);
-                if(distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
-                    //la ressource est visible
+                if (distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
+                    // la ressource est visible
                     if (r.fourmis.size() > 0) {
                         r.fourmis.remove(0);
                         satiete++;
                         if (satiete >= MAX_SATIETE) {
                             fallAsleep();
                         }
-                        return; //on ne mange qu'une chose par appel
+                        return; // on ne mange qu'une chose par appel
                     }
                 }
             }
         }
     }
 
-    // Vérifie si une cible se trouve dans le cône de vision à 90° par rapport à la direction de déplacement
+    // Vérifie si une cible se trouve dans le cône de vision à 90° par rapport à la
+    // direction de déplacement
     private boolean isInVisionCone(int targetX, int targetY) {
         double angleToTarget = Math.atan2(targetY - y, targetX - x);
         double directionAngle = Math.atan2(dy, dx);
@@ -185,18 +187,18 @@ public class Crapaud {
     private void randomizeDirection() {
         dx = random.nextInt(3) - 1; // Valeur entre -1 et 1
         dy = random.nextInt(3) - 1;
-        if(dx == 0 && dy == 0) {
+        if (dx == 0 && dy == 0) {
             dx = 1; // Assurer un mouvement minimal
         }
     }
 
     private void sleep(int time) {
         remainingSleepTime -= time;
-        if(remainingSleepTime <= 0) {
+        if (remainingSleepTime <= 0) {
             isAsleep = false;
             satiete = SATIETE_AU_REVEIL;
         }
-    } 
+    }
 
     private void fallAsleep() {
         isAsleep = true;
@@ -208,7 +210,7 @@ public class Crapaud {
     }
 
     public double getSatiete() {
-        return satiete/(double)MAX_SATIETE;
+        return satiete / (double) MAX_SATIETE;
     }
 
     public void decrSatiete() {

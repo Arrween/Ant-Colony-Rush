@@ -10,9 +10,7 @@ public class Terrain {
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
     private Crapaud crapaud;
-    public static Image BACKGROUND ;
-
-    
+    public static Image BACKGROUND;
 
     // Liste des objets fixes présents sur le terrain (Nid, abris, ressources)
     static ArrayList<ObjetFixe> elts;
@@ -129,7 +127,7 @@ public class Terrain {
     }
 
     public void removeRessource(int idRessource) {
-        elts.removeIf(elt -> elt.getId() == idRessource);
+        elts.removeIf(elt -> elt instanceof Ressource && elt.getId() == idRessource);
     }
 
     public void elimineFourmisMortesEnExpedition() {
@@ -146,6 +144,10 @@ public class Terrain {
 
     public void ajouterRessource(Ressource r) {
         elts.add(r);
+    }
+
+    public void ajouterDeplacement(Deplacement deplacement) {
+        expeditions.add(deplacement);
     }
 
 }
