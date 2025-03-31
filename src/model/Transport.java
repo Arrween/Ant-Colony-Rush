@@ -16,11 +16,11 @@ public class Transport extends Deplacement {
 
     protected void updateVitesse() {
         ArrayList<Fourmi> fourmis = ressource.getFourmis();
-        double sommeVitesses = 0.0;
+        int sommeVitesses = 0;
         for (Fourmi f : fourmis) {
             sommeVitesses += f.getVitesse();
         }
-        vitesse = sommeVitesses / fourmis.size();
+        vitesse = (int) Math.floor(sommeVitesses / (double) fourmis.size());
     }
 
     public void avancer() {
