@@ -37,16 +37,16 @@ public class SpriteAnimation {
 
         try {
             // Charger la feuille pour le haut
-            BufferedImage feuilleHaut = ImageIO.read(getClass().getResource("/ressources/Ant/ant.png"));
+            BufferedImage feuilleHaut = ImageIO.read(getClass().getResource("/resources/Ant/ant.png"));
             imagesHaut = decouperSprite(feuilleHaut, colonnes, lignes, nombreTotalCadres);
             // Charger la feuille pour le bas
-            BufferedImage feuilleBas = ImageIO.read(getClass().getResource("/ressources/Ant/ant_bas.png"));
+            BufferedImage feuilleBas = ImageIO.read(getClass().getResource("/resources/Ant/ant_bas.png"));
             imagesBas = decouperSprite(feuilleBas, colonnes, lignes, nombreTotalCadres);
             // Charger la feuille pour la gauche
-            BufferedImage feuilleGauche = ImageIO.read(getClass().getResource("/ressources/Ant/ant_gauche.png"));
+            BufferedImage feuilleGauche = ImageIO.read(getClass().getResource("/resources/Ant/ant_gauche.png"));
             imagesGauche = decouperSprite(feuilleGauche, colonnes, lignes, nombreTotalCadres);
             // Charger la feuille pour la droite
-            BufferedImage feuilleDroite = ImageIO.read(getClass().getResource("/ressources/Ant/ant_droite.png"));
+            BufferedImage feuilleDroite = ImageIO.read(getClass().getResource("/resources/Ant/ant_droite.png"));
             imagesDroite = decouperSprite(feuilleDroite, colonnes, lignes, nombreTotalCadres);
 
             // Dimensions pour les animations verticales (haut et bas)

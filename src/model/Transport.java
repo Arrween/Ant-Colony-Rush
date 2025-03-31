@@ -20,7 +20,7 @@ public class Transport extends Deplacement {
         for (Fourmi f : fourmis) {
             sommeVitesses += f.getVitesse();
         }
-        vitesse = sommeVitesses / fourmis.size();
+        vitesse = (int) (sommeVitesses / fourmis.size());
     }
 
     public void avancer() {

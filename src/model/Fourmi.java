@@ -2,7 +2,7 @@ package model;
 
 public class Fourmi {
     public final static int MAX_ENERGIE = 100;
-    public final static double VITESSE_MAX = 5.0;
+    public final static int VITESSE_MAX = 10;
 
     private static int compteur = 0;
     private int numero;
@@ -51,7 +51,8 @@ public class Fourmi {
         return numero;
     }
 
-    public double getVitesse() {
-        return energie / MAX_ENERGIE * VITESSE_MAX;
+    public int getVitesse() {
+        
+        return (int) (energie / MAX_ENERGIE * VITESSE_MAX);
     }
 }

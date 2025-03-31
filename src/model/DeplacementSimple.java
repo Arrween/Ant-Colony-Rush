@@ -7,15 +7,16 @@ public class DeplacementSimple extends Deplacement {
         super(t, dest, depart);
         this.f = fourmi;
     }
-
+    
     public void decrEnergieFourmi() {
         f.decrEnergie();
     }
-
+    
     protected void updateVitesse() {
         vitesse = f.getVitesse();
     }
 
+    @Override
     public void avancer() {
         // System.out.println("Fourmi " + f.getId() + " en déplacement");
         // algo de déplacmenent////
