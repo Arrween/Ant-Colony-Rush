@@ -1,0 +1,10 @@
+{
+    "java.project.explorer.showNonJavaResources": true,
+    "java.dependency.packagePresentation": "flat",
+    "java.project.sourcePaths": [
+        "src",
+        "resources"
+    ],
+    "java.project.referencedLibraries": [],
+    "java.project.outputPath": "out"
+}

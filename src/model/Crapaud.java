@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 import view.CrapaudAnimation;
 
 public class Crapaud {

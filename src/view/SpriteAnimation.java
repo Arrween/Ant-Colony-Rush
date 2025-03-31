@@ -2,6 +2,7 @@ package view;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import javax.imageio.ImageIO;
 
 public class SpriteAnimation {
@@ -11,71 +12,70 @@ public class SpriteAnimation {
     private BufferedImage[] imagesGauche;
     private BufferedImage[] imagesDroite;
 
-    // Animation actuellement utilisée
     private BufferedImage[] imagesCourantes;
-
     private int cadreActuel = 0;
 
-    // Nombre total de cadres dans chaque animation (ici 62)
     private final int nombreTotalCadres = 62;
-    // Organisation en grille (pour découper les spritesheets)
     private final int colonnes = 8;
     private final int lignes = 8;
 
-    // Dimensions pour les animations verticales (haut et bas)
     private int largeurVertical, hauteurVertical;
-    // Dimensions pour les animations horizontales (gauche et droite)
     private int largeurHorizontal, hauteurHorizontal;
-    // Dimensions du cadre actuellement utilisé (selon l'animation active)
     private int largeurCadreCourant, hauteurCadreCourant;
 
-    // Position et destination
+    // Position (posX, posY) si besoin de stocker la position globale
     private double posX, posY; 
 
-    // Constructeur avec paramètres pour les coordonnées de départ et d'arrivée
     public SpriteAnimation() {
+        // On charge ici toutes les spritesheets nécessaires
+        BufferedImage feuilleHaut   = loadImage("/resources/Ant/ant.png");
+        BufferedImage feuilleBas    = loadImage("/resources/Ant/ant_bas.png");
+        BufferedImage feuilleGauche = loadImage("/resources/Ant/ant_gauche.png");
+        BufferedImage feuilleDroite = loadImage("/resources/Ant/ant_droite.png");
 
-        try {
-            // Charger la feuille pour le haut
-            BufferedImage feuilleHaut = ImageIO.read(getClass().getResource("/ressources/Ant/ant.png"));
-            imagesHaut = decouperSprite(feuilleHaut, colonnes, lignes, nombreTotalCadres);
-            // Charger la feuille pour le bas
-            BufferedImage feuilleBas = ImageIO.read(getClass().getResource("/ressources/Ant/ant_bas.png"));
-            imagesBas = decouperSprite(feuilleBas, colonnes, lignes, nombreTotalCadres);
-            // Charger la feuille pour la gauche
-            BufferedImage feuilleGauche = ImageIO.read(getClass().getResource("/ressources/Ant/ant_gauche.png"));
-            imagesGauche = decouperSprite(feuilleGauche, colonnes, lignes, nombreTotalCadres);
-            // Charger la feuille pour la droite
-            BufferedImage feuilleDroite = ImageIO.read(getClass().getResource("/ressources/Ant/ant_droite.png"));
-            imagesDroite = decouperSprite(feuilleDroite, colonnes, lignes, nombreTotalCadres);
+        // Découpage de chaque spritesheet
+        imagesHaut   = decouperSprite(feuilleHaut,   colonnes, lignes, nombreTotalCadres);
+        imagesBas    = decouperSprite(feuilleBas,    colonnes, lignes, nombreTotalCadres);
+        imagesGauche = decouperSprite(feuilleGauche, colonnes, lignes, nombreTotalCadres);
+        imagesDroite = decouperSprite(feuilleDroite, colonnes, lignes, nombreTotalCadres);
 
-            // Dimensions pour les animations verticales (haut et bas)
-            largeurVertical = feuilleHaut.getWidth() / colonnes;
-            hauteurVertical = feuilleHaut.getHeight() / lignes;
-            // Dimensions pour les animations horizontales (gauche et droite)
-            largeurHorizontal = feuilleGauche.getWidth() / colonnes;
-            hauteurHorizontal = feuilleGauche.getHeight() / lignes;
-        
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Définition des tailles “verticales” et “horizontales”
+        largeurVertical   = feuilleHaut.getWidth() / colonnes;
+        hauteurVertical   = feuilleHaut.getHeight() / lignes;
+        largeurHorizontal = feuilleGauche.getWidth() / colonnes;
+        hauteurHorizontal = feuilleGauche.getHeight() / lignes;
 
-        // Par défaut, on peut choisir Bas, Haut, etc.
+        // On choisit par défaut l’animation Droite (ou Bas) comme images courantes
         imagesCourantes = imagesDroite;
-        largeurCadreCourant = largeurHorizontal;
-        hauteurCadreCourant = hauteurHorizontal;
+        largeurCadreCourant  = largeurHorizontal;
+        hauteurCadreCourant  = hauteurHorizontal;
     }
 
-    // Méthode pour découper une spritesheet en un tableau d'images
-    private BufferedImage[] decouperSprite(BufferedImage feuille, int colonnes, int lignes, int nombreTotalCadres) {
-        BufferedImage[] frames = new BufferedImage[nombreTotalCadres];
+    /**
+     * Vérifie que la ressource existe et l’ouvre. 
+     * Lève une RuntimeException si la ressource est introuvable ou illisible.
+     */
+    private BufferedImage loadImage(String resourcePath) {
+        URL url = getClass().getResource(resourcePath);
+        if (url == null) {
+            throw new RuntimeException("Ressource introuvable : " + resourcePath);
+        }
+        try {
+            return ImageIO.read(url);
+        } catch (IOException e) {
+            throw new RuntimeException("Impossible de charger la ressource : " + resourcePath, e);
+        }
+    }
+
+    private BufferedImage[] decouperSprite(BufferedImage feuille, int colonnes, int lignes, int nbTotal) {
+        BufferedImage[] frames = new BufferedImage[nbTotal];
         int indice = 0;
         int largeur = feuille.getWidth() / colonnes;
         int hauteur = feuille.getHeight() / lignes;
 
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
-                if (indice < nombreTotalCadres) {
+                if (indice < nbTotal) {
                     frames[indice] = feuille.getSubimage(j * largeur, i * hauteur, largeur, hauteur);
                     indice++;
                 }
@@ -85,11 +85,10 @@ public class SpriteAnimation {
     }
 
     public void updateFrame() {
-        // Avance à la frame suivante
         cadreActuel = (cadreActuel + 1) % nombreTotalCadres;
     }
 
-    // --- Sélecteurs de direction ---
+    // --- Changement de direction ---
     public void setDirectionHaut() {
         imagesCourantes = imagesHaut;
         largeurCadreCourant = largeurVertical;
@@ -118,12 +117,10 @@ public class SpriteAnimation {
     public BufferedImage getCurrentSprite() {
         return imagesCourantes[cadreActuel];
     }
-
     public int getLargeurCadreCourant() { return largeurCadreCourant; }
     public int getHauteurCadreCourant() { return hauteurCadreCourant; }
 
     public double getPosX() { return posX; }
     public double getPosY() { return posY; }
-    public void setPos(double x, double y) { this.posX = x; this.posY = y; }
-
+    public void setPos(double x, double y) { posX = x; posY = y; }
 }

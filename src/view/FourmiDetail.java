@@ -37,7 +37,7 @@ public class FourmiDetail extends JFrame {
 
         JLabel imageLabel;
         try {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/ressources/Ant/fourmiTest.png"));
+            ImageIcon icon = new ImageIcon(getClass().getResource("/resources/Ant/fourmiTest.png"));
             Image img = icon.getImage().getScaledInstance(150, 200, Image.SCALE_SMOOTH);
             icon = new ImageIcon(img);
             imageLabel = new JLabel(icon);

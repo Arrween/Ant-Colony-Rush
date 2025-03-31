@@ -1,6 +1,5 @@
 package model;
 
-import javax.swing.SwingUtilities;
 import view.TerrainPanel;
 
 /**
@@ -25,14 +24,9 @@ public class GestionnaireDeplacement extends Thread {
     @Override
     public void run() {
         while (true) {
+            // Mise à jour du modèle
             t.updateDeplacements();
             t.supprimeDeplacementsFinis();
-            t.updateCrapaud();
-
-            // Programmation d'un repaint()
-            SwingUtilities.invokeLater(() -> {
-                terrainPanel.repaint();
-            });
 
             // Pause entre deux itérations
             try {
