@@ -3,7 +3,7 @@ package model;
 import view.SpriteAnimation;
 
 public abstract class Deplacement {
-    private Terrain t;
+    protected Terrain t;
     protected int currentX, currentY, destX, destY, depX, depY;
     protected ObjetFixe dest;
     protected boolean isDone = false;
@@ -12,7 +12,8 @@ public abstract class Deplacement {
     private int numero;
 
     protected SpriteAnimation animationFourmi;
-    protected int vitesse; // Vitesse de déplacement de la fourmi
+
+    protected int vitesse; // Vitesse de déplacement de la fourmi ou du convoi
 
     public Deplacement(Terrain t, ObjetFixe dest, ObjetFixe depart) {
         this.t = t;
@@ -24,7 +25,8 @@ public abstract class Deplacement {
         numero = ++compteur;
         depX = depart.getX();
         depY = depart.getY();
-        vitesse = 1; // Vitesse de déplacement par défaut
+
+        vitesse = 0; // Vitesse de déplacement par défaut
 
         // Initialiser l'animation
         animationFourmi = new SpriteAnimation();
@@ -123,4 +125,6 @@ public abstract class Deplacement {
     public SpriteAnimation getSpriteAnim() {
         return animationFourmi;
     }
+
+    public abstract void eliminerFourmisMortes();
 }

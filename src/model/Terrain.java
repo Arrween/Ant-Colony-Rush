@@ -3,14 +3,16 @@ package model;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 public class Terrain {
     public static final int LARGEUR = 800;
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
     private Crapaud crapaud;
+    public static Image BACKGROUND ;
 
-    Image BACKGROUND; 
+    
 
     // Liste des objets fixes présents sur le terrain (Nid, abris, ressources)
     static ArrayList<ObjetFixe> elts;
@@ -18,7 +20,7 @@ public class Terrain {
 
     public Terrain() {
         // Chargement de l'image de fond
-        //this.BACKGROUND = new ImageIcon(getClass().getResource("/ressources/Not/background.png")).getImage();
+        BACKGROUND = new ImageIcon(getClass().getResource("/resources/Grass/Grass.png")).getImage();
         // Initialiser la liste avant toute utilisation
         elts = new ArrayList<ObjetFixe>();
         this.expeditions = new ArrayList<Deplacement>();
@@ -128,6 +130,22 @@ public class Terrain {
 
     public void removeRessource(int idRessource) {
         elts.removeIf(elt -> elt.getId() == idRessource);
+    }
+
+    public void elimineFourmisMortesEnExpedition() {
+        for (Deplacement d : expeditions) {
+            d.eliminerFourmisMortes();
+        }
+    }
+
+    public void elimineFourmisMortesEnAttente() {
+        for (ObjetFixe elt : elts) {
+            elt.eliminerFourmisMortes();
+        }
+    }
+
+    public void ajouterRessource(Ressource r) {
+        elts.add(r);
     }
 
 }
