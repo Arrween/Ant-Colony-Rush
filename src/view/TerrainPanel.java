@@ -25,6 +25,8 @@ public class TerrainPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // Affichage de l'arrière-plan : 
+        g.drawImage(Terrain.BACKGROUND, 0, 0, Terrain.LARGEUR, Terrain.HAUTEUR, this);
         // Affichage des objets fixes
         for (ObjetFixe obj : Terrain.getObjetsFixes()) {
             Image img = obj.getImage();
@@ -37,6 +39,7 @@ public class TerrainPanel extends JPanel {
                 g.setColor(Color.BLACK);
                 g.drawString(Integer.toString(obj.getNbFourmis()), obj.getX() - 5, obj.getY() + 5);
             }
+            
         }
         // Affichage des déplacements
         for (var dep : terrain.getDeplacements()) {
