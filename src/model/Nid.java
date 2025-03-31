@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class Nid extends ObjetFixe {
@@ -39,4 +40,13 @@ public class Nid extends ObjetFixe {
     public void ajouterFourmi() {
         fourmis.add(new Fourmi(getX(), getY()));
     }
+
+    // Je surcharge la méthode ajouterFoumi avec un paramètre de liste de Fourmis
+    // pour les fourmis qui y retournent après une expédition
+    // pour ne pas créer de nouvelles fourmis à chaque fois
+    public void ajouterFourmis(ArrayList<Fourmi> fourmisRetournees) {
+        // Ajouter toutes les fourmis retournées au nid
+        fourmis.addAll(fourmisRetournees);
+    }
+
 }
