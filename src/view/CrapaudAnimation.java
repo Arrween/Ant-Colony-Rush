@@ -10,7 +10,8 @@ public class CrapaudAnimation {
 
     public CrapaudAnimation() {
         try {
-            BufferedImage sheet = ImageIO.read(getClass().getResource("/ressources/Frog/Idle.png"));
+
+            BufferedImage sheet = ImageIO.read(getClass().getResource("/resources/Frog/Idle.png"));
             int cols = 2, rows = 2;
             int frameW = sheet.getWidth() / cols;
             int frameH = sheet.getHeight() / rows;

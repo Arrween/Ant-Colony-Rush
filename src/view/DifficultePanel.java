@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+
 public class DifficultePanel extends JPanel {
     private JButton startButton;
     private JButton difficulteButton;
@@ -12,7 +13,7 @@ public class DifficultePanel extends JPanel {
     public DifficultePanel() {
         setLayout(new BorderLayout());
 
-        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/ressources/Ant/imageStart.jpg"));
+        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/resources/Ant/imageStart.jpg"));
         JLabel backgroundLabel = new JLabel(backgroundIcon);
         backgroundLabel.setLayout(new GridBagLayout());
         add(backgroundLabel, BorderLayout.CENTER);

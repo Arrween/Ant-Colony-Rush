@@ -3,7 +3,6 @@ package model;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.ImageIcon;
 
 public class Terrain {
     public static final int LARGEUR = 800;
@@ -11,16 +10,18 @@ public class Terrain {
     public static final Random RANDOM = new Random();
     private Crapaud crapaud;
 
-    public static final Image BACKGROUND = new ImageIcon("/ressources/Grass/Grass_01-128x128.png").getImage();
+    Image BACKGROUND; 
 
     // Liste des objets fixes présents sur le terrain (Nid, abris, ressources)
     static ArrayList<ObjetFixe> elts;
     ArrayList<Deplacement> expeditions;
 
     public Terrain() {
+        // Chargement de l'image de fond
+        //this.BACKGROUND = new ImageIcon(getClass().getResource("/ressources/Not/background.png")).getImage();
         // Initialiser la liste avant toute utilisation
         elts = new ArrayList<ObjetFixe>();
-        expeditions = new ArrayList<Deplacement>();
+        this.expeditions = new ArrayList<Deplacement>();
 
         Random rand = new Random();
         int x = rand.nextInt(LARGEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
@@ -128,4 +129,5 @@ public class Terrain {
     public void removeRessource(int idRessource) {
         elts.removeIf(elt -> elt.getId() == idRessource);
     }
+
 }

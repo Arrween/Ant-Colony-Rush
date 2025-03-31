@@ -12,6 +12,7 @@ public abstract class Deplacement {
     private int numero;
 
     protected SpriteAnimation animationFourmi;
+
     protected int vitesse; // Vitesse de déplacement de la fourmi ou du convoi
 
     public Deplacement(Terrain t, ObjetFixe dest, ObjetFixe depart) {
@@ -24,6 +25,7 @@ public abstract class Deplacement {
         numero = ++compteur;
         depX = depart.getX();
         depY = depart.getY();
+
         vitesse = 0; // Vitesse de déplacement par défaut
 
         // Initialiser l'animation
@@ -62,31 +64,36 @@ public abstract class Deplacement {
     }
 
     // Méthode appelée périodiquement (par le Timer du contrôleur)
-    public abstract void avancer();
+    public abstract void avancer() ;
 
     protected void updatePosition() {
         // algo de déplacmenent////
         if (currentX < destX) {
-            currentX += vitesse;
+            //currentX += vitesse;
+            currentX += 10;
             if (currentX > destX) {
                 currentX = destX;
             }
         } else if (currentX > destX) {
-            currentX -= vitesse;
+            //currentX -= vitesse;
+            currentX -= 10;
             if (currentX < destX) {
                 currentX = destX;
             }
         } else if (currentY < destY) {
-            currentY += vitesse;
+            //currentY += vitesse;
+            currentY += 10;
             if (currentY > destY) {
                 currentY = destY;
             }
         } else if (currentY > destY) {
-            currentY -= vitesse;
+            //currentY -= vitesse;
+            currentY -= 10;
             if (currentY < destY) {
                 currentY = destY;
             }
         }
+        System.out.println("Fourmi " + numero + " se déplace vers (" + currentX + ", " + currentY + ")");
     }
 
     // Choix de la direction de l'animation
