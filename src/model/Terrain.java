@@ -8,7 +8,7 @@ public class Terrain {
     public static final int LARGEUR = 800;
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
-    private Crapaud crapaud ;
+    private Crapaud crapaud;
 
     Image BACKGROUND; 
 
@@ -96,11 +96,11 @@ public class Terrain {
     }
 
     public void ramenerRessourceALaMaison(int idRessource, ObjetFixe depart) {
-        //récuperer la ressource
+        // récuperer la ressource
         Ressource r = (Ressource) elts.stream().filter(elt -> elt.getId() == idRessource).findFirst().get();
-        //retirer la ressource de la liste des objets fixes
+        // retirer la ressource de la liste des objets fixes
         elts.removeIf(elt -> elt.getId() == idRessource);
-        //créer une instance de transport avec la ressource et le nid
+        // créer une instance de transport avec la ressource et le nid
         expeditions.add(new Transport(this, r, depart));
     }
 
@@ -113,14 +113,13 @@ public class Terrain {
             dep.avancer();
         }
     }
-    
 
-    public Crapaud getCrapaud() { 
-        return crapaud; 
+    public Crapaud getCrapaud() {
+        return crapaud;
     }
 
-    public void updateCrapaud() { 
-        crapaud.update(100); //valeur arbitraire pour l'instant
+    public void updateCrapaud() {
+        crapaud.update(100); // valeur arbitraire pour l'instant
     }
 
     public Nid getNid() {
