@@ -3,6 +3,8 @@ package view;
 import java.awt.*;
 import javax.swing.*;
 
+import model.Score;
+
 public class ConteneurPanneauDeControle extends JPanel {
     public static final String TABLEAU_DE_BORD = "TableauDeBord";
     public static final String DETAIL = "Detail";
@@ -11,10 +13,10 @@ public class ConteneurPanneauDeControle extends JPanel {
     private PanneauDeTableauDeBord panneauTableauDeBord;
     private JPanel panneauDetail; // panneau de détail actuellement affiché
 
-    public ConteneurPanneauDeControle() {
+    public ConteneurPanneauDeControle(Score score) {
         gestionnaireCartes = new CardLayout();
         setLayout(gestionnaireCartes);
-        panneauTableauDeBord = new PanneauDeTableauDeBord();
+        panneauTableauDeBord = new PanneauDeTableauDeBord(score);
         add(panneauTableauDeBord, TABLEAU_DE_BORD);
     }
 

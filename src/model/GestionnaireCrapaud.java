@@ -2,7 +2,8 @@ package model;
 
 public class GestionnaireCrapaud extends Thread {
     private Crapaud c;
-    public final int DELAY = 100;
+    public final int DELAY_ACTION = 100;
+    public final int DELAY_DECR_SATIETE = 50; //en nombre de fois le delay d'action
 
     public GestionnaireCrapaud(Terrain t) {
         this.c = t.getCrapaud();
@@ -11,11 +12,16 @@ public class GestionnaireCrapaud extends Thread {
     @Override
     public void run() {
         while (true) {
-            c.update(DELAY);
-            try {
-                Thread.sleep(DELAY);
-            } catch (Exception e) {
-                e.printStackTrace();
+
+            c.decrSatiete();
+
+            for (int i = 0; i<DELAY_DECR_SATIETE; i++) {
+                c.update(DELAY_ACTION);
+                try {
+                    Thread.sleep(DELAY_ACTION);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

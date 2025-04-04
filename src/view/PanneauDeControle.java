@@ -2,12 +2,13 @@ package view;
 
 import controller.DestinationSelectionnee;
 import controller.FourmiButton;
-
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import model.Fourmi;
 import model.Nid;
+import controller.GestionScore;
+import model.Score;
 
 public class PanneauDeControle extends JPanel {
 
@@ -15,9 +16,11 @@ public class PanneauDeControle extends JPanel {
     private JLabel lblScore;
     private JPanel pnlFourmis;
     private JButton btnRetour;
+    private GestionScore gestionScore;
 
-    public PanneauDeControle(Nid nid, DestinationSelectionnee ds) {
+    public PanneauDeControle(Nid nid, DestinationSelectionnee ds,GestionScore gestionScore){
         this.nid = nid;
+        this.gestionScore = gestionScore;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 500));
 
@@ -54,7 +57,8 @@ public class PanneauDeControle extends JPanel {
         JButton btnAjouterFourmi = new JButton("Ajouter une fourmi");
         btnAjouterFourmi.setPreferredSize(new Dimension(280, 40));
         btnAjouterFourmi.addActionListener(e -> {
-            nid.ajouterFourmi();
+
+            gestionScore.ajouterFourmi();
             mettreAJourFourmis(nid.getFourmis(), ds);
         });
         JPanel panneauBas = new JPanel();

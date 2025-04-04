@@ -42,4 +42,17 @@ public class Ressource extends ObjetFixe {
     public boolean isReadyToGo() {
         return fourmis.size() >= poids;
     }
+
+    public void isDropped(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void deplacerVersNid(Terrain terrain, Nid nid) {
+        if (isReadyToGo()) {
+            // Créer un déplacement pour la ressource
+            DeplacementRessource deplacement = new DeplacementRessource(terrain, this, nid);
+            terrain.ajouterDeplacement(deplacement);
+        }
+    }
 }

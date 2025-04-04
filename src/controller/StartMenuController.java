@@ -7,6 +7,7 @@ import javax.swing.*;
 import model.GestionnaireCrapaud;
 import model.GestionnaireDeplacement;
 import model.GestionnaireEnergie;
+import model.Score;
 import model.Terrain;
 import view.DifficultePanel;
 import view.JeuFrame;
@@ -72,11 +73,17 @@ public class StartMenuController {
         GestionnaireDeplacement gestionnaireDeplacement = new GestionnaireDeplacement(terrain, terrainPanel);
         GestionnaireCrapaud gestionnaireCrapaud = new GestionnaireCrapaud(terrain);
 
+        Score score = new Score();
+        // thread de gestion du score
+        GestionScore gestionScore = new GestionScore(score, terrain.getNid());
+        gestionScore.start();
+
         // Création de la fenêtre de jeu
-        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel);
+        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel,gestionScore,score);
 
         // Thread de redessin régulier
         RedessinJeuFrame redessinJeuFrame = new RedessinJeuFrame(jeuFrame);
+
 
         // Démarrer les threads
         gestionnaireEnergie.start();

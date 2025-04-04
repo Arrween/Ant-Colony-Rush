@@ -2,7 +2,9 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import model.DeplacementRessource;
 import model.ObjetFixe;
+import model.Ressource;
 import model.Terrain;
 
 public class TerrainPanel extends JPanel {
@@ -11,6 +13,8 @@ public class TerrainPanel extends JPanel {
 
     public interface ControlPanelListener {
         void nidClicked(model.Nid nid);
+
+        void ressourceClicked(Ressource ressource);
     }
 
     public TerrainPanel(Terrain terrain) {
@@ -25,7 +29,7 @@ public class TerrainPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Affichage de l'arrière-plan : 
+        // Affichage de l'arrière-plan :
         g.drawImage(Terrain.BACKGROUND, 0, 0, Terrain.LARGEUR, Terrain.HAUTEUR, this);
         // Affichage des objets fixes
         for (ObjetFixe obj : Terrain.getObjetsFixes()) {
@@ -39,7 +43,7 @@ public class TerrainPanel extends JPanel {
                 g.setColor(Color.BLACK);
                 g.drawString(Integer.toString(obj.getNbFourmis()), obj.getX() - 5, obj.getY() + 5);
             }
-            
+
         }
         // Affichage des déplacements
         for (var dep : terrain.getDeplacements()) {
@@ -58,6 +62,16 @@ public class TerrainPanel extends JPanel {
                             this);
                 }
             }
+            // Affichage des ressources en déplacement
+            if (dep instanceof DeplacementRessource) {
+                Ressource ressource = ((DeplacementRessource) dep).getRessource();
+                Image img = ressource.getImage();
+                if (img != null) {
+                    int x = dep.getX() - ObjetFixe.HALF_SIZE;
+                    int y = dep.getY() - ObjetFixe.HALF_SIZE;
+                    g.drawImage(img, x, y, ObjetFixe.HALF_SIZE * 2, ObjetFixe.HALF_SIZE * 2, this);
+                }
+            }
         }
         // Affichage du crapaud
         model.Crapaud crapaud = terrain.getCrapaud();
@@ -67,5 +81,6 @@ public class TerrainPanel extends JPanel {
             int drawY = crapaud.getY() - frame.getHeight() / 2;
             g.drawImage(frame, drawX, drawY, 150, 150, this);
         }
+
     }
 }

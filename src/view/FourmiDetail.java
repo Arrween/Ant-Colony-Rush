@@ -66,5 +66,4 @@ public class FourmiDetail extends JFrame {
         buttonPanel.add(expeditionButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
-
 }
