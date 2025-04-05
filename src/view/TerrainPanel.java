@@ -15,6 +15,8 @@ public class TerrainPanel extends JPanel {
         void nidClicked(model.Nid nid);
 
         void ressourceClicked(Ressource ressource);
+
+        void abriClicked(model.Abri abri);
     }
 
     public TerrainPanel(Terrain terrain) {

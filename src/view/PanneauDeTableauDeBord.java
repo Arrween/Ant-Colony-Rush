@@ -1,47 +1,48 @@
 package view;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class PanneauDeTableauDeBord extends JPanel {
     private JLabel lblChrono;
     private JLabel lblScore;
+    private JPanel pnlCrapaudInfos; // Informations sur le crapaud
     private Timer timer; // Swing Timer pour le chrono
     private int secondesEcoulees; // Compteur en secondes
 
     public PanneauDeTableauDeBord() {
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Chrono
         lblChrono = new JLabel("Temps : 00:00", SwingConstants.CENTER);
         lblChrono.setFont(new Font("Arial", Font.BOLD, 16));
-        add(lblChrono, BorderLayout.NORTH);
+        add(lblChrono);
 
+        // Score
         lblScore = new JLabel("Score : 0", SwingConstants.CENTER);
         lblScore.setFont(new Font("Arial", Font.BOLD, 16));
-        add(lblScore, BorderLayout.CENTER);
+        add(lblScore);
 
-        JLabel lblStats = new JLabel("Statistiques : --", SwingConstants.CENTER);
-        add(lblStats, BorderLayout.SOUTH);
+        // Infos sur le crapaud
+        pnlCrapaudInfos = new JPanel();
+        pnlCrapaudInfos.setPreferredSize(new Dimension(300, 50));
+        pnlCrapaudInfos.setBorder(BorderFactory.createTitledBorder("Infos Crapaud"));
+        add(pnlCrapaudInfos);
 
-        // Initialisation du timer : mise à jour toutes les 1000 ms (1 seconde)
+        // Initialisation du timer
         secondesEcoulees = 0;
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                secondesEcoulees++;
-                mettreAJourChrono(secondesEcoulees);
-            }
+        timer = new Timer(1000, e -> {
+            secondesEcoulees++;
+            mettreAJourChrono(secondesEcoulees);
         });
-        timer.start();
+        timer.start(); // Démarrer le timer
     }
 
     public void mettreAJourChrono(String temps) {
         lblChrono.setText("Temps : " + temps);
     }
 
-    // Méthode d'aide pour mettre à jour le label chrono avec un format mm:ss
     public void mettreAJourChrono(int secondes) {
         int minutes = secondes / 60;
         int sec = secondes % 60;
@@ -51,5 +52,9 @@ public class PanneauDeTableauDeBord extends JPanel {
 
     public void mettreAJourScore(int score) {
         lblScore.setText("Score : " + score);
+    }
+
+    public JPanel getPnlCrapaudInfos() {
+        return pnlCrapaudInfos;
     }
 }

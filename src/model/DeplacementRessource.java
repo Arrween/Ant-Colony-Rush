@@ -38,6 +38,9 @@ public class DeplacementRessource extends Deplacement {
             // Supprimer la ressource du terrain
             t.removeRessource(ressource.getId());
 
+            // Réinitialiser l'état de la ressource
+            ressource.setMoving(false);
+
             // Marquer le déplacement comme terminé
             isDone = true;
         }

@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import model.Abri;
 import model.Deplacement;
 import model.Nid;
 import model.ObjetFixe;
@@ -73,6 +74,11 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
             if (controlListener != null) {
                 controlListener.ressourceClicked(ressource);
             }
+        } else if (clickedObj instanceof Abri) {
+            Abri abri = (Abri) clickedObj;
+            if (controlListener != null) {
+                controlListener.abriClicked(abri); // Appeler la méthode abriClicked
+            }
         }
     }
 
@@ -93,9 +99,11 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
             // Vérifier si une ressource est sélectionnée
             ObjetFixe selectedObj = terrain.getEltClic(lastMouseX, lastMouseY);
             if (selectedObj instanceof Ressource ressource) {
-                if (ressource.isReadyToGo()) {
+                if (ressource.isReadyToGo() && !ressource.isMoving()) {
                     ressource.deplacerVersNid(terrain, terrain.getNid());
                     terrainPanel.repaint(); // Mettre à jour l'affichage
+                } else if (ressource.isMoving()) {
+                    JOptionPane.showMessageDialog(null, "Cette ressource est déjà en déplacement !");
                 } else {
                     JOptionPane.showMessageDialog(null, "Pas assez de fourmis pour déplacer la ressource !");
                 }

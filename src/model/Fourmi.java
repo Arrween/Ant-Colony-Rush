@@ -53,7 +53,7 @@ public class Fourmi {
 
     public int getVitesse() {
         double ratio = energie / (double) MAX_ENERGIE;
-        int res =  (int) Math.floor(ratio * VITESSE_MAX);
+        int res = (int) Math.floor(ratio * VITESSE_MAX);
         System.out.println("Vitesse de la fourmi " + numero + " : " + res);
         return res;
     }
