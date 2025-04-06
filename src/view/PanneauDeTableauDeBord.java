@@ -40,7 +40,6 @@ public class PanneauDeTableauDeBord extends JPanel {
             secondesEcoulees++;
             mettreAJourChrono(secondesEcoulees);
             mettreAJourScore(score.getScore());
-            System.out.println(score);
         });
         timer.start(); // Démarrer le timer
     }

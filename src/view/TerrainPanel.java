@@ -40,6 +40,14 @@ public class TerrainPanel extends JPanel {
                 int x = obj.getX() - ObjetFixe.HALF_SIZE;
                 int y = obj.getY() - ObjetFixe.HALF_SIZE;
                 g.drawImage(img, x, y, ObjetFixe.HALF_SIZE * 2, ObjetFixe.HALF_SIZE * 2, this);
+
+                // Dessiner un contour clignotant si l'objet est sélectionné
+            if (obj.isSelected()) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setStroke(new BasicStroke(3));
+                g2d.setColor(Color.RED);
+                g2d.drawRect(x, y, ObjetFixe.HALF_SIZE * 2, ObjetFixe.HALF_SIZE * 2);
+            }
             }
             if (obj.getNbFourmis() > 0) {
                 g.setColor(Color.BLACK);

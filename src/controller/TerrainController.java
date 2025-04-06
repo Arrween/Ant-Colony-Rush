@@ -25,6 +25,7 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
     private Timer timer;
     private int lastMouseX;
     private int lastMouseY;
+    private Timer selectionTimer;
 
     /**
      * Constructeur du contrôleur, recevant :
@@ -44,6 +45,16 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
         // On crée un Timer Swing pour rafraîchir le modèle toutes les 25 ms
         this.timer = new Timer(25, this);
         this.timer.start();
+
+        selectionTimer = new Timer(1000, e -> {
+            for (ObjetFixe obj : Terrain.getObjetsFixes()) {
+                if (obj.isSelected()) {
+                    obj.setSelected(!obj.isSelected()); // Alterner l'état
+                }
+            }
+            terrainPanel.repaint();
+        });
+        selectionTimer.start();
     }
 
     public DestinationSelectionnee getDestSelector() {
@@ -57,6 +68,12 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
         // (pour savoir quelle ressource déplacer)
         lastMouseX = e.getX();
         lastMouseY = e.getY();
+
+        // Réinitialiser la sélection de tous les objets
+        for (ObjetFixe obj : Terrain.getObjetsFixes()) {
+            obj.setSelected(false);
+        }
+
         // Si la sélection de destination est active, on délègue le clic
         if (destSelector.isActive()) {
             destSelector.handleMouseClicked(e);
@@ -64,6 +81,11 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
         }
         // Sinon, on vérifie si le clic est sur un Nid
         ObjetFixe clickedObj = terrain.getEltClic(e.getX(), e.getY());
+        if (clickedObj != null) {
+            clickedObj.setSelected(true); // Marquer l'objet comme sélectionné
+        }
+        // Redessiner le panneau pour refléter les changements
+        terrainPanel.repaint();
         if (clickedObj instanceof Nid) {
             Nid nid = (Nid) clickedObj;
             if (controlListener != null) {

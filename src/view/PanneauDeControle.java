@@ -10,6 +10,7 @@ import model.Nid;
 public class PanneauDeControle extends JPanel {
     private PanneauCartesFourmis panneauCartes;
     private GestionScore gestionScore;
+    private JButton btnAjouterFourmis;
 
     public PanneauDeControle(Nid nid, DestinationSelectionnee ds, GestionScore gestionScore) {
         this.gestionScore = gestionScore;
@@ -37,14 +38,24 @@ public class PanneauDeControle extends JPanel {
         add(panneauCartes, BorderLayout.CENTER);
 
         // Bas : Bouton "Ajouter des fourmis"
-        JButton btnAjouterFourmis = new JButton("Ajouter des fourmis");
+        btnAjouterFourmis = new JButton("Ajouter des fourmis");
         btnAjouterFourmis.setPreferredSize(new Dimension(300, 40));
         btnAjouterFourmis.addActionListener(e -> {
-            Fourmi nouvelleFourmi = nid.ajouterFourmi(); // Ajouter une fourmi au nid
-            gestionScore.ajouterFourmi();
-            panneauCartes.ajouterCarte(nouvelleFourmi, ds, nid); // Ajouter une carte pour la nouvelle fourmi
+            if (gestionScore.getScore().AjoutFourmiPossible()) { // Vérifier si le score est suffisant
+                Fourmi nouvelleFourmi = nid.ajouterFourmi(); // Ajouter une fourmi au nid
+                gestionScore.ajouterFourmi();
+                panneauCartes.ajouterCarte(nouvelleFourmi, ds, nid); // Ajouter une carte pour la nouvelle fourmi
+                mettreAJourEtatBouton(); // Mettre à jour l'état du bouton
+            }
         });
         add(btnAjouterFourmis, BorderLayout.SOUTH);
+
+        // Initialiser l'état du bouton
+        mettreAJourEtatBouton();
+    }
+
+    private void mettreAJourEtatBouton() {
+        btnAjouterFourmis.setEnabled(gestionScore.getScore().AjoutFourmiPossible());
     }
 
     public void mettreAJourCartes() {

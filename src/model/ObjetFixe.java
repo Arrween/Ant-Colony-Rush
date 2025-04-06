@@ -14,6 +14,8 @@ public abstract class ObjetFixe {
     private static int compteur = 0;
     private int numero;
 
+    private boolean isSelected = false; // Indique si l'objet est sélectionné
+
     public ObjetFixe(int x, int y, int nbFourmis) {
         this.x = x;
         this.y = y;
@@ -30,6 +32,14 @@ public abstract class ObjetFixe {
 
     public int getY() {
         return y;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.isSelected = selected;
     }
 
     public boolean hitBoxAbri(int x, int y) {
