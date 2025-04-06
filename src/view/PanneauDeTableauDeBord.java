@@ -10,6 +10,7 @@ public class PanneauDeTableauDeBord extends JPanel {
     private JPanel pnlCrapaudInfos; // Informations sur le crapaud
     private Timer timer; // Swing Timer pour le chrono
     private int secondesEcoulees; // Compteur en secondes
+    private Score score;
 
     public PanneauDeTableauDeBord(Score scoreInstance) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -22,7 +23,7 @@ public class PanneauDeTableauDeBord extends JPanel {
 
         // Score
         lblScore = new JLabel("Score : 0", SwingConstants.CENTER);
-        int score = scoreInstance.getScore();
+        this.score = scoreInstance;
          lblScore = new JLabel("Score : " + score, SwingConstants.CENTER);
         lblScore.setFont(new Font("Arial", Font.BOLD, 16));
         add(lblScore);
@@ -38,7 +39,8 @@ public class PanneauDeTableauDeBord extends JPanel {
         timer = new Timer(1000, e -> {
             secondesEcoulees++;
             mettreAJourChrono(secondesEcoulees);
-            mettreAJourScore(score);
+            mettreAJourScore(score.getScore());
+            System.out.println(score);
         });
         timer.start(); // Démarrer le timer
     }

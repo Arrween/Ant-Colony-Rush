@@ -1,7 +1,7 @@
 package model;
 
 public class Score {
-    private int Score = 0;
+    private int Score = 10;
 
     // Getter pour les Score
     public int getScore() {
