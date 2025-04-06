@@ -2,13 +2,12 @@ package view;
 
 import controller.DestinationSelectionnee;
 import controller.FourmiButton;
+import controller.GestionScore;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import model.Fourmi;
 import model.Nid;
-import controller.GestionScore;
-import model.Score;
 
 public class PanneauDeControle extends JPanel {
 

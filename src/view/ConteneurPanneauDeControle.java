@@ -2,7 +2,6 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
-
 import model.Score;
 
 public class ConteneurPanneauDeControle extends JPanel {

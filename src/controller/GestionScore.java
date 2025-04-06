@@ -1,7 +1,7 @@
 package controller;
 
-import model.Score;
 import model.Nid;
+import model.Score;
 
 public class GestionScore extends Thread {
     private Score score;

@@ -86,11 +86,11 @@ public class Crapaud {
         int newY = y + dy;
 
         // Vérification des limites du terrain
-        if (newX < 0 || newX > Terrain.LARGEUR) {
+        if (newX < 0 || newX + 50  > Terrain.LARGEUR) {
             dx = -dx;
             newX = x + dx;
         }
-        if (newY < 0 || newY > Terrain.HAUTEUR) {
+        if (newY < 0 || newY + 50 > Terrain.HAUTEUR) {
             dy = -dy;
             newY = y + dy;
         }
