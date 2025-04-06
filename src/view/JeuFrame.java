@@ -1,11 +1,13 @@
 package view;
 
+import controller.GestionScore;
 import controller.TerrainController;
 import java.awt.*;
 import javax.swing.*;
 import model.Abri;
 import model.Nid;
 import model.Ressource;
+import model.Score;
 import model.Terrain;
 
 public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListener {
@@ -13,11 +15,13 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     private TerrainPanel terrainPanel;
     private ConteneurPanneauDeControle conteneurPanneau;
     private TerrainController terrainControleur;
+    private GestionScore gestionScore;
 
-    public JeuFrame(Terrain t, TerrainPanel panel) {
+    public JeuFrame(Terrain t, TerrainPanel panel, GestionScore gestionScore,Score score) {
         setTitle("Jeu Fourmis");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        this.gestionScore = gestionScore;
 
         // Création du terrain et de sa vue
         terrain = t;
@@ -25,7 +29,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         terrainPanel.setEcouteurPanneauDeControle(this);
 
         // Initialisation du panneau de contrôle sur le côté droit
-        conteneurPanneau = new ConteneurPanneauDeControle();
+        conteneurPanneau = new ConteneurPanneauDeControle(score);
         conteneurPanneau.setPreferredSize(new Dimension(350, terrainPanel.getPreferredSize().height));
         add(conteneurPanneau, BorderLayout.EAST);
 
@@ -48,7 +52,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
 
     @Override
     public void nidClicked(Nid nid) {
-        PanneauDeControle panneauDetail = new PanneauDeControle(nid, terrainControleur.getDestSelector());
+        PanneauDeControle panneauDetail = new PanneauDeControle(nid, terrainControleur.getDestSelector(), gestionScore);
         conteneurPanneau.afficherPanneauDetail(panneauDetail);
     }
 

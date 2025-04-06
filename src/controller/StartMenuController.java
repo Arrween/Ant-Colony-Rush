@@ -79,7 +79,7 @@ public class StartMenuController {
         gestionScore.start();
 
         // Création de la fenêtre de jeu
-        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel);
+        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel, gestionScore, score);
 
         // Thread de redessin régulier
         RedessinJeuFrame redessinJeuFrame = new RedessinJeuFrame(jeuFrame);

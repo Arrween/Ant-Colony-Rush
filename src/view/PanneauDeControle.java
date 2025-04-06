@@ -1,6 +1,7 @@
 package view;
 
 import controller.DestinationSelectionnee;
+import controller.GestionScore;
 import java.awt.*;
 import javax.swing.*;
 import model.Fourmi;
@@ -8,8 +9,11 @@ import model.Nid;
 
 public class PanneauDeControle extends JPanel {
     private PanneauCartesFourmis panneauCartes;
+    private GestionScore gestionScore;
 
-    public PanneauDeControle(Nid nid, DestinationSelectionnee ds) {
+    public PanneauDeControle(Nid nid, DestinationSelectionnee ds, GestionScore gestionScore) {
+        this.gestionScore = gestionScore;
+
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 500));
 
@@ -37,6 +41,7 @@ public class PanneauDeControle extends JPanel {
         btnAjouterFourmis.setPreferredSize(new Dimension(300, 40));
         btnAjouterFourmis.addActionListener(e -> {
             Fourmi nouvelleFourmi = nid.ajouterFourmi(); // Ajouter une fourmi au nid
+            gestionScore.ajouterFourmi();
             panneauCartes.ajouterCarte(nouvelleFourmi, ds, nid); // Ajouter une carte pour la nouvelle fourmi
         });
         add(btnAjouterFourmis, BorderLayout.SOUTH);

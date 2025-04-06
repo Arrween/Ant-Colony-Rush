@@ -2,16 +2,17 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import model.Score;
 
 public class ConteneurPanneauDeControle extends JPanel {
     private PanneauDeTableauDeBord panneauFixe; // Partie fixe
     private JPanel panneauDynamique; // Partie dynamique
 
-    public ConteneurPanneauDeControle() {
+    public ConteneurPanneauDeControle(Score score) {
         setLayout(new BorderLayout());
 
         // Partie fixe
-        panneauFixe = new PanneauDeTableauDeBord();
+        panneauFixe = new PanneauDeTableauDeBord(score);
         add(panneauFixe, BorderLayout.NORTH);
 
         // Partie dynamique

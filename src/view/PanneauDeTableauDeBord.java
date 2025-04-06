@@ -2,6 +2,7 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import model.Score;
 
 public class PanneauDeTableauDeBord extends JPanel {
     private JLabel lblChrono;
@@ -10,7 +11,7 @@ public class PanneauDeTableauDeBord extends JPanel {
     private Timer timer; // Swing Timer pour le chrono
     private int secondesEcoulees; // Compteur en secondes
 
-    public PanneauDeTableauDeBord() {
+    public PanneauDeTableauDeBord(Score scoreInstance) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -21,6 +22,8 @@ public class PanneauDeTableauDeBord extends JPanel {
 
         // Score
         lblScore = new JLabel("Score : 0", SwingConstants.CENTER);
+        int score = scoreInstance.getScore();
+         lblScore = new JLabel("Score : " + score, SwingConstants.CENTER);
         lblScore.setFont(new Font("Arial", Font.BOLD, 16));
         add(lblScore);
 
@@ -35,6 +38,7 @@ public class PanneauDeTableauDeBord extends JPanel {
         timer = new Timer(1000, e -> {
             secondesEcoulees++;
             mettreAJourChrono(secondesEcoulees);
+            mettreAJourScore(score);
         });
         timer.start(); // Démarrer le timer
     }
