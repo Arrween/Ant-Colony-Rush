@@ -62,6 +62,7 @@ public class Ressource extends ObjetFixe {
             isMoving = true; // Marquer la ressource comme en déplacement
             DeplacementRessource deplacement = new DeplacementRessource(terrain, this, nid);
             terrain.ajouterDeplacement(deplacement);
+            terrain.removeRessource(this.numero);
         }
     }
 }
