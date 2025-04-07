@@ -3,7 +3,7 @@ package model;
 import view.SpriteAnimation;
 
 public abstract class Deplacement {
-    private Terrain t;
+    protected Terrain t;
     protected int currentX, currentY, destX, destY, depX, depY;
     protected ObjetFixe dest;
     protected boolean isDone = false;
@@ -31,7 +31,7 @@ public abstract class Deplacement {
         updateDirection(); // Choix initial de la direction
     }
 
-    public abstract void decrEnergieFourmi() ;
+    public abstract void decrEnergieFourmi();
 
     public int getId() {
         return numero;
@@ -91,7 +91,7 @@ public abstract class Deplacement {
     }
 
     // Choix de la direction de l'animation
-    protected void updateDirection(){
+    protected void updateDirection() {
         if (Math.abs(destX - currentX) > 0.0001) {
             if (destX > currentX) {
                 animationFourmi.setDirectionDroite();
@@ -117,4 +117,6 @@ public abstract class Deplacement {
     public SpriteAnimation getSpriteAnim() {
         return animationFourmi;
     }
+
+    public abstract void eliminerFourmisMortes();
 }

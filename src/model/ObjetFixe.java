@@ -4,8 +4,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class ObjetFixe {
-    private int x;
-    private int y;
+    protected int x;
+    protected int y;
     protected ArrayList<Fourmi> fourmis;
     public static final int HALF_SIZE = 20;
     public static final int RAYON_HITBOX = 100;
@@ -13,6 +13,8 @@ public abstract class ObjetFixe {
 
     private static int compteur = 0;
     private int numero;
+
+    private boolean isSelected = false; // Indique si l'objet est sélectionné
 
     public ObjetFixe(int x, int y, int nbFourmis) {
         this.x = x;
@@ -30,6 +32,14 @@ public abstract class ObjetFixe {
 
     public int getY() {
         return y;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.isSelected = selected;
     }
 
     public boolean hitBoxAbri(int x, int y) {
@@ -73,5 +83,9 @@ public abstract class ObjetFixe {
 
     public int getId() {
         return numero;
+    }
+
+    public void eliminerFourmisMortes() {
+        fourmis.removeIf(f -> f.isDead());
     }
 }

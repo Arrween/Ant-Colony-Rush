@@ -2,36 +2,35 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import model.Score;
 
 public class ConteneurPanneauDeControle extends JPanel {
-    public static final String TABLEAU_DE_BORD = "TableauDeBord";
-    public static final String DETAIL = "Detail";
+    private PanneauDeTableauDeBord panneauFixe; // Partie fixe
+    private JPanel panneauDynamique; // Partie dynamique
 
-    private CardLayout gestionnaireCartes;
-    private PanneauDeTableauDeBord panneauTableauDeBord;
-    private JPanel panneauDetail; // panneau de détail actuellement affiché
+    public ConteneurPanneauDeControle(Score score) {
+        setLayout(new BorderLayout());
 
-    public ConteneurPanneauDeControle() {
-        gestionnaireCartes = new CardLayout();
-        setLayout(gestionnaireCartes);
-        panneauTableauDeBord = new PanneauDeTableauDeBord();
-        add(panneauTableauDeBord, TABLEAU_DE_BORD);
+        // Partie fixe
+        panneauFixe = new PanneauDeTableauDeBord(score);
+        add(panneauFixe, BorderLayout.NORTH);
+
+        // Partie dynamique
+        panneauDynamique = new JPanel(new BorderLayout());
+        panneauDynamique.setBorder(BorderFactory.createTitledBorder("Détails"));
+        add(panneauDynamique, BorderLayout.CENTER);
     }
 
-    public PanneauDeTableauDeBord getPanneauTableauDeBord() {
-        return panneauTableauDeBord;
+    public PanneauDeTableauDeBord getPanneauFixe() {
+        return panneauFixe;
     }
 
     /**
      * Affiche un panneau de détail (par exemple, le panneau de contrôle d'un nid).
      */
     public void afficherPanneauDetail(JPanel detail) {
-        if (panneauDetail != null) {
-            remove(panneauDetail);
-        }
-        panneauDetail = detail;
-        add(panneauDetail, DETAIL);
-        gestionnaireCartes.show(this, DETAIL);
+        panneauDynamique.removeAll();
+        panneauDynamique.add(detail, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
@@ -40,6 +39,8 @@ public class ConteneurPanneauDeControle extends JPanel {
      * Revient à l'affichage par défaut (tableau de bord).
      */
     public void afficherTableauDeBord() {
-        gestionnaireCartes.show(this, TABLEAU_DE_BORD);
+        panneauDynamique.removeAll(); // Supprimer le contenu de la partie dynamique
+        revalidate();
+        repaint();
     }
 }
