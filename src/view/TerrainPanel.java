@@ -67,8 +67,8 @@ public class TerrainPanel extends JPanel {
                     g.drawImage(frame,
                             x,
                             y,
-                            anim.getLargeurCadreCourant() / 10,
-                            anim.getHauteurCadreCourant() / 10,
+                            50,
+                            50,
                             this);
                 }
             }

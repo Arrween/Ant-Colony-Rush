@@ -9,7 +9,7 @@ public class GenerationAbri {
     private static final int HAUTEUR = Terrain.HAUTEUR;
     private static final int LARGEUR = Terrain.LARGEUR;
 
-    public static Abri genererAbri() {
+    public static Abri genererAbri(int difficulte) {
         int[] capacité = { 1, 2, 3 };
         Abri abri = null;
         int RandomIndex = aleatoire.nextInt(3);
@@ -31,7 +31,7 @@ public class GenerationAbri {
                 }
             }
             if (caseLibre) {
-                abri = new Abri(c, x, y);
+                abri = new Abri(c, x, y, difficulte);
                 i++;
             }
         }
