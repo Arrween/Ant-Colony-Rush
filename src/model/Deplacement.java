@@ -13,7 +13,7 @@ public abstract class Deplacement {
 
     protected SpriteAnimation animationFourmi;
 
-    protected int vitesse; // Vitesse de déplacement de la fourmi ou du convoi
+    public static final int VITESSE = 5; // Vitesse de déplacement de la fourmi ou du convoi
 
     public Deplacement(Terrain t, ObjetFixe dest, ObjetFixe depart) {
         this.t = t;
@@ -25,8 +25,6 @@ public abstract class Deplacement {
         numero = ++compteur;
         depX = depart.getX();
         depY = depart.getY();
-
-        vitesse = 0; // Vitesse de déplacement par défaut
 
         // Initialiser l'animation
         animationFourmi = new SpriteAnimation();
@@ -69,26 +67,22 @@ public abstract class Deplacement {
     protected void updatePosition() {
         // algo de déplacmenent////
         if (currentX < destX) {
-            //currentX += vitesse;
-            currentX += 10;
+            currentX += VITESSE;
             if (currentX > destX) {
                 currentX = destX;
             }
         } else if (currentX > destX) {
-            //currentX -= vitesse;
-            currentX -= 10;
+            currentX -= VITESSE;
             if (currentX < destX) {
                 currentX = destX;
             }
         } else if (currentY < destY) {
-            //currentY += vitesse;
-            currentY += 10;
+            currentY += VITESSE;
             if (currentY > destY) {
                 currentY = destY;
             }
         } else if (currentY > destY) {
-            //currentY -= vitesse;
-            currentY -= 10;
+            currentY -= VITESSE;
             if (currentY < destY) {
                 currentY = destY;
             }
@@ -114,8 +108,6 @@ public abstract class Deplacement {
             }
         }
     }
-
-    protected abstract void updateVitesse();
 
     public boolean isDone() {
         return isDone;

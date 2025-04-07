@@ -14,19 +14,9 @@ public class Transport extends Deplacement {
         ressource.majEnergieFourmis();
     }
 
-    protected void updateVitesse() {
-        ArrayList<Fourmi> fourmis = ressource.getFourmis();
-        int sommeVitesses = 0;
-        for (Fourmi f : fourmis) {
-            sommeVitesses += f.getVitesse();
-        }
-        vitesse = (int) Math.floor(sommeVitesses / (double) fourmis.size());
-    }
-
     public void avancer() {
         //algo de déplacmenent////
         // Mise à jour de la vitesse, position, direction et animation de la fourmi
-        updateVitesse();
         updatePosition();
         updateDirection();
         animationFourmi.updateFrame();
