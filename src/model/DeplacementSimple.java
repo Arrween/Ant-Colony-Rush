@@ -12,17 +12,12 @@ public class DeplacementSimple extends Deplacement {
         f.decrEnergie();
     }
 
-    protected void updateVitesse() {
-        vitesse = f.getVitesse();
-    }
-
     @Override
     public void avancer() {
         // System.out.println("Fourmi " + f.getId() + " en déplacement");
         // algo de déplacmenent////
 
         // Mise à jour de la vitesse, position, direction et animation de la fourmi
-        updateVitesse();
         updatePosition();
         updateDirection();
         animationFourmi.updateFrame();
