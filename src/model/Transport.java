@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Transport extends Deplacement {
     private Ressource ressource;
 

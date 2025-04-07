@@ -49,4 +49,8 @@ public class Fourmi {
     public int getId() {
         return numero;
     }
+
+    public boolean isDead() {
+        return energie <= 0;
+    }
 }

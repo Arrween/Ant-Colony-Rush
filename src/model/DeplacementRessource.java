@@ -18,14 +18,8 @@ public class DeplacementRessource extends Deplacement {
     }
 
     @Override
-    protected void updateVitesse() {
-        vitesse = 5; // Vitesse fixe pour le déplacement de la ressource
-    }
-
-    @Override
     public void avancer() {
         // Mise à jour de la position
-        updateVitesse();
         updatePosition();
         updateDirection();
 
