@@ -7,13 +7,9 @@ public class DeplacementSimple extends Deplacement {
         super(t, dest, depart);
         this.f = fourmi;
     }
-    
+
     public void decrEnergieFourmi() {
         f.decrEnergie();
-    }
-    
-    protected void updateVitesse() {
-        vitesse = f.getVitesse();
     }
 
     @Override
@@ -22,7 +18,6 @@ public class DeplacementSimple extends Deplacement {
         // algo de déplacmenent////
 
         // Mise à jour de la vitesse, position, direction et animation de la fourmi
-        updateVitesse();
         updatePosition();
         updateDirection();
         animationFourmi.updateFrame();

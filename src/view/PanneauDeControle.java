@@ -1,35 +1,27 @@
 package view;
 
 import controller.DestinationSelectionnee;
-import controller.FourmiButton;
 import controller.GestionScore;
 import java.awt.*;
-import java.util.List;
 import javax.swing.*;
 import model.Fourmi;
 import model.Nid;
 
 public class PanneauDeControle extends JPanel {
-
-    private Nid nid;
-    private JLabel lblScore;
-    private JPanel pnlFourmis;
-    private JButton btnRetour;
+    private PanneauCartesFourmis panneauCartes;
     private GestionScore gestionScore;
+    private JButton btnAjouterFourmis;
 
-    public PanneauDeControle(Nid nid, DestinationSelectionnee ds,GestionScore gestionScore){
-        this.nid = nid;
+    public PanneauDeControle(Nid nid, DestinationSelectionnee ds, GestionScore gestionScore) {
         this.gestionScore = gestionScore;
+
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 500));
 
-        // EN-TÊTE : Affichage du score et bouton "Retour"
+        // En-tête : Score et bouton retour
         JPanel panneauEntete = new JPanel(new BorderLayout());
-        lblScore = new JLabel("SCORE : " + nid.getScore(), SwingConstants.CENTER);
-        lblScore.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panneauEntete.add(lblScore, BorderLayout.CENTER);
 
-        btnRetour = new JButton("Retour");
+        JButton btnRetour = new JButton("Retour");
         btnRetour.setPreferredSize(new Dimension(80, 40));
         btnRetour.addActionListener(e -> {
             Container parent = PanneauDeControle.this.getParent();
@@ -41,42 +33,32 @@ public class PanneauDeControle extends JPanel {
         panneauEntete.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(panneauEntete, BorderLayout.NORTH);
 
-        // CENTRE : Liste des fourmis
-        pnlFourmis = new JPanel(new GridLayout(0, 1, 5, 5));
-        for (Fourmi fourmi : nid.getFourmis()) {
-            FourmiButton boutonFourmi = new FourmiButton(fourmi, ds, nid);
-            boutonFourmi.setPreferredSize(new Dimension(250, 40));
-            pnlFourmis.add(boutonFourmi);
-        }
-        JScrollPane scrollPane = new JScrollPane(pnlFourmis);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(scrollPane, BorderLayout.CENTER);
+        // Centre : Panneau des cartes
+        panneauCartes = new PanneauCartesFourmis(nid, ds);
+        add(panneauCartes, BorderLayout.CENTER);
 
-        // BAS : Bouton pour ajouter une fourmi
-        JButton btnAjouterFourmi = new JButton("Ajouter une fourmi");
-        btnAjouterFourmi.setPreferredSize(new Dimension(280, 40));
-        btnAjouterFourmi.addActionListener(e -> {
-
-            gestionScore.ajouterFourmi();
-            mettreAJourFourmis(nid.getFourmis(), ds);
+        // Bas : Bouton "Ajouter des fourmis"
+        btnAjouterFourmis = new JButton("Ajouter des fourmis");
+        btnAjouterFourmis.setPreferredSize(new Dimension(300, 40));
+        btnAjouterFourmis.addActionListener(e -> {
+            if (gestionScore.getScore().AjoutFourmiPossible()) { // Vérifier si le score est suffisant
+                Fourmi nouvelleFourmi = nid.ajouterFourmi(); // Ajouter une fourmi au nid
+                gestionScore.ajouterFourmi();
+                panneauCartes.ajouterCarte(nouvelleFourmi, ds, nid); // Ajouter une carte pour la nouvelle fourmi
+                mettreAJourEtatBouton(); // Mettre à jour l'état du bouton
+            }
         });
-        JPanel panneauBas = new JPanel();
-        panneauBas.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panneauBas.add(btnAjouterFourmi);
-        add(panneauBas, BorderLayout.SOUTH);
+        add(btnAjouterFourmis, BorderLayout.SOUTH);
+
+        // Initialiser l'état du bouton
+        mettreAJourEtatBouton();
     }
 
-    public void mettreAJourScore(int score) {
-        lblScore.setText("SCORE : " + score);
+    private void mettreAJourEtatBouton() {
+        btnAjouterFourmis.setEnabled(gestionScore.getScore().AjoutFourmiPossible());
     }
 
-    public void mettreAJourFourmis(List<Fourmi> fourmis, DestinationSelectionnee ds) {
-        pnlFourmis.removeAll();
-        for (Fourmi fourmi : fourmis) {
-            FourmiButton boutonFourmi = new FourmiButton(fourmi, ds, nid);
-            pnlFourmis.add(boutonFourmi);
-        }
-        revalidate();
-        repaint();
+    public void mettreAJourCartes() {
+        panneauCartes.mettreAJourCartes();
     }
 }

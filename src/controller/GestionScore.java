@@ -14,8 +14,12 @@ public class GestionScore extends Thread {
         this.nid = nid;
     }
 
+    public Score getScore() {
+        return score;
+    }
+
     // public void ressourceRamenee(int poids) {
-    //     score.augmenterScore(poids);
+    // score.augmenterScore(poids);
     // }
 
     public void ajouterFourmi() {

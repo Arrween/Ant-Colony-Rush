@@ -12,6 +12,11 @@ public class Abri extends ObjetFixe {
         this.capacite = capacite;
         this.imageAbri = new ImageIcon(getClass().getResource("/resources/Shelters/abri" + capacite + ".png"))
                 .getImage();
+
+    }
+
+    public int getCapacite() {
+        return capacite;
     }
 
     @Override

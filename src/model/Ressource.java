@@ -7,6 +7,7 @@ public class Ressource extends ObjetFixe {
     private int poids;
     private int valeurNutritive;
     private Image imageRessource; // L'image représentant la ressource
+    private boolean isMoving = false; // Indique si la ressource est en déplacement
 
     public Ressource(int poids, int vn, int x, int y) {
         super(x, y, 0);
@@ -14,6 +15,14 @@ public class Ressource extends ObjetFixe {
         this.valeurNutritive = vn;
         this.imageRessource = new ImageIcon(getClass().getResource("/resources/Resources/ressource" + poids + ".png"))
                 .getImage();
+    }
+
+    public boolean isMoving() {
+        return isMoving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.isMoving = moving;
     }
 
     @Override
@@ -49,8 +58,8 @@ public class Ressource extends ObjetFixe {
     }
 
     public void deplacerVersNid(Terrain terrain, Nid nid) {
-        if (isReadyToGo()) {
-            // Créer un déplacement pour la ressource
+        if (isReadyToGo() && !isMoving) {
+            isMoving = true; // Marquer la ressource comme en déplacement
             DeplacementRessource deplacement = new DeplacementRessource(terrain, this, nid);
             terrain.ajouterDeplacement(deplacement);
         }

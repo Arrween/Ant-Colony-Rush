@@ -4,6 +4,7 @@ import controller.GestionScore;
 import controller.TerrainController;
 import java.awt.*;
 import javax.swing.*;
+import model.Abri;
 import model.Nid;
 import model.Ressource;
 import model.Score;
@@ -26,12 +27,14 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         terrain = t;
         terrainPanel = panel;
         terrainPanel.setEcouteurPanneauDeControle(this);
-        add(terrainPanel, BorderLayout.CENTER);
 
         // Initialisation du panneau de contrôle sur le côté droit
         conteneurPanneau = new ConteneurPanneauDeControle(score);
         conteneurPanneau.setPreferredSize(new Dimension(350, terrainPanel.getPreferredSize().height));
         add(conteneurPanneau, BorderLayout.EAST);
+
+        // Ajouter le terrainPanel au centre
+        add(terrainPanel, BorderLayout.CENTER);
 
         // Création du contrôleur pour gérer les clics sur le terrain
         terrainControleur = new TerrainController(terrain, terrainPanel, this);
@@ -47,10 +50,6 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         setVisible(true);
     }
 
-    /**
-     * Méthode appelée lorsque le Nid est cliqué dans le TerrainPanel.
-     * Affiche le panneau de détail associé au Nid dans le conteneur.
-     */
     @Override
     public void nidClicked(Nid nid) {
         PanneauDeControle panneauDetail = new PanneauDeControle(nid, terrainControleur.getDestSelector(), gestionScore);
@@ -60,6 +59,12 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     @Override
     public void ressourceClicked(Ressource ressource) {
         RessourcesDetails panneauDetail = new RessourcesDetails(ressource);
+        conteneurPanneau.afficherPanneauDetail(panneauDetail);
+    }
+
+    @Override
+    public void abriClicked(Abri abri) {
+        AbriDetail panneauDetail = new AbriDetail(abri, terrainControleur.getDestSelector());
         conteneurPanneau.afficherPanneauDetail(panneauDetail);
     }
 }

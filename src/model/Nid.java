@@ -37,8 +37,10 @@ public class Nid extends ObjetFixe {
         score += valeur;
     }
 
-    public void ajouterFourmi() {
-        fourmis.add(new Fourmi(getX(), getY()));
+    public Fourmi ajouterFourmi() {
+        Fourmi nouvelleFourmi = new Fourmi(getX(), getY());
+        fourmis.add(nouvelleFourmi);
+        return nouvelleFourmi;
     }
 
     // Je surcharge la méthode ajouterFoumi avec un paramètre de liste de Fourmis

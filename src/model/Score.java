@@ -1,7 +1,7 @@
 package model;
 
 public class Score {
-    private int Score  = 10 ;
+    private int Score = 10;
 
     // Getter pour les Score
     public int getScore() {
@@ -12,7 +12,7 @@ public class Score {
         this.Score += poids;
     }
 
-    public void diminuerScore(){
+    public void diminuerScore() {
         this.Score -= 3;
     }
 
