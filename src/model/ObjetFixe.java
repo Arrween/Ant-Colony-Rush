@@ -12,7 +12,7 @@ public abstract class ObjetFixe {
     public static final int RAYON_HITBOX_R = 40;
 
     private static int compteur = 0;
-    private int numero;
+    protected int numero;
 
     private boolean isSelected = false; // Indique si l'objet est sélectionné
 
