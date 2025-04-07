@@ -6,13 +6,15 @@ import javax.swing.*;
 public class Abri extends ObjetFixe {
     private int capacite;
     private Image imageAbri; // L'image représentant l'abri
+    private int difficulte;
 
-    public Abri(int capacite, int x, int y) {
+    public Abri(int capacite, int x, int y, int d) {
         super(x, y, 0);
         this.capacite = capacite;
         this.imageAbri = new ImageIcon(getClass().getResource("/resources/Shelters/abri" + capacite + ".png"))
                 .getImage();
-
+            
+        this.difficulte = d;
     }
 
     public int getCapacite() {
@@ -25,8 +27,15 @@ public class Abri extends ObjetFixe {
     }
 
     public void majEnergieFourmis() {
-        for (Fourmi fourmi : fourmis) {
-            fourmi.decrEnergie();
+        if (difficulte == 1) {
+            for (Fourmi fourmi : fourmis) {
+                fourmi.incrEnergie();
+            }
+        } else if (difficulte == 3) {
+            for (Fourmi fourmi : fourmis) {
+                fourmi.decrEnergie();
+            }
         }
+        //si difficulte == 2, on ne fait rien
     }
 }

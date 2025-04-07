@@ -11,12 +11,15 @@ public class Terrain {
     public static final Random RANDOM = new Random();
     private Crapaud crapaud;
     public static Image BACKGROUND;
+    private final int DIFFICULTE;
 
     // Liste des objets fixes présents sur le terrain (Nid, abris, ressources)
     static ArrayList<ObjetFixe> elts;
     ArrayList<Deplacement> expeditions;
 
-    public Terrain() {
+    public Terrain(int difficulte) {
+        DIFFICULTE = difficulte;
+
         // Chargement de l'image de fond
         BACKGROUND = new ImageIcon(getClass().getResource("/resources/Grass/Grass.png")).getImage();
         // Initialiser la liste avant toute utilisation
@@ -55,7 +58,7 @@ public class Terrain {
 
     public void ajouterAbris(int nombre) {
         for (int i = 0; i < nombre; i++) {
-            Abri abris = GenerationAbri.genererAbri();
+            Abri abris = GenerationAbri.genererAbri(DIFFICULTE);
             elts.add(abris);
         }
     }

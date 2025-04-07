@@ -65,7 +65,7 @@ public class StartMenuController {
         // String difficulty = difficultePanel.getDifficulteSelectionnee();
 
         // Création du modèle principal
-        Terrain terrain = new Terrain();
+        Terrain terrain = new Terrain(1); //pour l'instant difficulté à 1 par défaut
         TerrainPanel terrainPanel = new TerrainPanel(terrain);
 
         // Création des gestionnaires (Threads)
