@@ -216,4 +216,13 @@ public class Crapaud {
     public void decrSatiete() {
         satiete--;
     }
+
+    public int getDirectionAngle() {
+        double angleRad = Math.atan2(-dy, dx);
+        int angleDeg = (int) Math.toDegrees(angleRad);
+        if (angleDeg < 0) {
+            angleDeg += 360;
+        }
+        return angleDeg;
+    }
 }
