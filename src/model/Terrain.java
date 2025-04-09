@@ -1,9 +1,7 @@
 package model;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.ImageIcon;
 
 public class Terrain {
     public static final int LARGEUR = 800;
@@ -12,7 +10,6 @@ public class Terrain {
     public static final int NB_RESSOURCES_MAX = 40;
     public int nb_ressources = 0;
     private Crapaud crapaud;
-    public static Image BACKGROUND;
     private final int DIFFICULTE;
 
     // Liste des objets fixes présents sur le terrain (Nid, abris, ressources)
@@ -22,8 +19,6 @@ public class Terrain {
     public Terrain(int difficulte) {
         DIFFICULTE = difficulte;
 
-        // Chargement de l'image de fond
-        BACKGROUND = new ImageIcon(getClass().getResource("/resources/Grass/0.png")).getImage();
         // Initialiser la liste avant toute utilisation
         elts = new ArrayList<ObjetFixe>();
         this.expeditions = new ArrayList<Deplacement>();
