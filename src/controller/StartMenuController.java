@@ -7,6 +7,9 @@ import javax.swing.*;
 import model.GestionnaireCrapaud;
 import model.GestionnaireDeplacement;
 import model.GestionnaireEnergie;
+import model.GestionnaireRessources;
+import model.GestionnaireFourmisMortes;
+import model.GestionnaireSelection;
 import model.Score;
 import model.Terrain;
 import view.DifficultePanel;
@@ -72,8 +75,12 @@ public class StartMenuController {
         GestionnaireEnergie gestionnaireEnergie = new GestionnaireEnergie(terrain);
         GestionnaireDeplacement gestionnaireDeplacement = new GestionnaireDeplacement(terrain, terrainPanel);
         GestionnaireCrapaud gestionnaireCrapaud = new GestionnaireCrapaud(terrain);
+        GestionnaireRessources gestionnaireRessources = new GestionnaireRessources(terrain);
+        GestionnaireFourmisMortes gestionnaireFourmisMortes = new GestionnaireFourmisMortes(terrain);
+        GestionnaireSelection gestionnaireSelection = new GestionnaireSelection(terrain);
 
-        Score score = new Score();
+        Score score = new Score(terrain.getNid());
+
         // thread de gestion du score
         GestionScore gestionScore = new GestionScore(score, terrain.getNid());
         gestionScore.start();
@@ -88,6 +95,10 @@ public class StartMenuController {
         gestionnaireEnergie.start();
         gestionnaireDeplacement.start();
         gestionnaireCrapaud.start();
+        gestionnaireRessources.start();
+        gestionnaireFourmisMortes.start();
+        gestionnaireSelection.start();
+
         redessinJeuFrame.start();
 
         // Fermer la fenêtre du menu de démarrage

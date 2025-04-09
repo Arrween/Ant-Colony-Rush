@@ -21,8 +21,12 @@ public class GestionScore extends Thread {
     }
 
     public void ressourceRamenee(Ressource ress) {
+        if (!ress.isMoving()) { // Vérifiez si la ressource est encore en déplacement
+            return; // Si la ressource n'est plus en déplacement, ne rien faire
+        }
         int vn = ress.getValeurNutritive();
         score.augmenterScore(vn);
+
     }
 
     public void setGestionScore(GestionScore gestionScore) {

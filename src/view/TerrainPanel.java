@@ -15,6 +15,7 @@ public class TerrainPanel extends JPanel {
     public static final int TAILLE_CRAPAUD = 160;
     public static final int TAILLE_FOURMIS = 40;
     public static final int TAILLE_OBJETS = (int) (2*ObjetFixe.HALF_SIZE * 1);
+    private BackgroundGrid backgroundGrid;
 
     public interface ControlPanelListener {
         void nidClicked(Nid nid);
@@ -27,6 +28,7 @@ public class TerrainPanel extends JPanel {
     public TerrainPanel(Terrain terrain) {
         this.terrain = terrain;
         setPreferredSize(new Dimension(Terrain.LARGEUR, Terrain.HAUTEUR));
+        backgroundGrid = new BackgroundGrid(Terrain.LARGEUR, Terrain.HAUTEUR);
     }
 
     public void setEcouteurPanneauDeControle(ControlPanelListener ecouteur) {
@@ -35,9 +37,10 @@ public class TerrainPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         // Affichage de l'arrière-plan :
-        g.drawImage(Terrain.BACKGROUND, 0, 0, Terrain.LARGEUR, Terrain.HAUTEUR, this);
+        backgroundGrid.draw(g);
         // Affichage des objets fixes
         for (ObjetFixe obj : Terrain.getObjetsFixes()) {
             Image img = obj.getImage();

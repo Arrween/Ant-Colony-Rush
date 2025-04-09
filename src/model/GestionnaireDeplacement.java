@@ -14,7 +14,7 @@ import view.TerrainPanel;
 public class GestionnaireDeplacement extends Thread {
     private Terrain t;
     private TerrainPanel terrainPanel; // Référence au panneau pour le repaint
-    public final int DELAY = 100;
+    public final int DELAY = 50;
 
     public GestionnaireDeplacement(Terrain t, TerrainPanel panel) {
         this.t = t;

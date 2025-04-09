@@ -23,7 +23,7 @@ public class Terrain {
         DIFFICULTE = difficulte;
 
         // Chargement de l'image de fond
-        BACKGROUND = new ImageIcon(getClass().getResource("/resources/Grass/Grass.png")).getImage();
+        BACKGROUND = new ImageIcon(getClass().getResource("/resources/Grass/0.png")).getImage();
         // Initialiser la liste avant toute utilisation
         elts = new ArrayList<ObjetFixe>();
         this.expeditions = new ArrayList<Deplacement>();
