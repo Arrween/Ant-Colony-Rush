@@ -12,6 +12,7 @@ public class TerrainPanel extends JPanel {
     private ControlPanelListener controlListener;
     public static final int TAILLE_CRAPAUD = 160;
     public static final int TAILLE_FOURMIS = 40;
+    public static final int TAILLE_OBJETS = (int) (2*ObjetFixe.HALF_SIZE * 1);
 
     public interface ControlPanelListener {
         void nidClicked(model.Nid nid);
@@ -41,7 +42,7 @@ public class TerrainPanel extends JPanel {
             if (img != null) {
                 int x = obj.getX();
                 int y = obj.getY();
-                g.drawImage(img, x - ObjetFixe.HALF_SIZE, y - ObjetFixe.HALF_SIZE, ObjetFixe.HALF_SIZE * 2, ObjetFixe.HALF_SIZE * 2, this);
+                g.drawImage(img, x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS, this);
                 //temporairement pour se repérer
                 g.drawOval(x - 3, y - 3, 6, 6);
 
@@ -50,7 +51,7 @@ public class TerrainPanel extends JPanel {
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setStroke(new BasicStroke(3));
                     g2d.setColor(Color.RED);
-                    g2d.drawRect(x - ObjetFixe.HALF_SIZE, y - ObjetFixe.HALF_SIZE, ObjetFixe.HALF_SIZE * 2, ObjetFixe.HALF_SIZE * 2);
+                    g2d.drawRect(x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS);
                 }
             }
             if (obj.getNbFourmis() > 0) {
@@ -83,9 +84,9 @@ public class TerrainPanel extends JPanel {
                 Ressource ressource = ((DeplacementRessource) dep).getRessource();
                 Image img = ressource.getImage();
                 if (img != null) {
-                    int x = dep.getX() - ObjetFixe.HALF_SIZE;
-                    int y = dep.getY() - ObjetFixe.HALF_SIZE;
-                    g.drawImage(img, x, y, ObjetFixe.HALF_SIZE * 2, ObjetFixe.HALF_SIZE * 2, this);
+                    int x = dep.getX() - TAILLE_OBJETS/2;
+                    int y = dep.getY() - TAILLE_OBJETS/2;
+                    g.drawImage(img, x, y, TAILLE_OBJETS, TAILLE_OBJETS, this);
                 }
             }
         }
