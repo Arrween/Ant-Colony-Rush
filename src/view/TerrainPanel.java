@@ -2,7 +2,9 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import model.Abri;
 import model.DeplacementRessource;
+import model.Nid;
 import model.ObjetFixe;
 import model.Ressource;
 import model.Terrain;
@@ -12,11 +14,11 @@ public class TerrainPanel extends JPanel {
     private ControlPanelListener controlListener;
 
     public interface ControlPanelListener {
-        void nidClicked(model.Nid nid);
+        void nidClicked(Nid nid);
 
         void ressourceClicked(Ressource ressource);
 
-        void abriClicked(model.Abri abri);
+        void abriClicked(Abri abri);
     }
 
     public TerrainPanel(Terrain terrain) {
