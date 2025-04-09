@@ -11,7 +11,7 @@ public class Nid extends ObjetFixe {
     public Nid(int nbFourmis, int x, int y) {
         super(x, y, nbFourmis);
         this.score = 0;
-        this.imageNid = new ImageIcon(getClass().getResource("/resources/Not/nid.png")).getImage();
+        this.imageNid = new ImageIcon(getClass().getResource("/resources/Not/nid2.png")).getImage();
     }
 
     @Override
