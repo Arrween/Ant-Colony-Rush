@@ -7,6 +7,7 @@ import model.DeplacementRessource;
 import model.Nid;
 import model.ObjetFixe;
 import model.Ressource;
+import model.RessourceTemporaire;
 import model.Terrain;
 
 public class TerrainPanel extends JPanel {
@@ -54,6 +55,13 @@ public class TerrainPanel extends JPanel {
                     g2d.setStroke(new BasicStroke(3));
                     g2d.setColor(Color.RED);
                     g2d.drawRect(x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS);
+                }
+
+                // afficher le timer s'il s'agit d'une ressource temporaire
+                if (obj instanceof RessourceTemporaire) {
+                    RessourceTemporaire ressourceTemp = (RessourceTemporaire) obj;
+                    String str = (ressourceTemp.getTempsRestant() / 1000) + "s";
+                    g.drawString(str, x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2 - 20);
                 }
             }
             if (obj.getNbFourmis() > 0) {
