@@ -2,7 +2,7 @@ package view;
 
 public class RedessinJeuFrame extends Thread {
     private JeuFrame gameFrame;
-    public final int DELAY = 100;
+    public final int DELAY = 150;
 
     public RedessinJeuFrame(JeuFrame gameFrame) {
         this.gameFrame = gameFrame;
