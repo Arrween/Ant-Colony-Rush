@@ -2,6 +2,7 @@ package model;
 
 import java.awt.*;
 import javax.swing.*;
+import controller.GestionScore;
 
 public class Ressource extends ObjetFixe {
     private int poids;
@@ -57,10 +58,10 @@ public class Ressource extends ObjetFixe {
         this.y = y;
     }
 
-    public void deplacerVersNid(Terrain terrain, Nid nid) {
+    public void deplacerVersNid(Terrain terrain, Nid nid, GestionScore gestionScore) {
         if (isReadyToGo() && !isMoving) {
             isMoving = true; // Marquer la ressource comme en déplacement
-            DeplacementRessource deplacement = new DeplacementRessource(terrain, this, nid);
+            DeplacementRessource deplacement = new DeplacementRessource(terrain, this, nid, gestionScore);
             terrain.ajouterDeplacement(deplacement);
             terrain.removeRessource(this.numero);
         }

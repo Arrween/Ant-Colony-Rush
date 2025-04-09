@@ -26,6 +26,7 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
     private int lastMouseX;
     private int lastMouseY;
     private Timer selectionTimer;
+    private GestionScore gestionScore;
 
     /**
      * Constructeur du contrôleur, recevant :
@@ -34,11 +35,11 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
      * - le controlListener (pour la gestion du clic sur les Nids).
      */
     public TerrainController(Terrain terrain, TerrainPanel terrainPanel,
-            TerrainPanel.ControlPanelListener controlListener) {
+            TerrainPanel.ControlPanelListener controlListener, GestionScore gestionScore) {
         this.terrain = terrain;
         this.terrainPanel = terrainPanel;
         this.controlListener = controlListener;
-
+        this.gestionScore = gestionScore;
         // On initialise la sélection de destination
         this.destSelector = new DestinationSelectionnee(terrain);
 
@@ -122,7 +123,7 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
             ObjetFixe selectedObj = terrain.getEltClic(lastMouseX, lastMouseY);
             if (selectedObj instanceof Ressource ressource) {
                 if (ressource.isReadyToGo() && !ressource.isMoving()) {
-                    ressource.deplacerVersNid(terrain, terrain.getNid());
+                    ressource.deplacerVersNid(terrain, terrain.getNid(), gestionScore);
                     terrainPanel.repaint(); // Mettre à jour l'affichage
                 } else if (ressource.isMoving()) {
                     JOptionPane.showMessageDialog(null, "Cette ressource est déjà en déplacement !");

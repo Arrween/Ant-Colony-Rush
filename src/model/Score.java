@@ -8,15 +8,15 @@ public class Score {
         return Score;
     }
 
-    public void augmenterScore(int poids) {
-        this.Score += poids;
+    public void augmenterScore(int vn) {
+        this.Score += vn;
     }
 
     public void diminuerScore() {
-        this.Score -= 3;
+        this.Score -= 60;
     }
 
     public boolean AjoutFourmiPossible() {
-        return Score >= 3;
+        return Score >= 60;
     }
 }
