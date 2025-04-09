@@ -22,10 +22,8 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
     private TerrainPanel terrainPanel; // Pour pouvoir faire un repaint()
     private TerrainPanel.ControlPanelListener controlListener;
     private DestinationSelectionnee destSelector; // Renommage pour corriger la faute
-    private Timer timer;
     private int lastMouseX;
     private int lastMouseY;
-    private Timer selectionTimer;
 
     /**
      * Constructeur du contrôleur, recevant :
@@ -41,16 +39,6 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
 
         // On initialise la sélection de destination
         this.destSelector = new DestinationSelectionnee(terrain);
-
-        selectionTimer = new Timer(1000, e -> {
-            for (ObjetFixe obj : Terrain.getObjetsFixes()) {
-                if (obj.isSelected()) {
-                    obj.setSelected(!obj.isSelected()); // Alterner l'état
-                }
-            }
-            terrainPanel.repaint();
-        });
-        selectionTimer.start();
     }
 
     public DestinationSelectionnee getDestSelector() {

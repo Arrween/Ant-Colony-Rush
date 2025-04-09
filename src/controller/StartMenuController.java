@@ -8,6 +8,7 @@ import model.GestionnaireCrapaud;
 import model.GestionnaireDeplacement;
 import model.GestionnaireEnergie;
 import model.GestionnaireFourmisMortes;
+import model.GestionnaireSelection;
 import model.Score;
 import model.Terrain;
 import view.DifficultePanel;
@@ -74,6 +75,7 @@ public class StartMenuController {
         GestionnaireDeplacement gestionnaireDeplacement = new GestionnaireDeplacement(terrain, terrainPanel);
         GestionnaireCrapaud gestionnaireCrapaud = new GestionnaireCrapaud(terrain);
         GestionnaireFourmisMortes gestionnaireFourmisMortes = new GestionnaireFourmisMortes(terrain);
+        GestionnaireSelection gestionnaireSelection = new GestionnaireSelection(terrain);
 
         Score score = new Score();
         // thread de gestion du score
@@ -91,6 +93,7 @@ public class StartMenuController {
         gestionnaireDeplacement.start();
         gestionnaireCrapaud.start();
         gestionnaireFourmisMortes.start();
+        gestionnaireSelection.start();
         redessinJeuFrame.start();
 
         // Fermer la fenêtre du menu de démarrage
