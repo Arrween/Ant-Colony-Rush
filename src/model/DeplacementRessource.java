@@ -1,11 +1,15 @@
 package model;
 
+import controller.GestionScore;
+
 public class DeplacementRessource extends Deplacement {
     private Ressource ressource;
+    private GestionScore gestionScore;
 
-    public DeplacementRessource(Terrain t, Ressource ressource, Nid nid) {
+    public DeplacementRessource(Terrain t, Ressource ressource, Nid nid,GestionScore gestionScore) {
         super(t, nid, ressource);
         this.ressource = ressource;
+        this.gestionScore = gestionScore;
     }
 
     public Ressource getRessource() {
@@ -19,12 +23,16 @@ public class DeplacementRessource extends Deplacement {
 
     @Override
     public void avancer() {
+        if (isDone) {
+            return; // Si le déplacement est déjà terminé, ne rien faire
+        }
+
         // Mise à jour de la position
         updatePosition();
         updateDirection();
 
         // Si le déplacement est terminé
-        if (!isDone && currentX == destX && currentY == destY) {
+        if (currentX == destX && currentY == destY) {
             // Ajouter la ressource au nid
             ((Nid) dest).incrScore(ressource.getValeurNutritive());
             ((Nid) dest).ajouterFourmis(ressource.getFourmis());
@@ -37,6 +45,10 @@ public class DeplacementRessource extends Deplacement {
 
             // Marquer le déplacement comme terminé
             isDone = true;
+
+            // Mettre à jour le score
+            gestionScore.ressourceRamenee(ressource);
+
         }
     }
 
