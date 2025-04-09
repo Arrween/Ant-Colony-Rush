@@ -3,19 +3,25 @@ package model;
 import java.awt.*;
 import javax.swing.*;
 import controller.GestionScore;
+import java.awt.image.BufferedImage;
+
 
 public class Ressource extends ObjetFixe {
     private int poids;
     private int valeurNutritive;
-    private Image imageRessource; // L'image représentant la ressource
+    private BufferedImage[] imageRessource; // L'image représentant la ressource
     private boolean isMoving = false; // Indique si la ressource est en déplacement
 
     public Ressource(int poids, int vn, int x, int y) {
         super(x, y, 0);
         this.poids = poids;
         this.valeurNutritive = vn;
-        this.imageRessource = new ImageIcon(getClass().getResource("/resources/Resources/ressource" + poids + ".png"))
-                .getImage();
+        try {
+            this.imageRessource = ImageSplitter.getSixImages(5); // Appel correct de la méthode
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.imageRessource = new BufferedImage[6]; // Valeur par défaut en cas d'erreur
+        }
     }
 
     public boolean isMoving() {
@@ -28,8 +34,11 @@ public class Ressource extends ObjetFixe {
 
     @Override
     public Image getImage() {
-        return imageRessource;
+        return imageRessource[5];
     }
+    // public BufferedImage[] get  {
+
+    // }
 
     public int getPoids() {
         return poids;
