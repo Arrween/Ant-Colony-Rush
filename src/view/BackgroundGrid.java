@@ -8,8 +8,8 @@ import javax.imageio.ImageIO;
 
 public class BackgroundGrid {
     private static final int TILE_SIZE = 30;         // Taille de chaque tuile en pixels
-    private static final int NB_TILES = 12;          // Nombre total de tuiles différentes
-    private Image[] tiles;                          // Tableau des images (les 12 tuiles)
+    private static final int NB_TILES = 7;          // Nombre total de tuiles différentes
+    private Image[] tiles;                          // Tableau des images 
     private int[][] grid;                           // Tableau 2D d'indices vers tiles[]
     private int nbCols, nbRows;                     // Nombre de colonnes et lignes pour couvrir la surface
     private Random random;
@@ -50,12 +50,21 @@ public class BackgroundGrid {
         grid = new int[nbRows][nbCols];
         for (int row = 0; row < nbRows; row++) {
             for (int col = 0; col < nbCols; col++) {
-                // Choisit au hasard l'une des 12 tuiles
-                int tileIndex = random.nextInt(NB_TILES);
-                grid[row][col] = tileIndex;
+                double r = random.nextDouble();  // dans [0..1)
+                if (r < 0.70) {
+                    // 70 % de chance => tile4
+                    grid[row][col] = 4;
+                } else {
+                    // 30 % de chance => parmi les 9 autres
+                    // On crée un petit tableau "others" sans la 4
+                    int[] others = { 0,1,2,3,5,6};
+                    int index = random.nextInt(others.length);
+                    grid[row][col] = others[index];
+                }
             }
         }
     }
+    
 
     public void draw(Graphics g) {
         // Parcourt la grille et dessine chaque tuile à la bonne position
