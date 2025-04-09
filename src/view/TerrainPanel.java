@@ -2,7 +2,9 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import model.Abri;
 import model.DeplacementRessource;
+import model.Nid;
 import model.ObjetFixe;
 import model.Ressource;
 import model.Terrain;
@@ -10,13 +12,16 @@ import model.Terrain;
 public class TerrainPanel extends JPanel {
     private Terrain terrain;
     private ControlPanelListener controlListener;
+    public static final int TAILLE_CRAPAUD = 160;
+    public static final int TAILLE_FOURMIS = 40;
+    public static final int TAILLE_OBJETS = (int) (2*ObjetFixe.HALF_SIZE * 1);
 
     public interface ControlPanelListener {
-        void nidClicked(model.Nid nid);
+        void nidClicked(Nid nid);
 
         void ressourceClicked(Ressource ressource);
 
-        void abriClicked(model.Abri abri);
+        void abriClicked(Abri abri);
     }
 
     public TerrainPanel(Terrain terrain) {
@@ -37,17 +42,19 @@ public class TerrainPanel extends JPanel {
         for (ObjetFixe obj : Terrain.getObjetsFixes()) {
             Image img = obj.getImage();
             if (img != null) {
-                int x = obj.getX() - ObjetFixe.HALF_SIZE;
-                int y = obj.getY() - ObjetFixe.HALF_SIZE;
-                g.drawImage(img, x, y, ObjetFixe.HALF_SIZE * 2, ObjetFixe.HALF_SIZE * 2, this);
+                int x = obj.getX();
+                int y = obj.getY();
+                g.drawImage(img, x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS, this);
+                //temporairement pour se repérer
+                g.drawOval(x - 3, y - 3, 6, 6);
 
                 // Dessiner un contour clignotant si l'objet est sélectionné
-            if (obj.isSelected()) {
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setStroke(new BasicStroke(3));
-                g2d.setColor(Color.RED);
-                g2d.drawRect(x, y, ObjetFixe.HALF_SIZE * 2, ObjetFixe.HALF_SIZE * 2);
-            }
+                if (obj.isSelected()) {
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setStroke(new BasicStroke(3));
+                    g2d.setColor(Color.RED);
+                    g2d.drawRect(x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS);
+                }
             }
             if (obj.getNbFourmis() > 0) {
                 g.setColor(Color.BLACK);
@@ -65,11 +72,13 @@ public class TerrainPanel extends JPanel {
                     int x = dep.getX();
                     int y = dep.getY();
                     g.drawImage(frame,
-                            x,
-                            y,
-                            50,
-                            50,
+                            x - TAILLE_FOURMIS/2,
+                            y - TAILLE_FOURMIS/2,
+                            TAILLE_FOURMIS,
+                            TAILLE_FOURMIS,
                             this);
+                    //temporairement pour se repérer
+                    g.drawOval(x - 3, y - 3, 6, 6);
                 }
             }
             // Affichage des ressources en déplacement
@@ -77,9 +86,9 @@ public class TerrainPanel extends JPanel {
                 Ressource ressource = ((DeplacementRessource) dep).getRessource();
                 Image img = ressource.getImage();
                 if (img != null) {
-                    int x = dep.getX() - ObjetFixe.HALF_SIZE;
-                    int y = dep.getY() - ObjetFixe.HALF_SIZE;
-                    g.drawImage(img, x, y, ObjetFixe.HALF_SIZE * 2, ObjetFixe.HALF_SIZE * 2, this);
+                    int x = dep.getX() - TAILLE_OBJETS/2;
+                    int y = dep.getY() - TAILLE_OBJETS/2;
+                    g.drawImage(img, x, y, TAILLE_OBJETS, TAILLE_OBJETS, this);
                 }
             }
         }
@@ -87,13 +96,16 @@ public class TerrainPanel extends JPanel {
         model.Crapaud crapaud = terrain.getCrapaud();
         if (crapaud != null) {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setColor(new Color(255, 0, 0, 80));
-            g2d.fillArc(crapaud.getX() - crapaud.getVisionRange()/4, crapaud.getY() - crapaud.getVisionRange()/4, crapaud.getVisionRange(), crapaud.getVisionRange(), crapaud.getDirectionAngle() - 45, 90); 
+            int diametre = 2 * crapaud.getVisionRange();
+            g2d.setColor(new Color(255, 0, 0, 50));
+            g2d.fillArc(crapaud.getX() - crapaud.getVisionRange(), crapaud.getY() - crapaud.getVisionRange(), diametre, diametre, crapaud.getDirectionAngle() - 45, 90); 
 
             java.awt.image.BufferedImage frame = crapaud.getCurrentFrame();
-            int drawX = crapaud.getX() - frame.getWidth() / 2;
-            int drawY = crapaud.getY() - frame.getHeight() / 2;
-            g.drawImage(frame, drawX, drawY, 100, 100, this);
+            int x = crapaud.getX();
+            int y = crapaud.getY();
+            g.drawImage(frame, x - TAILLE_CRAPAUD/2, y - TAILLE_CRAPAUD/2, TAILLE_CRAPAUD, TAILLE_CRAPAUD, this);
+            //temporairement pour se repérer
+            g.drawOval(x - 3, y - 3, 6, 6);
         }
 
     }
