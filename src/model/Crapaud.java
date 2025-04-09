@@ -1,20 +1,17 @@
 package model;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
-import view.CrapaudAnimation;
+import view.CrapaudIdleAnimation;
 
 public class Crapaud {
     private Terrain terrain;
 
-    private int x;
-    private int y;
+    private int x,y;
+    private int dx, dy;
     private int visionRange;
-    private int dx;
-    private int dy;
 
     private final static int MAX_SATIETE = 10; // à partir de là, il s'endort
     private final static int SATIETE_AU_REVEIL = 5; // il se réveille à ce niveau de satiété
@@ -25,9 +22,8 @@ public class Crapaud {
     private int remainingSleepTime;
     private boolean isAsleep;
 
-    private CrapaudAnimation animation;
+    private CrapaudIdleAnimation idleAnimation;
 
-    private Image imageCrapaud;
     private static final Random random = new Random();
 
     public Crapaud(Terrain t, int startX, int startY, int visionRange) {
@@ -36,7 +32,7 @@ public class Crapaud {
         this.y = startY;
         this.visionRange = visionRange;
         randomizeDirection();
-        animation = new CrapaudAnimation();
+        idleAnimation = new CrapaudIdleAnimation();
         satiete = SATIETE_AU_REVEIL;
         remainingSleepTime = 0;
         isAsleep = false;
@@ -51,23 +47,19 @@ public class Crapaud {
     }
 
     public BufferedImage getCurrentFrame() {
-        return animation.getCurrentFrame();
+        return idleAnimation.getCurrentFrame();
     }
 
     public int getFrameWidth() {
-        return animation.getWidth();
+        return idleAnimation.getWidth();
     }
 
     public int getFrameHeight() {
-        return animation.getHeight();
+        return idleAnimation.getHeight();
     }
 
     public int getVisionRange() {
         return visionRange;
-    }
-
-    public Image getImage() {
-        return imageCrapaud;
     }
 
     public void update(int timeSinceLastUpdate) {
@@ -169,6 +161,7 @@ public class Crapaud {
                 }
             }
         }
+        idleAnimation.updateFrame();
     }
 
     // Vérifie si une cible se trouve dans le cône de vision à 90° par rapport à la
