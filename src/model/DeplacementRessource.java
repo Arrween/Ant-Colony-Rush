@@ -1,11 +1,15 @@
 package model;
 
+import controller.GestionScore;
+
 public class DeplacementRessource extends Deplacement {
     private Ressource ressource;
+    private GestionScore gestionScore;
 
-    public DeplacementRessource(Terrain t, Ressource ressource, Nid nid) {
+    public DeplacementRessource(Terrain t, Ressource ressource, Nid nid,GestionScore gestionScore) {
         super(t, nid, ressource);
         this.ressource = ressource;
+        this.gestionScore = gestionScore;
     }
 
     public Ressource getRessource() {
@@ -37,6 +41,10 @@ public class DeplacementRessource extends Deplacement {
 
             // Marquer le déplacement comme terminé
             isDone = true;
+
+            // Mettre à jour le score
+            gestionScore.ressourceRamenee(ressource);
+
         }
     }
 

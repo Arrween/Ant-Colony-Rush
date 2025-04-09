@@ -37,7 +37,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         add(terrainPanel, BorderLayout.CENTER);
 
         // Création du contrôleur pour gérer les clics sur le terrain
-        terrainControleur = new TerrainController(terrain, terrainPanel, this);
+        terrainControleur = new TerrainController(terrain, terrainPanel, this, gestionScore);
         terrainPanel.addMouseListener(terrainControleur);
 
         // Enregistrer le contrôleur comme écouteur de clavier

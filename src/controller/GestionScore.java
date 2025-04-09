@@ -1,6 +1,7 @@
 package controller;
 
 import model.Nid;
+import model.Ressource;
 import model.Score;
 
 public class GestionScore extends Thread {
@@ -8,6 +9,7 @@ public class GestionScore extends Thread {
     private Nid nid;
     private boolean ajouterFourmiEvent = false;
     public final int DELAY = 100;
+    private GestionScore gestionScore;
 
     public GestionScore(Score score, Nid nid) {
         this.score = score;
@@ -18,9 +20,14 @@ public class GestionScore extends Thread {
         return score;
     }
 
-    // public void ressourceRamenee(int poids) {
-    // score.augmenterScore(poids);
-    // }
+    public void ressourceRamenee(Ressource ress) {
+        int vn = ress.getValeurNutritive();
+        score.augmenterScore(vn);
+    }
+
+    public void setGestionScore(GestionScore gestionScore) {
+        this.gestionScore = gestionScore;
+    }
 
     public void ajouterFourmi() {
         if (score.AjoutFourmiPossible()) {
