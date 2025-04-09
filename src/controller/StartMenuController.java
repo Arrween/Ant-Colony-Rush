@@ -73,7 +73,8 @@ public class StartMenuController {
         GestionnaireDeplacement gestionnaireDeplacement = new GestionnaireDeplacement(terrain, terrainPanel);
         GestionnaireCrapaud gestionnaireCrapaud = new GestionnaireCrapaud(terrain);
 
-        Score score = new Score();
+        Score score = new Score(terrain.getNid());
+        
         // thread de gestion du score
         GestionScore gestionScore = new GestionScore(score, terrain.getNid());
         gestionScore.start();

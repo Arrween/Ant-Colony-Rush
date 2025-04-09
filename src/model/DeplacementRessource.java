@@ -23,12 +23,16 @@ public class DeplacementRessource extends Deplacement {
 
     @Override
     public void avancer() {
+        if (isDone) {
+            return; // Si le déplacement est déjà terminé, ne rien faire
+        }
+
         // Mise à jour de la position
         updatePosition();
         updateDirection();
 
         // Si le déplacement est terminé
-        if (!isDone && currentX == destX && currentY == destY) {
+        if (currentX == destX && currentY == destY) {
             // Ajouter la ressource au nid
             ((Nid) dest).incrScore(ressource.getValeurNutritive());
             ((Nid) dest).ajouterFourmis(ressource.getFourmis());

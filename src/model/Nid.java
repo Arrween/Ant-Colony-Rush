@@ -25,16 +25,16 @@ public class Nid extends ObjetFixe {
         }
     }
 
-    public void majScore() {
-
+    public void incrScore(int valeur) {
+        score += valeur; // Incrémenter le score local
     }
 
     public int getScore() {
         return score;
     }
 
-    public void incrScore(int valeur) {
-        score += valeur;
+    public void decrScore(int valeur) {
+        score -= valeur; // Décrémenter le score local
     }
 
     public Fourmi ajouterFourmi() {
