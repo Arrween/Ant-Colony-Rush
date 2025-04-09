@@ -2,7 +2,7 @@ package model;
 
 public class GestionnaireFourmisMortes extends Thread {
     private Terrain t;
-    public final int DELAY = 200;
+    public final int DELAY = 50;
 
     public GestionnaireFourmisMortes(Terrain t) {
         this.t = t;
