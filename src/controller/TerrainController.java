@@ -22,10 +22,8 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
     private TerrainPanel terrainPanel; // Pour pouvoir faire un repaint()
     private TerrainPanel.ControlPanelListener controlListener;
     private DestinationSelectionnee destSelector; // Renommage pour corriger la faute
-    private Timer timer;
     private int lastMouseX;
     private int lastMouseY;
-    private Timer selectionTimer;
     private GestionScore gestionScore;
 
     /**
@@ -42,20 +40,6 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
         this.gestionScore = gestionScore;
         // On initialise la sélection de destination
         this.destSelector = new DestinationSelectionnee(terrain);
-
-        // On crée un Timer Swing pour rafraîchir le modèle toutes les 25 ms
-        this.timer = new Timer(25, this);
-        this.timer.start();
-
-        selectionTimer = new Timer(1000, e -> {
-            for (ObjetFixe obj : Terrain.getObjetsFixes()) {
-                if (obj.isSelected()) {
-                    obj.setSelected(!obj.isSelected()); // Alterner l'état
-                }
-            }
-            terrainPanel.repaint();
-        });
-        selectionTimer.start();
     }
 
     public DestinationSelectionnee getDestSelector() {
@@ -107,13 +91,6 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Mise à jour des déplacements (modèle)
-        for (Deplacement d : terrain.getDeplacements()) {
-            d.avancer();
-        }
-        terrain.updateCrapaud(); // déplacer & animer le crapaud
-        // On redessine le TerrainPanel
-        terrainPanel.repaint();
     }
 
     @Override
