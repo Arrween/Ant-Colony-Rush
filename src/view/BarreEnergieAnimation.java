@@ -4,10 +4,10 @@ import javax.swing.*;
 import model.Fourmi;
 
 public class BarreEnergieAnimation extends Thread {
-    private JProgressBar barreEnergie; // Barre d'énergie à animer
+    private JProgressBar barreEnergie; // Barre d'énergie à afficher
     private Fourmi fourmi; // Référence à la fourmi associée
     private boolean animationActive = true; // Indique si l'animation est active
-    private final int DELAY = 1000; // Délai entre chaque mise à jour (1 seconde)
+    private final int DELAY = 100; // Délai entre chaque mise à jour (100 ms)
 
     public BarreEnergieAnimation(JProgressBar barreEnergie, Fourmi fourmi) {
         this.barreEnergie = barreEnergie;
@@ -18,20 +18,14 @@ public class BarreEnergieAnimation extends Thread {
     public void run() {
         while (animationActive) {
             try {
-                Thread.sleep(DELAY); // Attendre avant de diminuer l'énergie
+                Thread.sleep(DELAY); // Attendre avant de mettre à jour l'affichage
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                animationActive = false; // Arrêter l'animation si le thread est interrompu
+                Thread.currentThread().interrupt(); // Réinterrompre le thread
             }
 
-            // Diminuer l'énergie de la fourmi
-            if (fourmi.getEnergie() > 0) {
-                fourmi.decrEnergie();
-
-                // Mettre à jour la barre d'énergie directement (sans thread-safe ici)
-                barreEnergie.setValue(fourmi.getEnergie());
-            } else {
-                animationActive = false; // Arrêter l'animation si l'énergie est à 0
-            }
+            // Mettre à jour la barre d'énergie avec la valeur actuelle de la fourmi
+            SwingUtilities.invokeLater(() -> barreEnergie.setValue(fourmi.getEnergie()));
         }
     }
 

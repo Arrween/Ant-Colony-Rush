@@ -2,7 +2,7 @@ package model;
 
 public class GestionnaireEnergie extends Thread {
     private Terrain t;
-    public final int DELAY = 100;
+    public final int DELAY = 50;
 
     public GestionnaireEnergie(Terrain t) {
         this.t = t;

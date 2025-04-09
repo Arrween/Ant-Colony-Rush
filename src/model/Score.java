@@ -1,22 +1,29 @@
 package model;
 
 public class Score {
-    private int Score = 10;
+    private Nid nid; // Référence au Nid
+    public static final int FOURMI_AJOUT= 60;
+
+    public Score(Nid nid) {
+        this.nid = nid; // Associer le Nid
+    }
 
     // Getter pour les Score
     public int getScore() {
-        return Score;
+        return nid.getScore();
     }
 
     public void augmenterScore(int vn) {
-        this.Score += vn;
+        // Incrémenter le score dans le Nid
+        nid.incrScore(vn);
     }
 
     public void diminuerScore() {
-        this.Score -= 60;
+        // Décrémenter le score dans le Nid
+        nid.decrScore(FOURMI_AJOUT);
     }
 
     public boolean AjoutFourmiPossible() {
-        return Score >= 60;
+        return getScore() >= FOURMI_AJOUT;
     }
 }
