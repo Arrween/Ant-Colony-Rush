@@ -10,7 +10,7 @@ public class Terrain {
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
     public static final int NB_RESSOURCES_MAX = 40;
-    public int nb_ressources = 0;
+    public int nb_ressources;
     private Crapaud crapaud;
     public static Image BACKGROUND;
     private final int DIFFICULTE;
@@ -39,6 +39,7 @@ public class Terrain {
         // Ajout des abris et ressources de base
         ajouterAbris(15); // Exemple : ajout de 3 abris
         ajouterRessources(NB_RESSOURCES_MAX); // Exemple : ajout de 5 ressources
+        nb_ressources = NB_RESSOURCES_MAX;
 
         // Initialisation du crapaud
         int startX = RANDOM.nextInt(LARGEUR);
@@ -106,6 +107,7 @@ public class Terrain {
         Ressource r = (Ressource) elts.stream().filter(elt -> elt.getId() == idRessource).findFirst().get();
         // retirer la ressource de la liste des objets fixes
         elts.removeIf(elt -> elt.getId() == idRessource);
+        nb_ressources--;
         // créer une instance de transport avec la ressource et le nid
         expeditions.add(new Transport(this, r, depart));
     }
@@ -151,6 +153,12 @@ public class Terrain {
 
     public void ajouterRessource(Ressource r) {
         elts.add(r);
+        nb_ressources++;
+    }
+
+    public void ajouterRessourceTemporaire() {
+        elts.add(RessourceTemporaire.genererRessourceTemporaire());
+        nb_ressources++;
     }
 
     public void ajouterDeplacement(Deplacement deplacement) {
