@@ -6,7 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import model.*;
+import model.Abri;
+import model.MusicPlayer;
+import model.Nid;
+import model.Ressource;
+import model.Score;
+import model.Terrain; // Assurez-vous d'importer la classe MusicPlayer
 
 public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListener {
     private Terrain terrain;
@@ -19,7 +24,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     private boolean nightMode = false;
 
     public JeuFrame(Terrain t, TerrainPanel panel, GestionScore gestionScore, Score score) {
-        setTitle("Jeu Fourmis");
+        setTitle("Ant Colony Rush");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         this.gestionScore = gestionScore;
@@ -46,12 +51,21 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         setVisible(true);
         
         // Timer pour basculer le mode nuit toutes les 2 minutes (120000 ms)
-        // On garde à 12 secondes pour le test, rajouter un 0 pour le vrai jeu
-        Timer nightTimer = new Timer(12000, new ActionListener() {
+        Timer nightTimer = new Timer(10000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                nightMode = !nightMode;  // On bascule le mode
+                // Bascule du mode jour/nuit
+                nightMode = !nightMode;
                 terrainPanel.setNightMode(nightMode);
+                
+                // Jouer le son correspondant via MusicPlayer
+                if (nightMode) {
+                    MusicPlayer.stopDaySound();
+                    MusicPlayer.playNightSound();
+                } else {
+                    MusicPlayer.stopNightSound();
+                    MusicPlayer.playDaySound();
+                }
             }
         });
         nightTimer.start();

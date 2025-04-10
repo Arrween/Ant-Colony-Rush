@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import model.MusicPlayer;
 
 public class MenuDemarrage extends JFrame {
     private DifficultePanel difficultePanel;
@@ -12,8 +13,12 @@ public class MenuDemarrage extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
+        MusicPlayer.initSound(); // Initialisation des sons
+        MusicPlayer.playMusicMenu(); // Lecture de la musique de menu
+
         difficultePanel = new DifficultePanel();
         add(difficultePanel);
+
     }
 
     public DifficultePanel getDifficultePanel() {
