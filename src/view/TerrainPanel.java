@@ -15,7 +15,7 @@ public class TerrainPanel extends JPanel {
     private ControlPanelListener controlListener;
     public static final int TAILLE_CRAPAUD = 160;
     public static final int TAILLE_FOURMIS = 40;
-    public static final int TAILLE_OBJETS = (int) (2*ObjetFixe.HALF_SIZE * 1);
+    public static final int TAILLE_OBJETS = (int) (2 * ObjetFixe.HALF_SIZE * 1);
     private BackgroundGrid backgroundGrid;
 
     public interface ControlPanelListener {
@@ -48,8 +48,8 @@ public class TerrainPanel extends JPanel {
             if (img != null) {
                 int x = obj.getX();
                 int y = obj.getY();
-                g.drawImage(img, x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS, this);
-                //temporairement pour se repérer
+                g.drawImage(img, x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2, TAILLE_OBJETS, TAILLE_OBJETS, this);
+                // temporairement pour se repérer
                 g.drawOval(x - 3, y - 3, 6, 6);
 
                 // Dessiner un contour clignotant si l'objet est sélectionné
@@ -57,14 +57,14 @@ public class TerrainPanel extends JPanel {
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setStroke(new BasicStroke(3));
                     g2d.setColor(Color.RED);
-                    g2d.drawRect(x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS);
+                    g2d.drawRect(x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2, TAILLE_OBJETS, TAILLE_OBJETS);
                 }
 
                 // afficher le timer s'il s'agit d'une ressource temporaire
                 if (obj instanceof RessourceTemporaire) {
                     RessourceTemporaire ressourceTemp = (RessourceTemporaire) obj;
                     String str = (ressourceTemp.getTempsRestant() / 1000) + "s";
-                    g.drawString(str, x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2 - 20);
+                    g.drawString(str, x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2 - 20);
                 }
             }
             if (obj.getNbFourmis() > 0) {
@@ -83,12 +83,12 @@ public class TerrainPanel extends JPanel {
                     int x = dep.getX();
                     int y = dep.getY();
                     g.drawImage(frame,
-                            x - TAILLE_FOURMIS/2,
-                            y - TAILLE_FOURMIS/2,
+                            x - TAILLE_FOURMIS / 2,
+                            y - TAILLE_FOURMIS / 2,
                             TAILLE_FOURMIS,
                             TAILLE_FOURMIS,
                             this);
-                    //temporairement pour se repérer
+                    // temporairement pour se repérer
                     g.drawOval(x - 3, y - 3, 6, 6);
                 }
             }
@@ -97,8 +97,8 @@ public class TerrainPanel extends JPanel {
                 Ressource ressource = ((DeplacementRessource) dep).getRessource();
                 Image img = ressource.getImage();
                 if (img != null) {
-                    int x = dep.getX() - TAILLE_OBJETS/2;
-                    int y = dep.getY() - TAILLE_OBJETS/2;
+                    int x = dep.getX() - TAILLE_OBJETS / 2;
+                    int y = dep.getY() - TAILLE_OBJETS / 2;
                     g.drawImage(img, x, y, TAILLE_OBJETS, TAILLE_OBJETS, this);
                 }
             }
@@ -109,13 +109,14 @@ public class TerrainPanel extends JPanel {
             Graphics2D g2d = (Graphics2D) g;
             int diametre = 2 * crapaud.getVisionRange();
             g2d.setColor(new Color(255, 0, 0, 50));
-            g2d.fillArc(crapaud.getX() - crapaud.getVisionRange(), crapaud.getY() - crapaud.getVisionRange(), diametre, diametre, crapaud.getDirectionAngle() - 45, 90); 
+            g2d.fillArc(crapaud.getX() - crapaud.getVisionRange(), crapaud.getY() - crapaud.getVisionRange(), diametre,
+                    diametre, crapaud.getDirectionAngle() - 45, 90);
 
             java.awt.image.BufferedImage frame = crapaud.getCurrentFrame();
             int x = crapaud.getX();
             int y = crapaud.getY();
-            g.drawImage(frame, x - TAILLE_CRAPAUD/2, y - TAILLE_CRAPAUD/2, TAILLE_CRAPAUD, TAILLE_CRAPAUD, this);
-            //temporairement pour se repérer
+            g.drawImage(frame, x - TAILLE_CRAPAUD / 2, y - TAILLE_CRAPAUD / 2, TAILLE_CRAPAUD, TAILLE_CRAPAUD, this);
+            // temporairement pour se repérer
             g.drawOval(x - 3, y - 3, 6, 6);
         }
 

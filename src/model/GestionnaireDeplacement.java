@@ -4,12 +4,11 @@ import view.TerrainPanel;
 
 /**
  * Ce thread gère la boucle de mise à jour du modèle :
- *  - Déplacements des fourmis
- *  - Gestion des déplacements terminés
- *  - Mise à jour du crapaud
- *  - Redessin de la vue via SwingUtilities.invokeLater()
+ * - Déplacements des fourmis
+ * - Gestion des déplacements terminés
+ * - Mise à jour du crapaud
+ * - Redessin de la vue via SwingUtilities.invokeLater()
  */
-
 
 public class GestionnaireDeplacement extends Thread {
     private Terrain t;

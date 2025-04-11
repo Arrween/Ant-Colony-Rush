@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 /**
  * Gère une petite animation d'idle pour le crapaud :
- *  - 2 colonnes, 2 lignes => 4 frames.
+ * - 2 colonnes, 2 lignes => 4 frames.
  */
 public class CrapaudIdleAnimation {
 
@@ -33,7 +33,7 @@ public class CrapaudIdleAnimation {
      * Découpe la spriteSheet en 4 frames (2x2).
      */
     private void extractFrames() {
-        frameWidth = spriteSheet.getWidth() / 2;  // 2 colonnes
+        frameWidth = spriteSheet.getWidth() / 2; // 2 colonnes
         frameHeight = spriteSheet.getHeight() / 2; // 2 lignes
 
         frames = new BufferedImage[4];

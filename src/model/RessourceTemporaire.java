@@ -8,10 +8,10 @@ import javax.swing.ImageIcon;
 public class RessourceTemporaire extends Ressource {
     private int tempsRestant;
 
-    //valeurs possibles
+    // valeurs possibles
     private static final int[] POIDS = { 4, 5, 6 };
     private static final int[] VALEURS_NUTRITIVES = { 120, 200, 400 };
-    private static final int[] DUREES = { 10000, 15000, 22000 }; 
+    private static final int[] DUREES = { 10000, 15000, 22000 };
 
     public RessourceTemporaire(int p, int vn, int x, int y, int duree) {
         super(p, vn, x, y);
@@ -20,13 +20,17 @@ public class RessourceTemporaire extends Ressource {
                 .getImage();
     }
 
-    public boolean aDisparu() { return tempsRestant <= 0; }
+    public boolean aDisparu() {
+        return tempsRestant <= 0;
+    }
 
-    public void decrTempsRestant(int time) { //avec time en ms
+    public void decrTempsRestant(int time) { // avec time en ms
         tempsRestant -= time;
     }
 
-    public int getTempsRestant() { return tempsRestant; }
+    public int getTempsRestant() {
+        return tempsRestant;
+    }
 
     public String getTempsRestantString() {
         int secondes = tempsRestant / 1000;

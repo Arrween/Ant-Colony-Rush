@@ -1,8 +1,8 @@
 package model;
 
+import controller.GestionScore;
 import java.awt.*;
 import javax.swing.*;
-import controller.GestionScore;
 
 public class Ressource extends ObjetFixe {
     private int poids;

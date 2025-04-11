@@ -1,6 +1,6 @@
 package model;
 
-public class GestionnaireSelection extends Thread{
+public class GestionnaireSelection extends Thread {
     private Terrain t;
     public final int DELAY = 200;
 

@@ -2,17 +2,18 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import model.Crapaud;
 import model.Score;
 
 public class ConteneurPanneauDeControle extends JPanel {
     private PanneauDeTableauDeBord panneauFixe; // Partie fixe
     private JPanel panneauDynamique; // Partie dynamique
 
-    public ConteneurPanneauDeControle(Score score) {
+    public ConteneurPanneauDeControle(Score score, Crapaud crapaud) {
         setLayout(new BorderLayout());
 
         // Partie fixe
-        panneauFixe = new PanneauDeTableauDeBord(score);
+        panneauFixe = new PanneauDeTableauDeBord(score, crapaud);
         add(panneauFixe, BorderLayout.NORTH);
 
         // Partie dynamique
@@ -25,9 +26,6 @@ public class ConteneurPanneauDeControle extends JPanel {
         return panneauFixe;
     }
 
-    /**
-     * Affiche un panneau de détail (par exemple, le panneau de contrôle d'un nid).
-     */
     public void afficherPanneauDetail(JPanel detail) {
         panneauDynamique.removeAll();
         panneauDynamique.add(detail, BorderLayout.CENTER);
@@ -35,9 +33,6 @@ public class ConteneurPanneauDeControle extends JPanel {
         repaint();
     }
 
-    /**
-     * Revient à l'affichage par défaut (tableau de bord).
-     */
     public void afficherTableauDeBord() {
         panneauDynamique.removeAll(); // Supprimer le contenu de la partie dynamique
         revalidate();

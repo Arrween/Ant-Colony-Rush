@@ -13,7 +13,7 @@ public class Abri extends ObjetFixe {
         this.capacite = capacite;
         this.imageAbri = new ImageIcon(getClass().getResource("/resources/Shelters/abri" + capacite + ".png"))
                 .getImage();
-            
+
         this.difficulte = d;
     }
 
@@ -36,6 +36,6 @@ public class Abri extends ObjetFixe {
                 fourmi.decrEnergie();
             }
         }
-        //si difficulte == 2, on ne fait rien
+        // si difficulte == 2, on ne fait rien
     }
 }

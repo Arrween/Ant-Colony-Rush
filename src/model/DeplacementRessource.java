@@ -6,7 +6,7 @@ public class DeplacementRessource extends Deplacement {
     private Ressource ressource;
     private GestionScore gestionScore;
 
-    public DeplacementRessource(Terrain t, Ressource ressource, Nid nid,GestionScore gestionScore) {
+    public DeplacementRessource(Terrain t, Ressource ressource, Nid nid, GestionScore gestionScore) {
         super(t, nid, ressource);
         this.ressource = ressource;
         this.gestionScore = gestionScore;

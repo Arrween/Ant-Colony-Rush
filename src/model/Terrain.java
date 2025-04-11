@@ -28,7 +28,7 @@ public class Terrain {
         int y = rand.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
 
         // Création du Nid avec un nombre initial de fourmis (ici, 10)
-        Nid nid = new Nid(20, x, y);
+        Nid nid = new Nid(5, x, y);
         elts.add(nid);
 
         // Ajout des abris et ressources de base

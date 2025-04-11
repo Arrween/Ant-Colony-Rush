@@ -2,7 +2,7 @@ package model;
 
 public class Score {
     private Nid nid; // Référence au Nid
-    public static final int FOURMI_AJOUT= 60;
+    public static final int FOURMI_AJOUT = 60;
 
     public Score(Nid nid) {
         this.nid = nid; // Associer le Nid

@@ -25,16 +25,17 @@ public class GestionnaireRessources extends Thread {
                 }
             }
 
-            //pour les ressources Temporaires
+            // pour les ressources Temporaires
             for (ObjetFixe o : Terrain.getObjetsFixes()) {
                 if (o instanceof RessourceTemporaire) {
                     RessourceTemporaire ressourceTemp = (RessourceTemporaire) o;
-                    //décrémenter temps restant
+                    // décrémenter temps restant
                     ressourceTemp.decrTempsRestant(DELAY);
-                    //supprimer les ressources temporaires à échéance
-                    //les fourmis dedans disparaissent avec
+                    // supprimer les ressources temporaires à échéance
+                    // les fourmis dedans disparaissent avec
                     if (ressourceTemp.aDisparu()) {
-                        terrain.removeRessource(ressourceTemp.getId());;
+                        terrain.removeRessource(ressourceTemp.getId());
+                        ;
                     }
                 }
             }

@@ -62,7 +62,7 @@ public abstract class Deplacement {
     }
 
     // Méthode appelée périodiquement (par le Timer du contrôleur)
-    public abstract void avancer() ;
+    public abstract void avancer();
 
     protected void updatePosition() {
         // algo de déplacmenent////

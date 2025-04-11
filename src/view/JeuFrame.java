@@ -17,7 +17,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     private TerrainController terrainControleur;
     private GestionScore gestionScore;
 
-    public JeuFrame(Terrain t, TerrainPanel panel, GestionScore gestionScore,Score score) {
+    public JeuFrame(Terrain t, TerrainPanel panel, GestionScore gestionScore, Score score) {
         setTitle("Jeu Fourmis");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -29,7 +29,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         terrainPanel.setEcouteurPanneauDeControle(this);
 
         // Initialisation du panneau de contrôle sur le côté droit
-        conteneurPanneau = new ConteneurPanneauDeControle(score);
+        conteneurPanneau = new ConteneurPanneauDeControle(score, terrain.getCrapaud());
         conteneurPanneau.setPreferredSize(new Dimension(350, terrainPanel.getPreferredSize().height));
         add(conteneurPanneau, BorderLayout.EAST);
 

@@ -9,7 +9,7 @@ import view.CrapaudIdleAnimation;
 public class Crapaud {
     private Terrain terrain;
 
-    private int x,y;
+    private int x, y;
     private int dx, dy;
     private int visionRange;
 
@@ -78,7 +78,7 @@ public class Crapaud {
         int newY = y + dy;
 
         // Vérification des limites du terrain
-        if (newX < 0 || newX + 50  > Terrain.LARGEUR) {
+        if (newX < 0 || newX + 50 > Terrain.LARGEUR) {
             dx = -dx;
             newX = x + dx;
         }
@@ -217,5 +217,16 @@ public class Crapaud {
             angleDeg += 360;
         }
         return angleDeg;
+    }
+
+    // Je veux récuperer l'etat du crapaud pour l'afficher dans le panel
+    public String getEtat() {
+        if (isAsleep) {
+            return "sommeil";
+        } else if (satiete <= SEUIL_FAIM) {
+            return "faim";
+        } else {
+            return "normal";
+        }
     }
 }
