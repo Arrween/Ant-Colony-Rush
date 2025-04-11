@@ -3,7 +3,7 @@
     "java.dependency.packagePresentation": "flat",
     "java.project.sourcePaths": [
         "src",
-        "resources"
+        "tests/tests"
     ],
     "java.project.referencedLibraries": [],
     "java.project.outputPath": "out"

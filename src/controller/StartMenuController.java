@@ -10,6 +10,7 @@ import model.GestionnaireEnergie;
 import model.GestionnaireRessources;
 import model.GestionnaireFourmisMortes;
 import model.GestionnaireSelection;
+import model.MusicPlayer;
 import model.Score;
 import model.Terrain;
 import view.DifficultePanel;
@@ -70,6 +71,10 @@ public class StartMenuController {
         // Création du modèle principal
         Terrain terrain = new Terrain(1); // pour l'instant difficulté à 1 par défaut
         TerrainPanel terrainPanel = new TerrainPanel(terrain);
+
+        MusicPlayer.stopMusicMenu();
+        MusicPlayer.playMusic(); // Lecture de la musique de jeu
+        MusicPlayer.playDaySound(); // Lecture du son de jour
 
         // Création des gestionnaires (Threads)
         GestionnaireEnergie gestionnaireEnergie = new GestionnaireEnergie(terrain);

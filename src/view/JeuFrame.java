@@ -3,12 +3,15 @@ package view;
 import controller.GestionScore;
 import controller.TerrainController;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import model.Abri;
+import model.MusicPlayer;
 import model.Nid;
 import model.Ressource;
 import model.Score;
-import model.Terrain;
+import model.Terrain; // Assurez-vous d'importer la classe MusicPlayer
 
 public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListener {
     private Terrain terrain;
@@ -16,14 +19,16 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     private ConteneurPanneauDeControle conteneurPanneau;
     private TerrainController terrainControleur;
     private GestionScore gestionScore;
+    
+    // Variable pour suivre l'état courant (jour/nuit)
+    private boolean nightMode = false;
 
     public JeuFrame(Terrain t, TerrainPanel panel, GestionScore gestionScore, Score score) {
-        setTitle("Jeu Fourmis");
+        setTitle("Ant Colony Rush");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         this.gestionScore = gestionScore;
-
-        // Création du terrain et de sa vue
+        
         terrain = t;
         terrainPanel = panel;
         terrainPanel.setEcouteurPanneauDeControle(this);
@@ -32,22 +37,39 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         conteneurPanneau = new ConteneurPanneauDeControle(score, terrain.getCrapaud());
         conteneurPanneau.setPreferredSize(new Dimension(350, terrainPanel.getPreferredSize().height));
         add(conteneurPanneau, BorderLayout.EAST);
-
-        // Ajouter le terrainPanel au centre
+        
         add(terrainPanel, BorderLayout.CENTER);
-
-        // Création du contrôleur pour gérer les clics sur le terrain
+        
         terrainControleur = new TerrainController(terrain, terrainPanel, this, gestionScore);
         terrainPanel.addMouseListener(terrainControleur);
-
-        // Enregistrer le contrôleur comme écouteur de clavier
+        
         addKeyListener(terrainControleur);
         setFocusable(true);
         requestFocusInWindow();
-
+        
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        
+        // Timer pour basculer le mode nuit toutes les 2 minutes (120000 ms)
+        Timer nightTimer = new Timer(10000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Bascule du mode jour/nuit
+                nightMode = !nightMode;
+                terrainPanel.setNightMode(nightMode);
+                
+                // Jouer le son correspondant via MusicPlayer
+                if (nightMode) {
+                    MusicPlayer.stopDaySound();
+                    MusicPlayer.playNightSound();
+                } else {
+                    MusicPlayer.stopNightSound();
+                    MusicPlayer.playDaySound();
+                }
+            }
+        });
+        nightTimer.start();
     }
 
     @Override

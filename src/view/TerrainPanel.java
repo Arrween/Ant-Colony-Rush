@@ -2,13 +2,7 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
-import model.Abri;
-import model.DeplacementRessource;
-import model.Nid;
-import model.ObjetFixe;
-import model.Ressource;
-import model.RessourceTemporaire;
-import model.Terrain;
+import model.*;
 
 public class TerrainPanel extends JPanel {
     private Terrain terrain;
@@ -17,6 +11,15 @@ public class TerrainPanel extends JPanel {
     public static final int TAILLE_FOURMIS = 40;
     public static final int TAILLE_OBJETS = (int) (2 * ObjetFixe.HALF_SIZE * 1);
     private BackgroundGrid backgroundGrid;
+
+    // Champs pour la transition smooth du mode nuit
+    private int currentAlpha = 0; // Opacité actuelle de la surcouche (0 = jour, jusqu'à 150 = nuit complète)
+    private int targetAlpha = 0; // Opacité cible : 0 pour le jour, DESIRED_ALPHA pour la nuit
+    private final int DESIRED_ALPHA = 170; // Valeur d'opacité souhaitée en mode nuit
+    private final int alphaStep = 5; // Pas d'incrémentation à chaque tick
+
+    // Timer pour la transition progressif de l'alpha
+    private Timer alphaTransitionTimer;
 
     public interface ControlPanelListener {
         void nidClicked(Nid nid);
@@ -30,6 +33,34 @@ public class TerrainPanel extends JPanel {
         this.terrain = terrain;
         setPreferredSize(new Dimension(Terrain.LARGEUR, Terrain.HAUTEUR));
         backgroundGrid = new BackgroundGrid(Terrain.LARGEUR, Terrain.HAUTEUR);
+
+        // Timer qui met à jour currentAlpha toutes les 50 ms pour une transition fluide
+        alphaTransitionTimer = new Timer(50, e -> {
+            if (currentAlpha < targetAlpha) {
+                currentAlpha = Math.min(currentAlpha + alphaStep, targetAlpha);
+                repaint();
+            } else if (currentAlpha > targetAlpha) {
+                currentAlpha = Math.max(currentAlpha - alphaStep, targetAlpha);
+                repaint();
+            }
+        });
+        alphaTransitionTimer.start();
+    }
+
+    // La méthode setNightMode ne change plus directement l'état binaire,
+    // elle fixe la valeur cible de l'opacité
+    public void setNightMode(boolean nightMode) {
+        if (nightMode) {
+            targetAlpha = DESIRED_ALPHA;
+        } else {
+            targetAlpha = 0;
+        }
+    }
+
+    // Getter optionnel : on considère que le mode nuit est activé quand targetAlpha
+    // atteint DESIRED_ALPHA
+    public boolean isNightMode() {
+        return targetAlpha == DESIRED_ALPHA;
     }
 
     public void setEcouteurPanneauDeControle(ControlPanelListener ecouteur) {
@@ -38,41 +69,40 @@ public class TerrainPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-
         super.paintComponent(g);
-        // Affichage de l'arrière-plan :
+
+        // Affichage de l'arrière-plan
         backgroundGrid.draw(g);
+
         // Affichage des objets fixes
         for (ObjetFixe obj : Terrain.getObjetsFixes()) {
             Image img = obj.getImage();
             if (img != null) {
                 int x = obj.getX();
                 int y = obj.getY();
-                g.drawImage(img, x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2, TAILLE_OBJETS, TAILLE_OBJETS, this);
-                // temporairement pour se repérer
+                g.drawImage(img, x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS, this);
+                //temporairement pour se repérer
                 g.drawOval(x - 3, y - 3, 6, 6);
 
-                // Dessiner un contour clignotant si l'objet est sélectionné
                 if (obj.isSelected()) {
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setStroke(new BasicStroke(3));
                     g2d.setColor(Color.RED);
-                    g2d.drawRect(x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2, TAILLE_OBJETS, TAILLE_OBJETS);
+                    g2d.drawRect(x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS);
                 }
 
-                // afficher le timer s'il s'agit d'une ressource temporaire
                 if (obj instanceof RessourceTemporaire) {
                     RessourceTemporaire ressourceTemp = (RessourceTemporaire) obj;
                     String str = (ressourceTemp.getTempsRestant() / 1000) + "s";
-                    g.drawString(str, x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2 - 20);
+                    g.drawString(str, x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2 - 20);
                 }
             }
             if (obj.getNbFourmis() > 0) {
                 g.setColor(Color.BLACK);
                 g.drawString(Integer.toString(obj.getNbFourmis()), obj.getX() - 5, obj.getY() + 5);
             }
-
         }
+
         // Affichage des déplacements
         for (var dep : terrain.getDeplacements()) {
             g.drawLine(dep.getDepX(), dep.getDepY(), dep.getDestX(), dep.getDestY());
@@ -83,8 +113,8 @@ public class TerrainPanel extends JPanel {
                     int x = dep.getX();
                     int y = dep.getY();
                     g.drawImage(frame,
-                            x - TAILLE_FOURMIS / 2,
-                            y - TAILLE_FOURMIS / 2,
+                            x - TAILLE_FOURMIS/2,
+                            y - TAILLE_FOURMIS/2,
                             TAILLE_FOURMIS,
                             TAILLE_FOURMIS,
                             this);
@@ -92,17 +122,17 @@ public class TerrainPanel extends JPanel {
                     g.drawOval(x - 3, y - 3, 6, 6);
                 }
             }
-            // Affichage des ressources en déplacement
             if (dep instanceof DeplacementRessource) {
                 Ressource ressource = ((DeplacementRessource) dep).getRessource();
                 Image img = ressource.getImage();
                 if (img != null) {
-                    int x = dep.getX() - TAILLE_OBJETS / 2;
-                    int y = dep.getY() - TAILLE_OBJETS / 2;
+                    int x = dep.getX() - TAILLE_OBJETS/2;
+                    int y = dep.getY() - TAILLE_OBJETS/2;
                     g.drawImage(img, x, y, TAILLE_OBJETS, TAILLE_OBJETS, this);
                 }
             }
         }
+
         // Affichage du crapaud
         model.Crapaud crapaud = terrain.getCrapaud();
         if (crapaud != null) {
@@ -120,5 +150,36 @@ public class TerrainPanel extends JPanel {
             g.drawOval(x - 3, y - 3, 6, 6);
         }
 
-    }
-}
+        // Dessin de la surcouche du mode nuit avec l'opacité actuelle
+        if (currentAlpha > 0) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(new Color(0, 0, 0, currentAlpha));
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.dispose();
+        }
+    }}
+    
+    
+    
+      
+
+    
+    
+    
+        
+        
+        
+    
+
+    
+    
+    
+
+    
+    
+    
+        
+        
+        
+        
+    
