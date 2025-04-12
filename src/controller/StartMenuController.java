@@ -83,7 +83,7 @@ public class StartMenuController {
         GestionnaireDeplacement gestionnaireDeplacement = new GestionnaireDeplacement(terrain, terrainPanel);
         GestionnaireCrapaud gestionnaireCrapaud = new GestionnaireCrapaud(terrain);
         GestionnaireRessources gestionnaireRessources = new GestionnaireRessources(terrain);
-        GestionnaireFourmisMortes gestionnaireFourmisMortes = new GestionnaireFourmisMortes(terrain);
+        GestionnaireFourmisMortes gestionnaireFourmisMortes = new GestionnaireFourmisMortes(terrain, terrainPanel);
         GestionnaireSelection gestionnaireSelection = new GestionnaireSelection(terrain);
 
         Score score = new Score(terrain.getNid());

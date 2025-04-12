@@ -1,6 +1,9 @@
 package view;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.*;
 import model.*;
 
@@ -11,6 +14,7 @@ public class TerrainPanel extends JPanel {
     public static final int TAILLE_FOURMIS = 40;
     public static final int TAILLE_OBJETS = (int) (2 * ObjetFixe.HALF_SIZE * 1);
     private BackgroundGrid backgroundGrid;
+    private List<DeathMessage> deathMessages = new ArrayList<>();
 
     // Champs pour la transition smooth du mode nuit
     private int currentAlpha = 0; // Opacité actuelle de la surcouche (0 = jour, jusqu'à 150 = nuit complète)
@@ -45,6 +49,10 @@ public class TerrainPanel extends JPanel {
             }
         });
         alphaTransitionTimer.start();
+    }
+
+    public void addDeathMessage(int x, int y) {
+        deathMessages.add(new DeathMessage(x, y));
     }
 
     // La méthode setNightMode ne change plus directement l'état binaire,
@@ -165,5 +173,21 @@ public class TerrainPanel extends JPanel {
             g2d.fillRect(0, 0, getWidth(), getHeight());
             g2d.dispose();
         }
+        // Après l'affichage de tous les autres éléments, dessiner les messages de mort
+        Graphics2D g2d = (Graphics2D) g;
+        Iterator<DeathMessage> iterator = deathMessages.iterator();
+        while (iterator.hasNext()) {
+            DeathMessage message = iterator.next();
+            if (message.isExpired()) {
+                iterator.remove();
+            } else {
+                message.updateOpacity();
+                message.draw(g2d);
+            }
+        }
+
+        // Remettre le composite par défaut après avoir dessiné les messages
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+
     }
 }

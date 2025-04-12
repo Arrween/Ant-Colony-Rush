@@ -12,6 +12,10 @@ public class DeplacementSimple extends Deplacement {
         f.decrEnergie();
     }
 
+    public Fourmi getFourmi() {
+        return f;
+    }
+
     @Override
     public void avancer() {
         // System.out.println("Fourmi " + f.getId() + " en déplacement");
