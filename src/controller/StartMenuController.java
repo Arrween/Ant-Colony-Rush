@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
+import model.Difficulte;
 import model.Fourmi;
 
 import model.GestionnaireCrapaud;
@@ -67,11 +69,23 @@ public class StartMenuController {
      * (énergie, déplacement), la fenêtre de jeu, etc.
      */
     private void launchGame() {
-        // Récupération de la difficulté sélectionnée si besoin :
-        // String difficulty = difficultePanel.getDifficulteSelectionnee();
-
+        // Récupération de la difficulté sélectionnée
+        Difficulte difficulte;
+        switch (difficultePanel.getDifficulteSelectionnee()) {
+            case "Facile":
+                difficulte = Difficulte.FACILE;
+                break;
+            case "Moyen":
+                difficulte = Difficulte.MOYEN;
+                break;
+            case "Difficile":
+                difficulte = Difficulte.DIFFICILE;
+                break;
+            default:
+                difficulte = Difficulte.FACILE; // Valeur par défaut
+        }
         // Création du modèle principal
-        Terrain terrain = new Terrain(1); // pour l'instant difficulté à 1 par défaut
+        Terrain terrain = new Terrain(difficulte); // pour l'instant difficulté à 1 par défaut
         TerrainPanel terrainPanel = new TerrainPanel(terrain);
 
         MusicPlayer.stopMusicMenu();

@@ -10,14 +10,15 @@ public class Terrain {
     public static final int NB_RESSOURCES_MAX = 40;
     public int nb_ressources;
     private Crapaud crapaud;
-    private final int DIFFICULTE;
+    private final Difficulte difficulte;
 
     // Liste des objets fixes présents sur le terrain (Nid, abris, ressources)
     static ArrayList<ObjetFixe> elts;
     ArrayList<Deplacement> expeditions;
 
-    public Terrain(int difficulte) {
-        DIFFICULTE = difficulte;
+    public Terrain(Difficulte difficulte) {
+
+        this.difficulte = difficulte;
 
         // Initialiser la liste avant toute utilisation
         elts = new ArrayList<ObjetFixe>();
@@ -28,13 +29,13 @@ public class Terrain {
         int y = rand.nextInt(HAUTEUR - 2 * ObjetFixe.HALF_SIZE) + ObjetFixe.HALF_SIZE;
 
         // Création du Nid avec un nombre initial de fourmis (ici, 10)
-        Nid nid = new Nid(5, x, y);
+        Nid nid = new Nid(difficulte.getNbFourmisInitial(), x, y);
         elts.add(nid);
 
         // Ajout des abris et ressources de base
-        ajouterAbris(15); // Exemple : ajout de 3 abris
-        ajouterRessources(NB_RESSOURCES_MAX); // Exemple : ajout de 5 ressources
-        nb_ressources = NB_RESSOURCES_MAX;
+        ajouterAbris(difficulte.getNbAbris()); // Exemple : ajout de 3 abris
+        ajouterRessources(difficulte.getNbRessources()); // Exemple : ajout de 5 ressources
+        nb_ressources = difficulte.getNbRessources();
 
         // Initialisation du crapaud
         int startX = RANDOM.nextInt(LARGEUR);
@@ -57,7 +58,7 @@ public class Terrain {
 
     public void ajouterAbris(int nombre) {
         for (int i = 0; i < nombre; i++) {
-            Abri abris = GenerationAbri.genererAbri(DIFFICULTE);
+            Abri abris = GenerationAbri.genererAbri(difficulte.getNbAbris());
             elts.add(abris);
         }
     }
