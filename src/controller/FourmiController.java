@@ -13,9 +13,9 @@ public class FourmiController {
 
     public void envoyerEnExpedition(Fourmi fourmi, ObjetFixe depart, DestinationSelectionnee ds) {
         // Activer la sélection de destination pour la fourmi
-        ds.setActive(depart, fourmi.getId());
-
-        // Supprimer la carte de la fourmi du panneau
-        panneauCartes.supprimerCarte(fourmi);
+        ds.setActive(depart, fourmi.getId(), () -> {
+            // Cette lambda sera appelée uniquement quand une destination valide est sélectionnée
+            panneauCartes.supprimerCarte(fourmi);
+        });
     }
 }

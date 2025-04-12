@@ -10,6 +10,7 @@ public class DestinationSelectionnee {
     private boolean active;
     private ObjetFixe depart;
     private Integer idFourmi;
+    private Runnable onDestinationValidee;
 
     public DestinationSelectionnee(Terrain terrain) {
         this.terrain = terrain;
@@ -22,10 +23,11 @@ public class DestinationSelectionnee {
         return active;
     }
 
-    public void setActive(ObjetFixe dep, Integer id) {
+    public void setActive(ObjetFixe dep, Integer id, Runnable callback) {
         this.active = true;
         this.depart = dep;
         this.idFourmi = id;
+        this.onDestinationValidee = callback;
         System.out.println("Destination selection active.");
     }
 
@@ -34,9 +36,13 @@ public class DestinationSelectionnee {
         ObjetFixe dest = terrain.getEltClic(e.getX(), e.getY());
         if (dest != null) {
             terrain.deplacerFourmi(idFourmi, depart, dest);
+            if (onDestinationValidee != null) {
+                onDestinationValidee.run(); // Supprimer la carte uniquement après une destination valide
+            }
             active = false;
             depart = null;
             idFourmi = null;
+            onDestinationValidee = null;
         }
     }
 }
