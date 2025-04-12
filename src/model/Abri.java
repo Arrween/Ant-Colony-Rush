@@ -21,6 +21,10 @@ public class Abri extends ObjetFixe {
         return capacite;
     }
 
+    public boolean isPlein() {
+        return getNbFourmis() >= capacite;
+    }
+
     @Override
     public Image getImage() {
         return imageAbri;

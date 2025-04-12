@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import model.Fourmi;
 
 import model.GestionnaireCrapaud;
 import model.GestionnaireDeplacement;
@@ -16,6 +17,7 @@ import model.Terrain;
 import view.DifficultePanel;
 import view.JeuFrame;
 import view.MenuDemarrage;
+import view.PanneauCartesFourmis;
 import view.RedessinJeuFrame;
 import view.TerrainPanel;
 
@@ -86,12 +88,16 @@ public class StartMenuController {
 
         Score score = new Score(terrain.getNid());
 
+        // Créer un FourmiController
+        PanneauCartesFourmis panneauCartes = new PanneauCartesFourmis(terrain.getNid(), null);
+        FourmiController fourmiController = new FourmiController(panneauCartes);
+
         // thread de gestion du score
         GestionScore gestionScore = new GestionScore(score, terrain.getNid());
         gestionScore.start();
 
         // Création de la fenêtre de jeu
-        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel, gestionScore, score);
+        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel, gestionScore, score, fourmiController);
 
         // Thread de redessin régulier
         RedessinJeuFrame redessinJeuFrame = new RedessinJeuFrame(jeuFrame);

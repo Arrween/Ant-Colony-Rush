@@ -1,5 +1,6 @@
 package controller;
 
+import model.Abri;
 import model.Fourmi;
 import model.ObjetFixe;
 import view.PanneauCartesFourmis;
@@ -12,10 +13,16 @@ public class FourmiController {
     }
 
     public void envoyerEnExpedition(Fourmi fourmi, ObjetFixe depart, DestinationSelectionnee ds) {
-        // Activer la sélection de destination pour la fourmi
         ds.setActive(depart, fourmi.getId(), () -> {
-            // Cette lambda sera appelée uniquement quand une destination valide est sélectionnée
             panneauCartes.supprimerCarte(fourmi);
         });
+    }
+
+    // Vérifie si la destination est valide pour la fourmi
+    public boolean isDestinationValide(ObjetFixe destination) {
+        if (destination instanceof Abri) {
+            return !((Abri) destination).isPlein();
+        }
+        return true;
     }
 }

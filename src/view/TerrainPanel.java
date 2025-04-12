@@ -80,21 +80,29 @@ public class TerrainPanel extends JPanel {
             if (img != null) {
                 int x = obj.getX();
                 int y = obj.getY();
-                g.drawImage(img, x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS, this);
-                //temporairement pour se repérer
+                g.drawImage(img, x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2, TAILLE_OBJETS, TAILLE_OBJETS, this);
+
+                // Afficher un indicateur si l'abri est plein
+                if (obj instanceof Abri && ((Abri) obj).isPlein()) {
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setColor(new Color(255, 0, 0, 100));
+                    g2d.fillRect(x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2, TAILLE_OBJETS, TAILLE_OBJETS);
+                }
+
+                // temporairement pour se repérer
                 g.drawOval(x - 3, y - 3, 6, 6);
 
                 if (obj.isSelected()) {
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setStroke(new BasicStroke(3));
                     g2d.setColor(Color.RED);
-                    g2d.drawRect(x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2, TAILLE_OBJETS, TAILLE_OBJETS);
+                    g2d.drawRect(x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2, TAILLE_OBJETS, TAILLE_OBJETS);
                 }
 
                 if (obj instanceof RessourceTemporaire) {
                     RessourceTemporaire ressourceTemp = (RessourceTemporaire) obj;
                     String str = (ressourceTemp.getTempsRestant() / 1000) + "s";
-                    g.drawString(str, x - TAILLE_OBJETS/2, y - TAILLE_OBJETS/2 - 20);
+                    g.drawString(str, x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2 - 20);
                 }
             }
             if (obj.getNbFourmis() > 0) {
@@ -113,8 +121,8 @@ public class TerrainPanel extends JPanel {
                     int x = dep.getX();
                     int y = dep.getY();
                     g.drawImage(frame,
-                            x - TAILLE_FOURMIS/2,
-                            y - TAILLE_FOURMIS/2,
+                            x - TAILLE_FOURMIS / 2,
+                            y - TAILLE_FOURMIS / 2,
                             TAILLE_FOURMIS,
                             TAILLE_FOURMIS,
                             this);
@@ -126,8 +134,8 @@ public class TerrainPanel extends JPanel {
                 Ressource ressource = ((DeplacementRessource) dep).getRessource();
                 Image img = ressource.getImage();
                 if (img != null) {
-                    int x = dep.getX() - TAILLE_OBJETS/2;
-                    int y = dep.getY() - TAILLE_OBJETS/2;
+                    int x = dep.getX() - TAILLE_OBJETS / 2;
+                    int y = dep.getY() - TAILLE_OBJETS / 2;
                     g.drawImage(img, x, y, TAILLE_OBJETS, TAILLE_OBJETS, this);
                 }
             }
@@ -157,29 +165,5 @@ public class TerrainPanel extends JPanel {
             g2d.fillRect(0, 0, getWidth(), getHeight());
             g2d.dispose();
         }
-    }}
-    
-    
-    
-      
-
-    
-    
-    
-        
-        
-        
-    
-
-    
-    
-    
-
-    
-    
-    
-        
-        
-        
-        
-    
+    }
+}

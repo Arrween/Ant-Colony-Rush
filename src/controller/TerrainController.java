@@ -23,6 +23,7 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
     private int lastMouseX;
     private int lastMouseY;
     private GestionScore gestionScore;
+    private FourmiController fourmiController;
 
     /**
      * Constructeur du contrôleur, recevant :
@@ -31,13 +32,15 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
      * - le controlListener (pour la gestion du clic sur les Nids).
      */
     public TerrainController(Terrain terrain, TerrainPanel terrainPanel,
-            TerrainPanel.ControlPanelListener controlListener, GestionScore gestionScore) {
+            TerrainPanel.ControlPanelListener controlListener, GestionScore gestionScore,
+            FourmiController fourmiController) {
         this.terrain = terrain;
         this.terrainPanel = terrainPanel;
         this.controlListener = controlListener;
         this.gestionScore = gestionScore;
+        this.fourmiController = fourmiController;
         // On initialise la sélection de destination
-        this.destSelector = new DestinationSelectionnee(terrain);
+        this.destSelector = new DestinationSelectionnee(terrain, fourmiController);
     }
 
     public DestinationSelectionnee getDestSelector() {

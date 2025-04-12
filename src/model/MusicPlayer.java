@@ -49,7 +49,7 @@ public class MusicPlayer {
         } else {
             loadSound("music_menu", path);
         }
-    } 
+    }
 
     private static void loadSound(String key, String path) {
         try {
@@ -84,24 +84,24 @@ public class MusicPlayer {
     public static void playNightSound() {
         playSound("son_nuit");
     }
-    
+
     public static void playDaySound() {
         playSound("son_jour");
     }
 
-     /**
+    /**
      * Méthode qui arrête le son actuellement en lecture.
      * Vous pouvez l'appeler avant de lancer un nouveau son.
      */
     public static void stop(String key) {
-            Clip clipToStop = soundClips.get(key);
-            if (clipToStop != null && clipToStop.isRunning()) {
-                System.out.println("Arrêt du son: " + key);
-                clipToStop.stop();
-                clipToStop.setFramePosition(0);
-            } else {
-                System.out.println("Aucun son en cours de lecture pour la clé: " + key);
-            }
+        Clip clipToStop = soundClips.get(key);
+        if (clipToStop != null && clipToStop.isRunning()) {
+            System.out.println("Arrêt du son: " + key);
+            clipToStop.stop();
+            clipToStop.setFramePosition(0);
+        } else {
+            System.out.println("Aucun son en cours de lecture pour la clé: " + key);
+        }
     }
 
     public static void stopNightSound() {
@@ -124,18 +124,17 @@ public class MusicPlayer {
     public static void stopMusicMenu() {
         stop("music_menu");
     }
-    
+
     public static void stopAllSounds() {
         for (String key : soundClips.keySet()) {
             stop(key);
         }
     }
 
-
     // TEST
     public static void main(String[] args) {
         initSound();
         playNightSound();
-        //playDaySound();
+        // playDaySound();
     }
 }
