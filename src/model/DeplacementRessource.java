@@ -18,7 +18,9 @@ public class DeplacementRessource extends Deplacement {
 
     @Override
     public void decrEnergieFourmi() {
-        // Pas d'énergie à décrémenter pour une ressource
+        for (Fourmi fourmi : ressource.getFourmis()) {
+            fourmi.decrEnergie();
+        }
     }
 
     @Override
@@ -54,6 +56,22 @@ public class DeplacementRessource extends Deplacement {
 
     @Override
     public void eliminerFourmisMortes() {
-        // Pas applicable pour une ressource
+        // Éliminer les fourmis mortes de la ressource
+        ressource.eliminerFourmisMortes();
+
+        // Si la ressource n'a plus assez de fourmis pour être transportée
+        if (!ressource.isReadyToGo()) {
+            // Déposer la ressource à la position actuelle
+            ressource.isDropped(currentX, currentY);
+
+            // Réinitialiser l'état de la ressource
+            ressource.setMoving(false);
+
+            // Ajouter la ressource au terrain à sa nouvelle position
+            t.ajouterRessource(ressource);
+
+            // Supprimer ce déplacement
+            t.expeditions.removeIf(d -> d.getId() == this.getId());
+        }
     }
 }
