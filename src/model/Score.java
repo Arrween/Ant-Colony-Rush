@@ -9,7 +9,8 @@ public class Score {
     public Score(Nid nid) {
         this.nid = nid; // Associer le Nid
         this.sauvegarde = new Sauvegarde("meilleur_score.txt");
-        this.meilleurScore = sauvegarde.chargerMeilleurScore();
+        this.meilleurScore = 0;
+        // sauvegarde.chargerMeilleurScore();
     }
 
     // Getter pour les Score
@@ -18,6 +19,7 @@ public class Score {
     }
 
     public int getMeilleurScore() {
+        verifierMeilleurScore();
         return meilleurScore;
     }
 
@@ -38,10 +40,11 @@ public class Score {
 
     private void verifierMeilleurScore() {
         // Vérifier si le score actuel est supérieur au meilleur score
-        if (getScore() > meilleurScore) {
+        int score = getScore();
+        if ( score > meilleurScore) {
             System.out.println("Nouveau record atteint : " + getScore());
-            meilleurScore = getScore();
-            sauvegarde.sauvegarderMeilleurScore(meilleurScore);
+            meilleurScore = score;
+            // sauvegarde.sauvegarderMeilleurScore(meilleurScore);
         }
     }
 
