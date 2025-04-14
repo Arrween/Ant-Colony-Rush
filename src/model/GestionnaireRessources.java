@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GestionnaireRessources extends InterruptibleThread {
@@ -24,19 +26,24 @@ public class GestionnaireRessources extends InterruptibleThread {
                 continue;
             }
             
+            System.out.println("gestionnaire ressources running");
+
             synchronized (terrain) {
                 if (terrain.nb_ressources < Terrain.NB_RESSOURCES_MAX) {
                     int ressourcesManquantes = Terrain.NB_RESSOURCES_MAX - terrain.nb_ressources;
                     if (ressourcesManquantes > 0) {
-                        terrain.ajouterRessources(1);
+                        //10% de chance d'ajouter une ressource évènementielle
+                        if (rdm.nextInt(10) == 0) {
+                            terrain.ajouterRessourceTemporaire();
+                        } else {
+                            terrain.ajouterRessources(1);
+                        }
                     }
-                    /*
-                     * ajouter proba de 20% que ce soit terrain.ajouteRessourceTemporaire()
-                     */
                 }
             }
 
             // pour les ressources Temporaires
+            List<Ressource> aSupprimer = new ArrayList<>();
             for (ObjetFixe o : Terrain.getObjetsFixes()) {
                 if (o instanceof RessourceTemporaire) {
                     RessourceTemporaire ressourceTemp = (RessourceTemporaire) o;
@@ -45,10 +52,12 @@ public class GestionnaireRessources extends InterruptibleThread {
                     // supprimer les ressources temporaires à échéance
                     // les fourmis dedans disparaissent avec
                     if (ressourceTemp.aDisparu()) {
-                        terrain.removeRessource(ressourceTemp.getId());
-                        ;
+                        aSupprimer.add(ressourceTemp);
                     }
                 }
+            }
+            for (Ressource r : aSupprimer) {
+                terrain.removeRessource(r.getId());
             }
 
             try {
