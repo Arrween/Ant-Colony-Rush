@@ -7,7 +7,7 @@ public class Terrain {
     public static final int LARGEUR = 800;
     public static final int HAUTEUR = 800;
     public static final Random RANDOM = new Random();
-    public static final int NB_RESSOURCES_MAX = 40;
+    public static int NB_RESSOURCES_MAX;
     public int nb_ressources;
     private Crapaud crapaud;
     private final Difficulte difficulte;
@@ -19,7 +19,7 @@ public class Terrain {
     public Terrain(Difficulte difficulte) {
 
         this.difficulte = difficulte;
-
+        NB_RESSOURCES_MAX= difficulte.getNbRessources();
         // Initialiser la liste avant toute utilisation
         elts = new ArrayList<ObjetFixe>();
         this.expeditions = new ArrayList<Deplacement>();
