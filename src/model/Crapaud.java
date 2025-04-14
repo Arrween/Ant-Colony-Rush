@@ -114,53 +114,58 @@ public class Crapaud {
                 .map(Ressource.class::cast)
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        if (satiete <= SEUIL_FAIM) {
-            // le crapaud regarde en priorité les ressources
-            for (Ressource r : rsrc) {
-                // on vérifie si la ressource est visible par le crapaud
-                double distance = Math.hypot(r.getX() - x, r.getY() - y);
-                if (distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
-                    // la ressource est visible, le crapaud la mange, les fourmis à l'intérieur disparaissent
-                    terrain.removeRessource(r.getId());
-                    satiete += 2; //chaque ressource donne 2 points au crapaud indépendamment de sa valeur nutritive
-                    // on verifie s'il a maintenant dépassé le seuil de satiete
-                    if (satiete >= MAX_SATIETE) {
-                        fallAsleep();
-                    }
-                    return; // on ne mange qu'une chose par appel
+        // on cherche la nourriture dans le champs de vision du crapaud
+        // en priorité les fourmis en déplacement
+        for (Deplacement depl : terrain.expeditions) {
+            double distance = Math.hypot(depl.getX() - x, depl.getY() - y);
+            if (distance <= visionRange && isInVisionCone(depl.getX(), depl.getY())) {
+                terrain.expeditions.remove(depl);
+                satiete++;
+                if (satiete >= MAX_SATIETE) {
+                    fallAsleep();
                 }
+                idleAnimation.updateFrame();
+                return; // on ne mange qu'une chose par appel
             }
-        } else {
-            // le crapaud regarde en priorité les fourmis en déplacement, et ensuite les
-            // fourmis dans les ressources
-            for (Deplacement depl : terrain.expeditions) {
-                double distance = Math.hypot(depl.getX() - x, depl.getY() - y);
-                if (distance <= visionRange && isInVisionCone(depl.getX(), depl.getY())) {
-                    terrain.expeditions.remove(depl);
+        }
+        // ensuite les fourmis dans les ressources
+        for (Ressource r : rsrc) {
+            // on vérifie si la ressource est visible par le crapaud
+            double distance = Math.hypot(r.getX() - x, r.getY() - y);
+            if (distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
+                // la ressource est visible
+                if (r.fourmis.size() > 0) {
+                    // la ressource contient au moins une fourmi
+                    r.fourmis.remove(0);
                     satiete++;
                     if (satiete >= MAX_SATIETE) {
                         fallAsleep();
                     }
+                    idleAnimation.updateFrame();
                     return; // on ne mange qu'une chose par appel
                 }
             }
-
-            for (Ressource r : rsrc) {
-                // on vérifie si la ressource est visible par le crapaud
-                double distance = Math.hypot(r.getX() - x, r.getY() - y);
-                if (distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
-                    // la ressource est visible
-                    if (r.fourmis.size() > 0) {
-                        r.fourmis.remove(0);
-                        satiete++;
-                        if (satiete >= MAX_SATIETE) {
-                            fallAsleep();
-                        }
-                        return; // on ne mange qu'une chose par appel
-                    }
+        }
+        // en dernier recours, le crapaud mange les ressources qu'il voit s'il a faim
+        if (satiete > SEUIL_FAIM) {
+            idleAnimation.updateFrame();
+            return;
+        }
+        for (Ressource r : rsrc) {
+            double distance = Math.hypot(r.getX() - x, r.getY() - y);
+            if (distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
+                // la ressource est visible, le crapaud la mange, les fourmis à l'intérieur disparaissent
+                terrain.removeRessource(r.getId());
+                satiete += 2; //chaque ressource donne 2 points au crapaud indépendamment de sa valeur nutritive
+                // on verifie s'il a maintenant dépassé le seuil de satiete
+                if (satiete >= MAX_SATIETE) {
+                    fallAsleep();
                 }
+                idleAnimation.updateFrame();
+                return; // on ne mange qu'une chose par appel
             }
         }
+
         idleAnimation.updateFrame();
     }
 
