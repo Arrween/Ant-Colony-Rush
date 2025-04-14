@@ -20,21 +20,8 @@ public class RessourceTemporaire extends Ressource {
     public RessourceTemporaire(int p, int vn, int x, int y, int duree) {
         super(p, vn, x, y);
         this.tempsRestant = duree;
-        
-        try {
-            if (p == 4){
-                this.imageRessource = ImageSplitter.getSixImages(2);
-            }
-            else if (p == 5){
-                this.imageRessource = ImageSplitter.getSixImages(4); 
-            }
-            else if (p == 6){
-                this.imageRessource = ImageSplitter.getSixImages(5); 
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            this.imageRessource = new BufferedImage[6]; // Valeur par défaut en cas d'erreur
-        }
+        imageRessource = new ImageIcon(getClass().getResource("/resources/Resources/ressourceTemp" + p + ".png"))
+                .getImage();
     }
 
     @Override
