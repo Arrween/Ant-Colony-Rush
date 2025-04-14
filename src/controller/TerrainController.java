@@ -100,14 +100,19 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
             // Vérifier si une ressource est sélectionnée
             ObjetFixe selectedObj = terrain.getEltClic(lastMouseX, lastMouseY);
             if (selectedObj instanceof Ressource ressource) {
-                if (ressource.isReadyToGo() && !ressource.isMoving()) {
-                    ressource.deplacerVersNid(terrain, terrain.getNid(), gestionScore);
-                    terrainPanel.repaint(); // Mettre à jour l'affichage
-                } else if (ressource.isMoving()) {
-                    JOptionPane.showMessageDialog(null, "Cette ressource est déjà en déplacement !");
+                if(ressource.canBeCollected()) {
+                    if (ressource.isReadyToGo() && !ressource.isMoving()) {
+                        ressource.deplacerVersNid(terrain, terrain.getNid(), gestionScore);
+                        terrainPanel.repaint(); // Mettre à jour l'affichage
+                    } else if (ressource.isMoving()) {
+                        JOptionPane.showMessageDialog(null, "Cette ressource est déjà en déplacement !");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Pas assez de fourmis pour déplacer la ressource !");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Pas assez de fourmis pour déplacer la ressource !");
+                    JOptionPane.showMessageDialog(null, "Cette ressource n'est pas prête à être collectée !");
                 }
+
             }
         }
     }

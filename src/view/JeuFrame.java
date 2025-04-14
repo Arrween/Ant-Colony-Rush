@@ -9,13 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import model.Abri;
-import model.Fourmi;
 import model.MusicPlayer;
 import model.Nid;
 import model.Ressource;
 import model.Score;
 import model.Terrain; // Assurez-vous d'importer la classe MusicPlayer
 import model.ThreadSet;
+import model.Terrain;
 
 public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListener {
     private Terrain terrain;
@@ -44,7 +44,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         terrainPanel.setEcouteurPanneauDeControle(this);
 
         // Initialisation du panneau de contrôle sur le côté droit
-        conteneurPanneau = new ConteneurPanneauDeControle(score, terrain.getCrapaud());
+        conteneurPanneau = new ConteneurPanneauDeControle(score, terrain.getCrapaud(), gestionScore);
         conteneurPanneau.setPreferredSize(new Dimension(350, terrainPanel.getPreferredSize().height));
         add(conteneurPanneau, BorderLayout.EAST);
 

@@ -1,5 +1,6 @@
 package view;
 
+import controller.GestionScore;
 import java.awt.*;
 import javax.swing.*;
 import model.Crapaud;
@@ -9,11 +10,11 @@ public class ConteneurPanneauDeControle extends JPanel {
     private PanneauDeTableauDeBord panneauFixe; // Partie fixe
     private JPanel panneauDynamique; // Partie dynamique
 
-    public ConteneurPanneauDeControle(Score score, Crapaud crapaud) {
+    public ConteneurPanneauDeControle(Score score, Crapaud crapaud, GestionScore scoreGestionnaire) {
         setLayout(new BorderLayout());
 
         // Partie fixe
-        panneauFixe = new PanneauDeTableauDeBord(score, crapaud);
+        panneauFixe = new PanneauDeTableauDeBord(score, crapaud, scoreGestionnaire);
         add(panneauFixe, BorderLayout.NORTH);
 
         // Partie dynamique

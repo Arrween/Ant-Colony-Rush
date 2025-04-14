@@ -1,5 +1,6 @@
 package view;
 
+import controller.GestionScore;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -15,11 +16,14 @@ public class PanneauDeTableauDeBord extends JPanel {
     private Timer timer; // Swing Timer pour le chrono
     private int secondesEcoulees; // Compteur en secondes
     private Score score;
+    private GestionScore scoreGestionnaire; // Gestionnaire de score
     private Crapaud crapaud;
     private Timer satieteAnimationTimer;
-    JButton pauseBtn;
+    private JButton pauseBtn;
+    private JLabel lblMeilleurScore;
 
-    public PanneauDeTableauDeBord(Score scoreInstance, Crapaud crapaud) {
+    public PanneauDeTableauDeBord(Score scoreInstance, Crapaud crapaud, GestionScore scoreGestionnaire) {
+        this.scoreGestionnaire = scoreGestionnaire;
         this.score = scoreInstance;
         this.crapaud = crapaud;
 
@@ -27,22 +31,40 @@ public class PanneauDeTableauDeBord extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JPanel pnlHeader = new JPanel(new BorderLayout());
-        pnlHeader.setPreferredSize(new Dimension(300, 50));
+        pnlHeader.setPreferredSize(new Dimension(300, 80));
 
-        // Chrono
-        lblChrono = new JLabel("Temps : 00:00", SwingConstants.LEFT);
-        lblChrono.setFont(new Font("Arial", Font.BOLD, 16));
-        pnlHeader.add(lblChrono, BorderLayout.WEST);
+        // Score et meilleur score
+
+        JPanel pnlScore = new JPanel();
+        pnlScore.setLayout(new BoxLayout(pnlScore, BoxLayout.Y_AXIS));
+        pnlScore.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Score
-        lblScore = new JLabel("Score : 0", SwingConstants.CENTER);
+        lblScore = new JLabel("Score : 0", SwingConstants.LEFT);
         lblScore.setFont(new Font("Arial", Font.BOLD, 16));
-        pnlHeader.add(lblScore, BorderLayout.CENTER);
+        pnlScore.add(lblScore);
+
+        // Meilleur score
+        lblMeilleurScore = new JLabel("Record : " + score.getMeilleurScore(), SwingConstants.CENTER);
+        lblMeilleurScore.setFont(new Font("Arial", Font.BOLD, 16));
+        pnlScore.add(lblMeilleurScore);
+
+        pnlHeader.add(pnlScore, BorderLayout.SOUTH);
+
+        JPanel pnlChronoPause = new JPanel(new BorderLayout());
+        pnlChronoPause.setPreferredSize(new Dimension(300, 40));
+
+        // Chrono
+        lblChrono = new JLabel("Temps : 00:00", SwingConstants.CENTER);
+        lblChrono.setFont(new Font("Arial", Font.BOLD, 16));
+        pnlChronoPause.add(lblChrono, BorderLayout.WEST);
 
         // Pause
         pauseBtn = new JButton("Pause");
         pauseBtn.setFont(new Font("Arial", Font.BOLD, 14));
-        pnlHeader.add(pauseBtn, BorderLayout.EAST);
+        pnlChronoPause.add(pauseBtn, BorderLayout.EAST);
+
+        pnlHeader.add(pnlChronoPause, BorderLayout.NORTH);
 
         add(pnlHeader);
 
@@ -85,6 +107,12 @@ public class PanneauDeTableauDeBord extends JPanel {
             mettreAJourChrono(secondesEcoulees);
             mettreAJourScore(score.getScore());
             mettreAJourCrapaudInfos(); // Mettre à jour les infos du crapaud
+
+            // Vérifier les conditions de fin de jeu
+            if (secondesEcoulees >= 300 || scoreGestionnaire.isGameOver()) { // 300 secondes = 5 minutes
+                timer.stop(); // Arrêter le timer
+                afficherFenetreFinDeJeu();
+            }
         });
         timer.start(); // Démarrer le timer
     }
@@ -102,6 +130,7 @@ public class PanneauDeTableauDeBord extends JPanel {
 
     public void mettreAJourScore(int score) {
         lblScore.setText("Score : " + score);
+        lblMeilleurScore.setText("Record : " + this.score.getMeilleurScore());
     }
 
     private void mettreAJourCrapaudInfos() {
@@ -160,5 +189,28 @@ public class PanneauDeTableauDeBord extends JPanel {
 
     public JButton getPauseButton() {
         return pauseBtn;
+    }
+
+    private void afficherFenetreFinDeJeu() {
+        String message = (secondesEcoulees >= 300)
+                ? "Temps écoulé ! Fin du jeu."
+                : "Plus de fourmis et score insuffisant ! Fin du jeu.";
+
+        JFrame ancienneFenetre = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        FenetreFinDeJeu fenetreFinDeJeu = new FenetreFinDeJeu(
+                message,
+                ancienneFenetre, // Passer la référence de l'ancienne fenêtre
+                e -> {
+                    // Rejouer : relancer le jeu
+                    SwingUtilities.invokeLater(() -> {
+                        new MenuDemarrage().setVisible(true);
+                    });
+                },
+                e -> {
+                    // Quitter : fermer l'application
+                    System.exit(0);
+                });
+        fenetreFinDeJeu.setVisible(true);
     }
 }

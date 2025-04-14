@@ -1,8 +1,8 @@
 package view;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.AlphaComposite;
 
 public class DeathMessage {
     private final int x;

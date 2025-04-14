@@ -1,9 +1,12 @@
 package controller;
 
 import model.InterruptibleThread;
+import model.DeplacementRessource;
+import model.DeplacementSimple;
 import model.Nid;
 import model.Ressource;
 import model.Score;
+import model.Terrain;
 
 public class GestionScore extends InterruptibleThread {
     private Score score;
@@ -11,10 +14,12 @@ public class GestionScore extends InterruptibleThread {
     private boolean ajouterFourmiEvent = false;
     public final int DELAY = 100;
     private GestionScore gestionScore;
+    private Terrain terrain;
 
-    public GestionScore(Score score, Nid nid) {
+    public GestionScore(Terrain terrain, Score score, Nid nid) {
         this.score = score;
         this.nid = nid;
+        this.terrain = terrain;
     }
 
     public Score getScore() {
@@ -39,6 +44,22 @@ public class GestionScore extends InterruptibleThread {
             score.diminuerScore();
             ajouterFourmiEvent = true;
         }
+    }
+
+    public boolean isGameOver() {
+        // Vérifier s'il n'y a plus de fourmis dans le nid
+        boolean plusDeFourmisDansNid = nid.getFourmis().isEmpty();
+
+        // Vérifier s'il n'y a plus de fourmis en déplacement
+        boolean plusDeFourmisEnDeplacement = terrain.getDeplacements().stream()
+                .noneMatch(dep -> dep instanceof DeplacementSimple || dep instanceof DeplacementRessource);
+
+        // Vérifier s'il n'y a plus de fourmis dans les autres objets fixes
+        boolean plusDeFourmisDansObjetsFixes = Terrain.getObjetsFixes().stream()
+                .allMatch(obj -> obj.getFourmis().isEmpty());
+
+        // Le jeu se termine si toutes les conditions sont remplies
+        return plusDeFourmisDansNid && plusDeFourmisEnDeplacement && plusDeFourmisDansObjetsFixes;
     }
 
     @Override
