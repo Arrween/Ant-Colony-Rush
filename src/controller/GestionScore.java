@@ -1,12 +1,12 @@
 package controller;
 
-import model.InterruptibleThread;
-import model.DeplacementRessource;
-import model.DeplacementSimple;
-import model.Nid;
-import model.Ressource;
 import model.Score;
 import model.Terrain;
+import model.deplacements.DeplacementRessource;
+import model.deplacements.DeplacementSimple;
+import model.objetsFixes.Nid;
+import model.objetsFixes.Ressource;
+import model.threads.InterruptibleThread;
 
 public class GestionScore extends InterruptibleThread {
     private Score score;

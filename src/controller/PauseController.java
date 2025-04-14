@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-import model.GestionnaireEnergie;
-import model.ThreadSet;
-import view.JeuFrame;
-import view.PanneauDeTableauDeBord;
-import view.PausePanel;
+import model.threads.GestionnaireEnergie;
+import model.threads.ThreadSet;
+import view.frames.JeuFrame;
+import view.panels.PanneauDeTableauDeBord;
+import view.panels.PausePanel;
 
 public class PauseController{
 

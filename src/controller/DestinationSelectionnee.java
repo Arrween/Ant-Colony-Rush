@@ -2,10 +2,11 @@ package controller;
 
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
-import model.Nid;
-import model.ObjetFixe;
-import model.Ressource;
+
 import model.Terrain;
+import model.objetsFixes.Nid;
+import model.objetsFixes.ObjetFixe;
+import model.objetsFixes.Ressource;
 
 public class DestinationSelectionnee {
 

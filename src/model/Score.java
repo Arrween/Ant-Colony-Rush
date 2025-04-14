@@ -1,5 +1,7 @@
 package model;
 
+import model.objetsFixes.Nid;
+
 public class Score {
     private Nid nid; // Référence au Nid
     public static final int FOURMI_AJOUT = 60;
