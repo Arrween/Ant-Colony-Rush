@@ -1,5 +1,7 @@
 package view;
 
+import model.InterruptibleThread;
+
 public class RedessinJeuFrame extends Thread {
     private JeuFrame gameFrame;
     public final int DELAY = 50;

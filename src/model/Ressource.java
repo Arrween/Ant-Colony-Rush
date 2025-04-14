@@ -1,16 +1,17 @@
 package model;
 
-import controller.GestionScore;
 import java.awt.*;
 import javax.swing.*;
 import controller.GestionScore;
 import java.awt.image.BufferedImage;
 
 
+import controller.GestionScore;
+
 public class Ressource extends ObjetFixe {
     private int poids;
     private int valeurNutritive;
-    private BufferedImage[] imageRessource; // L'image représentant la ressource
+    protected BufferedImage[] imageRessource; // L'image représentant la ressource
     private boolean isMoving = false; // Indique si la ressource est en déplacement
     private int currentFrame = 0; // Frame actuelle de l'animation
     private long lastFrameTime = 0; // Temps du dernier changement de frame

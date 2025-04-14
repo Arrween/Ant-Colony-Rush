@@ -1,6 +1,6 @@
 package model;
 
-public class GestionnaireEnergie extends Thread {
+public class GestionnaireEnergie extends InterruptibleThread {
     private Terrain t;
     public final int DELAY = 200;
 
@@ -11,6 +11,15 @@ public class GestionnaireEnergie extends Thread {
     @Override
     public void run() {
         while (true) {
+            if (!isRunning) {
+                try {
+                    Thread.sleep(DELAY);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
+
             t.majEnergieFourmis();
             try {
                 Thread.sleep(DELAY);

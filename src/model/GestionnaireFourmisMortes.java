@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import view.TerrainPanel;
 
-public class GestionnaireFourmisMortes extends Thread {
+public class GestionnaireFourmisMortes extends InterruptibleThread {
     private Terrain t;
     public final int DELAY = 50;
     private TerrainPanel terrainPanel;
@@ -17,6 +17,15 @@ public class GestionnaireFourmisMortes extends Thread {
     @Override
     public void run() {
         while (true) {
+            if (!isRunning) {
+                try {
+                    Thread.sleep(DELAY);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
+
             // Affichage message de mort our les fourmis en expédition
             for (Deplacement dep : t.getDeplacements()) {
                 if (dep instanceof DeplacementSimple) {

@@ -2,6 +2,7 @@ package view;
 
 import controller.DestinationSelectionnee;
 import controller.GestionScore;
+
 import java.awt.*;
 import javax.swing.*;
 import model.Fourmi;

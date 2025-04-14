@@ -1,5 +1,6 @@
 package view;
 
+import controller.GestionScore;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -15,11 +16,14 @@ public class PanneauDeTableauDeBord extends JPanel {
     private Timer timer; // Swing Timer pour le chrono
     private int secondesEcoulees; // Compteur en secondes
     private Score score;
+    private GestionScore scoreGestionnaire; // Gestionnaire de score
     private Crapaud crapaud;
     private Timer satieteAnimationTimer;
+    private JButton pauseBtn;
     private JLabel lblMeilleurScore;
 
-    public PanneauDeTableauDeBord(Score scoreInstance, Crapaud crapaud) {
+    public PanneauDeTableauDeBord(Score scoreInstance, Crapaud crapaud, GestionScore scoreGestionnaire) {
+        this.scoreGestionnaire = scoreGestionnaire;
         this.score = scoreInstance;
         this.crapaud = crapaud;
 
@@ -56,9 +60,9 @@ public class PanneauDeTableauDeBord extends JPanel {
         pnlChronoPause.add(lblChrono, BorderLayout.WEST);
 
         // Pause
-        JButton btnPause = new JButton("Pause");
-        btnPause.setFont(new Font("Arial", Font.BOLD, 14));
-        pnlChronoPause.add(btnPause, BorderLayout.EAST);
+        pauseBtn = new JButton("Pause");
+        pauseBtn.setFont(new Font("Arial", Font.BOLD, 14));
+        pnlChronoPause.add(pauseBtn, BorderLayout.EAST);
 
         pnlHeader.add(pnlChronoPause, BorderLayout.NORTH);
 
@@ -103,6 +107,12 @@ public class PanneauDeTableauDeBord extends JPanel {
             mettreAJourChrono(secondesEcoulees);
             mettreAJourScore(score.getScore());
             mettreAJourCrapaudInfos(); // Mettre à jour les infos du crapaud
+
+            // Vérifier les conditions de fin de jeu
+            if (secondesEcoulees >= 300 || scoreGestionnaire.isGameOver()) { // 300 secondes = 5 minutes
+                timer.stop(); // Arrêter le timer
+                afficherFenetreFinDeJeu();
+            }
         });
         timer.start(); // Démarrer le timer
     }
@@ -175,5 +185,32 @@ public class PanneauDeTableauDeBord extends JPanel {
 
     public JPanel getPnlCrapaudInfos() {
         return pnlCrapaudInfos;
+    }
+
+    public JButton getPauseButton() {
+        return pauseBtn;
+    }
+
+    private void afficherFenetreFinDeJeu() {
+        String message = (secondesEcoulees >= 300)
+                ? "Temps écoulé ! Fin du jeu."
+                : "Plus de fourmis et score insuffisant ! Fin du jeu.";
+
+        JFrame ancienneFenetre = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        FenetreFinDeJeu fenetreFinDeJeu = new FenetreFinDeJeu(
+                message,
+                ancienneFenetre, // Passer la référence de l'ancienne fenêtre
+                e -> {
+                    // Rejouer : relancer le jeu
+                    SwingUtilities.invokeLater(() -> {
+                        new MenuDemarrage().setVisible(true);
+                    });
+                },
+                e -> {
+                    // Quitter : fermer l'application
+                    System.exit(0);
+                });
+        fenetreFinDeJeu.setVisible(true);
     }
 }
