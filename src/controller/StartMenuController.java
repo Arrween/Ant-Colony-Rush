@@ -107,7 +107,7 @@ public class StartMenuController {
         FourmiController fourmiController = new FourmiController(panneauCartes);
 
         // thread de gestion du score
-        GestionScore gestionScore = new GestionScore(score, terrain.getNid());
+        GestionScore gestionScore = new GestionScore(terrain, score, terrain.getNid());
         gestionScore.start();
 
         // Création de la fenêtre de jeu
