@@ -12,7 +12,7 @@ public class ImageSplitter {
         int cols = 17;
 
         BufferedImage[][] images = new BufferedImage[rows][cols];
-        BufferedImage sourceImage = ImageIO.read(ImageSplitter.class.getResourceAsStream("/resources/Resources/seedling.png"));
+        BufferedImage sourceImage = ImageIO.read(ImageSplitter.class.getResourceAsStream("/resources/Resources/Seedling.png"));
 
         // Calculer la largeur et la hauteur de chaque cellule
         int cellWidth = sourceImage.getWidth() / cols;

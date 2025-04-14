@@ -17,7 +17,18 @@ public class Ressource extends ObjetFixe {
         this.poids = poids;
         this.valeurNutritive = vn;
         try {
-            this.imageRessource = ImageSplitter.getSixImages(5); // Appel correct de la méthode
+            if (poids == 1){
+                this.imageRessource = ImageSplitter.getSixImages(1);
+            }
+            else if (poids == 2){
+                this.imageRessource = ImageSplitter.getSixImages(3); 
+            }
+            else if (poids == 3){
+                this.imageRessource = ImageSplitter.getSixImages(0); 
+            }
+            else if (poids == 4){
+                this.imageRessource = ImageSplitter.getSixImages(15); 
+            }
         } catch (Exception e) {
             e.printStackTrace();
             this.imageRessource = new BufferedImage[6]; // Valeur par défaut en cas d'erreur
@@ -36,9 +47,9 @@ public class Ressource extends ObjetFixe {
     public Image getImage() {
         return imageRessource[5];
     }
-    // public BufferedImage[] get  {
-
-    // }
+    public BufferedImage[] getAnnimRessource() {
+        return imageRessource;
+    }
 
     public int getPoids() {
         return poids;
