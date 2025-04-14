@@ -5,7 +5,6 @@ import java.util.Random;
 
 import model.deplacements.Deplacement;
 import model.deplacements.DeplacementSimple;
-import model.deplacements.Transport;
 import model.objetsFixes.Abri;
 import model.objetsFixes.GenerationAbri;
 import model.objetsFixes.GenerationRessource;
@@ -30,7 +29,7 @@ public class Terrain {
     public Terrain(Difficulte difficulte) {
 
         this.difficulte = difficulte;
-        NB_RESSOURCES_MAX= difficulte.getNbRessources();
+        NB_RESSOURCES_MAX = difficulte.getNbRessources();
         // Initialiser la liste avant toute utilisation
         elts = new ArrayList<ObjetFixe>();
         this.expeditions = new ArrayList<Deplacement>();
@@ -109,15 +108,16 @@ public class Terrain {
         expeditions.add(new DeplacementSimple(this, f, arrivee, depart));
     }
 
-    public void ramenerRessourceALaMaison(int idRessource, ObjetFixe depart) {
-        // récuperer la ressource
-        Ressource r = (Ressource) elts.stream().filter(elt -> elt.getId() == idRessource).findFirst().get();
-        // retirer la ressource de la liste des objets fixes
-        elts.removeIf(elt -> elt.getId() == idRessource);
-        nb_ressources--;
-        // créer une instance de transport avec la ressource et le nid
-        expeditions.add(new Transport(this, r, depart));
-    }
+    // public void ramenerRessourceALaMaison(int idRessource, ObjetFixe depart) {
+    // // récuperer la ressource
+    // Ressource r = (Ressource) elts.stream().filter(elt -> elt.getId() ==
+    // idRessource).findFirst().get();
+    // // retirer la ressource de la liste des objets fixes
+    // elts.removeIf(elt -> elt.getId() == idRessource);
+    // nb_ressources--;
+    // // créer une instance de transport avec la ressource et le nid
+    // expeditions.add(new Transport(this, r, depart));
+    // }
 
     public ArrayList<Deplacement> getDeplacements() {
         return expeditions;
@@ -172,8 +172,7 @@ public class Terrain {
         expeditions.add(deplacement);
     }
 
-    public void removeDeplacement(int id)
-    {
+    public void removeDeplacement(int id) {
         expeditions.removeIf(d -> d.getId() == id);
     }
 

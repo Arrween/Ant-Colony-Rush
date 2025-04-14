@@ -14,7 +14,6 @@ public enum Difficulte {
         this.nbAbris = nbAbris;
         this.nbRessources = nbRessources;
     }
-    
 
     public int getNbFourmisInitial() {
         return nbFourmisInitial;

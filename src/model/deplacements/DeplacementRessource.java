@@ -75,7 +75,8 @@ public class DeplacementRessource extends Deplacement {
             t.ajouterRessource(ressource);
 
             // Supprimer ce déplacement
-            t.removeDeplacement(this.getId());;
+            t.removeDeplacement(this.getId());
+            ;
         }
     }
 }

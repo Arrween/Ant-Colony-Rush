@@ -1,6 +1,5 @@
 package view;
 
-import model.threads.InterruptibleThread;
 import view.frames.JeuFrame;
 
 public class RedessinJeuFrame extends Thread {

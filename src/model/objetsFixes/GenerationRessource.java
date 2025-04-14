@@ -1,7 +1,6 @@
 package model.objetsFixes;
 
 import java.util.*;
-
 import model.Terrain;
 
 public class GenerationRessource {

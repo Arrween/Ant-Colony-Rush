@@ -2,7 +2,6 @@ package view.panels;
 
 import java.awt.*;
 import javax.swing.*;
-
 import model.objetsFixes.Ressource;
 
 public class RessourcesDetails extends JPanel {

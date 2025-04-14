@@ -103,7 +103,8 @@ public class StartMenuController {
         threadSet.startAll();
 
         // Création de la fenêtre de jeu
-        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel, threadSet.getGestionScore(), score, threadSet, fourmiController);
+        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel, threadSet.getGestionScore(), score, threadSet,
+                fourmiController);
 
         // création et démarrage du Thread view
         RedessinJeuFrame redessinJeuFrame = new RedessinJeuFrame(jeuFrame);

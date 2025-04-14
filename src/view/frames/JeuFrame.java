@@ -128,7 +128,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     }
 
     private void updateDisplay() {
-        getContentPane().removeAll(); 
+        getContentPane().removeAll();
         if (isRunning) {
             add(conteneurPanneau, BorderLayout.EAST);
             add(terrainPanel, BorderLayout.CENTER);

@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -13,9 +12,8 @@ public class ImageSplitter {
 
         BufferedImage[][] images = new BufferedImage[rows][cols];
 
-
-        BufferedImage sourceImage = ImageIO.read(ImageSplitter.class.getResourceAsStream("/resources/Resources/Seedling.png"));
-
+        BufferedImage sourceImage = ImageIO
+                .read(ImageSplitter.class.getResourceAsStream("/resources/Resources/Seedling.png"));
 
         // Calculer la largeur et la hauteur de chaque cellule
         int cellWidth = sourceImage.getWidth() / cols;
@@ -26,11 +24,10 @@ public class ImageSplitter {
             for (int col = 0; col < cols; col++) {
                 images[row][col] = sourceImage.getSubimage(
 
-                    col * cellWidth,
-                    row * cellHeight,
-                    cellWidth,
-                    cellHeight
-                );
+                        col * cellWidth,
+                        row * cellHeight,
+                        cellWidth,
+                        cellHeight);
             }
         }
 
@@ -45,7 +42,7 @@ public class ImageSplitter {
 
             sixImages[i - 1] = imagesMatrix[i][col];
 
-            sixImages[i-1] = imagesMatrix[i][col];
+            sixImages[i - 1] = imagesMatrix[i][col];
 
         }
         sixImages[5] = imagesMatrix[0][col];
