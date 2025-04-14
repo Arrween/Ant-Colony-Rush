@@ -4,7 +4,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
-import view.CrapaudIdleAnimation;
+
+import model.deplacements.Deplacement;
+import model.objetsFixes.Abri;
+import model.objetsFixes.Nid;
+import model.objetsFixes.ObjetFixe;
+import model.objetsFixes.Ressource;
+import view.animations.CrapaudIdleAnimation;
 
 public class Crapaud {
     private Terrain terrain;
@@ -134,9 +140,9 @@ public class Crapaud {
             double distance = Math.hypot(r.getX() - x, r.getY() - y);
             if (distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
                 // la ressource est visible
-                if (r.fourmis.size() > 0) {
+                if (r.getNbrFourmis() > 0) {
                     // la ressource contient au moins une fourmi
-                    r.fourmis.remove(0);
+                    r.removeOneAnt();
                     satiete++;
                     if (satiete >= MAX_SATIETE) {
                         fallAsleep();

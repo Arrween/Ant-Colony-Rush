@@ -1,7 +1,7 @@
 package main;
 
 import controller.StartMenuController;
-import view.MenuDemarrage;
+import view.frames.MenuDemarrage;
 
 public class Main {
     public static void main(String[] args) {

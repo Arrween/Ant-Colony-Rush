@@ -3,6 +3,17 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import model.deplacements.Deplacement;
+import model.deplacements.DeplacementSimple;
+import model.deplacements.Transport;
+import model.objetsFixes.Abri;
+import model.objetsFixes.GenerationAbri;
+import model.objetsFixes.GenerationRessource;
+import model.objetsFixes.Nid;
+import model.objetsFixes.ObjetFixe;
+import model.objetsFixes.Ressource;
+import model.objetsFixes.RessourceTemporaire;
+
 public class Terrain {
     public static final int LARGEUR = 800;
     public static final int HAUTEUR = 800;
@@ -159,6 +170,11 @@ public class Terrain {
 
     public void ajouterDeplacement(Deplacement deplacement) {
         expeditions.add(deplacement);
+    }
+
+    public void removeDeplacement(int id)
+    {
+        expeditions.removeIf(d -> d.getId() == id);
     }
 
 }

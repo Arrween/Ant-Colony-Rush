@@ -6,22 +6,22 @@ import javax.swing.*;
 
 import model.Difficulte;
 import model.Fourmi;
-import model.GestionnaireCrapaud;
-import model.GestionnaireDeplacement;
-import model.GestionnaireEnergie;
-import model.GestionnaireRessources;
-import model.GestionnaireFourmisMortes;
-import model.GestionnaireSelection;
 import model.MusicPlayer;
 import model.Score;
 import model.Terrain;
-import model.ThreadSet;
-import view.DifficultePanel;
-import view.JeuFrame;
-import view.MenuDemarrage;
-import view.PanneauCartesFourmis;
+import model.threads.GestionnaireCrapaud;
+import model.threads.GestionnaireDeplacement;
+import model.threads.GestionnaireEnergie;
+import model.threads.GestionnaireFourmisMortes;
+import model.threads.GestionnaireRessources;
+import model.threads.GestionnaireSelection;
+import model.threads.ThreadSet;
 import view.RedessinJeuFrame;
-import view.TerrainPanel;
+import view.frames.JeuFrame;
+import view.frames.MenuDemarrage;
+import view.panels.DifficultePanel;
+import view.panels.PanneauCartesFourmis;
+import view.panels.TerrainPanel;
 
 /**
  * Contrôleur pour le menu de démarrage (StartMenu).
