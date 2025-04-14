@@ -17,9 +17,8 @@ public class GestionnaireRessources extends Thread {
         while (true) {
             synchronized (terrain) {
                 if (terrain.nb_ressources < Terrain.NB_RESSOURCES_MAX) {
-                    if (rdm.nextInt(5) == 0) { // 20% de chance d'ajouter une ressource temporaire
-                        terrain.ajouterRessourceTemporaire();
-                    } else {
+                    int ressourcesManquantes = Terrain.NB_RESSOURCES_MAX - terrain.nb_ressources;
+                    if (ressourcesManquantes > 0) {
                         terrain.ajouterRessources(1);
                     }
                 }
