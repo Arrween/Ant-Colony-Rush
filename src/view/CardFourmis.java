@@ -16,6 +16,7 @@ public class CardFourmis extends JPanel {
 
     public CardFourmis(Fourmi fourmi, DestinationSelectionnee ds, ObjetFixe objF, FourmiController controller) {
         this.fourmi = fourmi;
+
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         setPreferredSize(new Dimension(300, 80)); // Taille fixe pour chaque carte

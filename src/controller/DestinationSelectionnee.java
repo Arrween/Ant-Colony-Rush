@@ -2,7 +2,9 @@ package controller;
 
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
+import model.Nid;
 import model.ObjetFixe;
+import model.Ressource;
 import model.Terrain;
 
 public class DestinationSelectionnee {
@@ -39,10 +41,28 @@ public class DestinationSelectionnee {
         ObjetFixe dest = terrain.getEltClic(e.getX(), e.getY());
         if (dest != null) {
             // Vérifier si la destination est valide
+            // On ne peut pas se déplacer vers un abri plein
             if (!fourmiController.isDestinationValide(dest)) {
                 JOptionPane.showMessageDialog(null,
                         "Cet abri est plein, choisissez une autre destination.",
                         "Abri plein",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            // On ne peut pas se déplacer vers une ressource pleine
+            if (dest instanceof Ressource && ((Ressource) dest).isReadyToGo()) {
+                JOptionPane.showMessageDialog(null,
+                        "Cette ressource est pleine, choisissez une autre destination.",
+                        "Ressource pleine",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // On ne peut pas se déplacer vers un nid quand on est dans le nid
+            if (dest instanceof Nid && depart instanceof Nid) {
+                JOptionPane.showMessageDialog(null,
+                        "Choisissez une autre destination.",
+                        "Déplacement impossible",
                         JOptionPane.WARNING_MESSAGE);
                 return;
             }

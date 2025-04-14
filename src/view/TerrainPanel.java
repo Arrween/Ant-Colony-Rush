@@ -97,6 +97,13 @@ public class TerrainPanel extends JPanel {
                     g2d.fillRect(x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2, TAILLE_OBJETS, TAILLE_OBJETS);
                 }
 
+                // Afficher un indicateur si la ressource est pleine
+                if (obj instanceof Ressource && ((Ressource) obj).isReadyToGo()) {
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setColor(new Color(255, 0, 0, 100)); // Rouge semi-transparent
+                    g2d.fillRect(x - TAILLE_OBJETS / 2, y - TAILLE_OBJETS / 2, TAILLE_OBJETS, TAILLE_OBJETS);
+                }
+
                 // temporairement pour se repérer
                 g.drawOval(x - 3, y - 3, 6, 6);
 
