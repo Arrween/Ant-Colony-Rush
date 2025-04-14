@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 import model.deplacements.Deplacement;
 import model.objetsFixes.Abri;
 import model.objetsFixes.Nid;
@@ -160,9 +159,11 @@ public class Crapaud {
         for (Ressource r : rsrc) {
             double distance = Math.hypot(r.getX() - x, r.getY() - y);
             if (distance <= visionRange && isInVisionCone(r.getX(), r.getY())) {
-                // la ressource est visible, le crapaud la mange, les fourmis à l'intérieur disparaissent
+                // la ressource est visible, le crapaud la mange, les fourmis à l'intérieur
+                // disparaissent
                 terrain.removeRessource(r.getId());
-                satiete += 2; //chaque ressource donne 2 points au crapaud indépendamment de sa valeur nutritive
+                satiete += 2; // chaque ressource donne 2 points au crapaud indépendamment de sa valeur
+                              // nutritive
                 // on verifie s'il a maintenant dépassé le seuil de satiete
                 if (satiete >= MAX_SATIETE) {
                     fallAsleep();

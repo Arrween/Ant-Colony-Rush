@@ -1,8 +1,7 @@
 package view.panels;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class PausePanel extends JPanel {
     private JButton btnResume;

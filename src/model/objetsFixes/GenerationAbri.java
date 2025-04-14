@@ -2,7 +2,6 @@ package model.objetsFixes;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import model.Terrain;
 
 public class GenerationAbri {

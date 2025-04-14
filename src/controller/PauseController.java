@@ -1,17 +1,9 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Timer;
-
-import model.threads.GestionnaireEnergie;
 import model.threads.ThreadSet;
 import view.frames.JeuFrame;
-import view.panels.PanneauDeTableauDeBord;
-import view.panels.PausePanel;
 
-public class PauseController{
+public class PauseController {
 
     private JeuFrame gameFrame;
     private ThreadSet threadSet;
@@ -23,15 +15,13 @@ public class PauseController{
     }
 
     private void initListeners() {
-        gameFrame.getPauseButton().addActionListener(e -> 
-            {
-                threadSet.playPauseAll();
-                gameFrame.pause();
-            });
-        gameFrame.getResumeButton().addActionListener(e -> 
-            {
-                threadSet.playPauseAll();
-                gameFrame.resume();
-            });
+        gameFrame.getPauseButton().addActionListener(e -> {
+            threadSet.playPauseAll();
+            gameFrame.pause();
+        });
+        gameFrame.getResumeButton().addActionListener(e -> {
+            threadSet.playPauseAll();
+            gameFrame.resume();
+        });
     }
 }

@@ -1,17 +1,12 @@
 package model.objetsFixes;
 
-import java.awt.*;
-import javax.swing.*;
 import controller.GestionScore;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import model.Fourmi;
 import model.ImageSplitter;
 import model.Terrain;
 import model.deplacements.DeplacementRessource;
-
-import java.awt.image.BufferedImage;
-
-
-import controller.GestionScore;
 
 public class Ressource extends ObjetFixe {
     private int poids;
@@ -28,17 +23,14 @@ public class Ressource extends ObjetFixe {
         this.valeurNutritive = vn;
 
         try {
-            if (poids == 1){
+            if (poids == 1) {
                 this.imageRessource = ImageSplitter.getSixImages(1);
-            }
-            else if (poids == 2){
-                this.imageRessource = ImageSplitter.getSixImages(3); 
-            }
-            else if (poids == 3){
-                this.imageRessource = ImageSplitter.getSixImages(0); 
-            }
-            else if (poids == 4){
-                this.imageRessource = ImageSplitter.getSixImages(15); 
+            } else if (poids == 2) {
+                this.imageRessource = ImageSplitter.getSixImages(3);
+            } else if (poids == 3) {
+                this.imageRessource = ImageSplitter.getSixImages(0);
+            } else if (poids == 4) {
+                this.imageRessource = ImageSplitter.getSixImages(15);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +69,6 @@ public class Ressource extends ObjetFixe {
         // La ressource ne peut être collectée que si l'animation est terminée
         return isAnimationComplete();
     }
-    
 
     public BufferedImage[] getAnnimRessource() {
         return imageRessource;

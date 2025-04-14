@@ -40,7 +40,8 @@ public class DeplacementSimple extends Deplacement {
 
     public void eliminerFourmisMortes() {
         if (f.isDead()) {
-            t.removeDeplacement(this.getId());;
+            t.removeDeplacement(this.getId());
+            ;
         }
     }
 }

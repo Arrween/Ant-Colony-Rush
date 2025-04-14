@@ -1,7 +1,6 @@
 package view.frames;
 
 import controller.StartMenuController;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;

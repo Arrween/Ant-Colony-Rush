@@ -44,10 +44,10 @@ public class Score {
     private void verifierMeilleurScore() {
         // Vérifier si le score actuel est supérieur au meilleur score
         int score = getScore();
-        if ( score > meilleurScore) {
+        if (score > meilleurScore) {
             System.out.println("Nouveau record atteint : " + getScore());
             meilleurScore = score;
-            sauvegarde.sauvegarderScorePourDifficulte(difficulte,score);
+            sauvegarde.sauvegarderScorePourDifficulte(difficulte, score);
         }
     }
 

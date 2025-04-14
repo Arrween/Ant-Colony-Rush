@@ -1,10 +1,9 @@
 package view.panels;
 
 import controller.DestinationSelectionnee;
-import model.objetsFixes.Abri;
-
 import java.awt.*;
 import javax.swing.*;
+import model.objetsFixes.Abri;
 
 public class AbriDetail extends JPanel {
     private JLabel lblCapacite; // Capacité de l'abri

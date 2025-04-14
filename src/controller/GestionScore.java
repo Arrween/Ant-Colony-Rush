@@ -72,7 +72,7 @@ public class GestionScore extends InterruptibleThread {
                 }
                 continue;
             }
-            
+
             if (ajouterFourmiEvent) {
                 nid.ajouterFourmi();
                 ajouterFourmiEvent = false;

@@ -7,7 +7,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
-
 import model.Terrain;
 import model.objetsFixes.Abri;
 import model.objetsFixes.Nid;
@@ -101,7 +100,7 @@ public class TerrainController extends MouseAdapter implements ActionListener, K
             // Vérifier si une ressource est sélectionnée
             ObjetFixe selectedObj = terrain.getEltClic(lastMouseX, lastMouseY);
             if (selectedObj instanceof Ressource ressource) {
-                if(ressource.canBeCollected()) {
+                if (ressource.canBeCollected()) {
                     if (ressource.isReadyToGo() && !ressource.isMoving()) {
                         ressource.deplacerVersNid(terrain, terrain.getNid(), gestionScore);
                         terrainPanel.repaint(); // Mettre à jour l'affichage

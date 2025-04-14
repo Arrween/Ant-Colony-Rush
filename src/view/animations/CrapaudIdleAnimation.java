@@ -32,7 +32,7 @@ public class CrapaudIdleAnimation {
     /**
      * Découpe la spriteSheet en 4 frames (2x2).
      */
-    
+
     private void extractFrames() {
         frameWidth = spriteSheet.getWidth() / 2; // 2 colonnes
         frameHeight = spriteSheet.getHeight() / 2; // 2 lignes

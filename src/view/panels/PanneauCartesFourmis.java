@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
-
 import model.Fourmi;
 import model.objetsFixes.Abri;
 import model.objetsFixes.Nid;

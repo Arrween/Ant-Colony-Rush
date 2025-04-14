@@ -3,21 +3,17 @@ package model.objetsFixes;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
-import java.awt.image.BufferedImage;
-
 import javax.swing.ImageIcon;
-
 import model.Terrain;
 
 public class RessourceTemporaire extends Ressource {
     private int tempsRestant;
 
     // valeurs possibles
-    private static final int[] POIDS = {1, 2};
-    private static final int[] VALEURS_NUTRITIVES = {200, 400 };
-    private static final int[] DUREES = {15000, 22000 };
+    private static final int[] POIDS = { 1, 2 };
+    private static final int[] VALEURS_NUTRITIVES = { 200, 400 };
+    private static final int[] DUREES = { 15000, 22000 };
     private Image imageRessource;
-    
 
     public RessourceTemporaire(int p, int vn, int x, int y, int duree) {
         super(p, vn, x, y);

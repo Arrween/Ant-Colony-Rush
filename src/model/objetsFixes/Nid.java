@@ -3,7 +3,6 @@ package model.objetsFixes;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
-
 import model.Fourmi;
 
 public class Nid extends ObjetFixe {
