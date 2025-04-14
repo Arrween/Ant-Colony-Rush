@@ -2,6 +2,7 @@ package view;
 
 import controller.FourmiController;
 import controller.GestionScore;
+import controller.PauseController;
 import controller.TerrainController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,19 +15,23 @@ import model.Nid;
 import model.Ressource;
 import model.Score;
 import model.Terrain; // Assurez-vous d'importer la classe MusicPlayer
+import model.ThreadSet;
 
 public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListener {
     private Terrain terrain;
     private TerrainPanel terrainPanel;
     private ConteneurPanneauDeControle conteneurPanneau;
+    private PausePanel pausePanel;
     private TerrainController terrainControleur;
+    private PauseController pauseController;
     private GestionScore gestionScore;
     private FourmiController fourmiController; // Ajout d'un contrôleur pour les fourmis
+    private boolean isRunning = true; // Variable pour play/pause
 
     // Variable pour suivre l'état courant (jour/nuit)
     private boolean nightMode = false;
 
-    public JeuFrame(Terrain t, TerrainPanel panel, GestionScore gestionScore, Score score,
+    public JeuFrame(Terrain t, TerrainPanel panel, GestionScore gestionScore, Score score, ThreadSet ts,
             FourmiController fourmiController) {
         setTitle("Ant Colony Rush");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,6 +40,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
         this.fourmiController = fourmiController;
         terrain = t;
         terrainPanel = panel;
+        pausePanel = new PausePanel();
         terrainPanel.setEcouteurPanneauDeControle(this);
 
         // Initialisation du panneau de contrôle sur le côté droit
@@ -46,6 +52,8 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
 
         terrainControleur = new TerrainController(terrain, terrainPanel, this, gestionScore, fourmiController);
         terrainPanel.addMouseListener(terrainControleur);
+
+        pauseController = new PauseController(this, ts);
 
         addKeyListener(terrainControleur);
         setFocusable(true);
@@ -92,5 +100,36 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     public void abriClicked(Abri abri) {
         AbriDetail panneauDetail = new AbriDetail(abri, terrainControleur.getDestSelector());
         conteneurPanneau.afficherPanneauDetail(panneauDetail);
+    }
+
+    public JButton getResumeButton() {
+        return pausePanel.getResumeButton();
+    }
+
+    public JButton getPauseButton() {
+        return conteneurPanneau.getPauseButton();
+    }
+
+    public void resume() {
+        isRunning = true;
+        updateDisplay();
+    }
+
+    public void pause() {
+        isRunning = false;
+        updateDisplay();
+    }
+
+    private void updateDisplay() {
+        getContentPane().removeAll(); 
+        if (isRunning) {
+            add(conteneurPanneau, BorderLayout.EAST);
+            add(terrainPanel, BorderLayout.CENTER);
+        } else {
+            add(pausePanel, BorderLayout.CENTER);
+        }
+
+        revalidate();
+        repaint();
     }
 }

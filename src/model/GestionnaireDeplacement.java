@@ -10,7 +10,7 @@ import view.TerrainPanel;
  * - Redessin de la vue via SwingUtilities.invokeLater()
  */
 
-public class GestionnaireDeplacement extends Thread {
+public class GestionnaireDeplacement extends InterruptibleThread {
     private Terrain t;
     private TerrainPanel terrainPanel; // Référence au panneau pour le repaint
     public final int DELAY = 50;
@@ -23,6 +23,15 @@ public class GestionnaireDeplacement extends Thread {
     @Override
     public void run() {
         while (true) {
+            if (!isRunning) {
+                try {
+                    Thread.sleep(DELAY);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
+
             // Mise à jour du modèle
             t.updateDeplacements();
             t.supprimeDeplacementsFinis();

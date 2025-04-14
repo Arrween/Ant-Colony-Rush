@@ -38,4 +38,8 @@ public class ConteneurPanneauDeControle extends JPanel {
         revalidate();
         repaint();
     }
+
+    public JButton getPauseButton() {
+        return panneauFixe.getPauseButton();
+    }
 }

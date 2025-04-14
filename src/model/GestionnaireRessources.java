@@ -2,7 +2,7 @@ package model;
 
 import java.util.Random;
 
-public class GestionnaireRessources extends Thread {
+public class GestionnaireRessources extends InterruptibleThread {
     private Terrain terrain;
     private Random rdm;
     private final int DELAY = 2000; // Vérification toutes les 2 secondes
@@ -15,6 +15,15 @@ public class GestionnaireRessources extends Thread {
     @Override
     public void run() {
         while (true) {
+            if (!isRunning) {
+                try {
+                    Thread.sleep(DELAY);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
+            
             synchronized (terrain) {
                 if (terrain.nb_ressources < Terrain.NB_RESSOURCES_MAX) {
                     if (rdm.nextInt(5) == 0) { // 20% de chance d'ajouter une ressource temporaire

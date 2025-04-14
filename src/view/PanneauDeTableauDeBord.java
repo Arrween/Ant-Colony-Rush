@@ -17,6 +17,7 @@ public class PanneauDeTableauDeBord extends JPanel {
     private Score score;
     private Crapaud crapaud;
     private Timer satieteAnimationTimer;
+    JButton pauseBtn;
 
     public PanneauDeTableauDeBord(Score scoreInstance, Crapaud crapaud) {
         this.score = scoreInstance;
@@ -39,9 +40,9 @@ public class PanneauDeTableauDeBord extends JPanel {
         pnlHeader.add(lblScore, BorderLayout.CENTER);
 
         // Pause
-        JButton btnPause = new JButton("Pause");
-        btnPause.setFont(new Font("Arial", Font.BOLD, 14));
-        pnlHeader.add(btnPause, BorderLayout.EAST);
+        pauseBtn = new JButton("Pause");
+        pauseBtn.setFont(new Font("Arial", Font.BOLD, 14));
+        pnlHeader.add(pauseBtn, BorderLayout.EAST);
 
         add(pnlHeader);
 
@@ -155,5 +156,9 @@ public class PanneauDeTableauDeBord extends JPanel {
 
     public JPanel getPnlCrapaudInfos() {
         return pnlCrapaudInfos;
+    }
+
+    public JButton getPauseButton() {
+        return pauseBtn;
     }
 }

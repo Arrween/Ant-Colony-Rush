@@ -1,13 +1,14 @@
 package model;
 
-import controller.GestionScore;
 import java.awt.*;
 import javax.swing.*;
+
+import controller.GestionScore;
 
 public class Ressource extends ObjetFixe {
     private int poids;
     private int valeurNutritive;
-    private Image imageRessource; // L'image représentant la ressource
+    protected Image imageRessource; // L'image représentant la ressource
     private boolean isMoving = false; // Indique si la ressource est en déplacement
 
     public Ressource(int poids, int vn, int x, int y) {

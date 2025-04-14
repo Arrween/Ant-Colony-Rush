@@ -1,10 +1,11 @@
 package controller;
 
+import model.InterruptibleThread;
 import model.Nid;
 import model.Ressource;
 import model.Score;
 
-public class GestionScore extends Thread {
+public class GestionScore extends InterruptibleThread {
     private Score score;
     private Nid nid;
     private boolean ajouterFourmiEvent = false;
@@ -43,6 +44,15 @@ public class GestionScore extends Thread {
     @Override
     public void run() {
         while (true) {
+            if (!isRunning) {
+                try {
+                    Thread.sleep(DELAY);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
+            
             if (ajouterFourmiEvent) {
                 nid.ajouterFourmi();
                 ajouterFourmiEvent = false;
