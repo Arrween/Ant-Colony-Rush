@@ -11,7 +11,7 @@ public class TerrainPanel extends JPanel {
     private Terrain terrain;
     private ControlPanelListener controlListener;
     public static final int TAILLE_CRAPAUD = 160;
-    public static final int TAILLE_FOURMIS = 40;
+    public static final int TAILLE_FOURMIS = 20;
     public static final int TAILLE_OBJETS = (int) (2 * ObjetFixe.HALF_SIZE * 1);
     private BackgroundGrid backgroundGrid;
     private List<DeathMessage> deathMessages = new ArrayList<>();
