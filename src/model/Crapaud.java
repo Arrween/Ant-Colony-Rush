@@ -212,7 +212,9 @@ public class Crapaud {
     }
 
     public void decrSatiete() {
-        satiete--;
+        if (satiete > 0) {
+            satiete--;
+        }
     }
 
     public int getDirectionAngle() {
