@@ -1,5 +1,4 @@
 package controller;
-
 import model.Score;
 import model.Terrain;
 import model.deplacements.DeplacementRessource;
