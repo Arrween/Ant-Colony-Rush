@@ -25,15 +25,25 @@ public class PanneauDeTableauDeBord extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        JPanel pnlHeader = new JPanel(new BorderLayout());
+        pnlHeader.setPreferredSize(new Dimension(300, 50));
+
         // Chrono
-        lblChrono = new JLabel("Temps : 00:00", SwingConstants.CENTER);
+        lblChrono = new JLabel("Temps : 00:00", SwingConstants.LEFT);
         lblChrono.setFont(new Font("Arial", Font.BOLD, 16));
-        add(lblChrono);
+        pnlHeader.add(lblChrono, BorderLayout.WEST);
 
         // Score
         lblScore = new JLabel("Score : 0", SwingConstants.CENTER);
         lblScore.setFont(new Font("Arial", Font.BOLD, 16));
-        add(lblScore);
+        pnlHeader.add(lblScore, BorderLayout.CENTER);
+
+        // Pause
+        JButton btnPause = new JButton("Pause");
+        btnPause.setFont(new Font("Arial", Font.BOLD, 14));
+        pnlHeader.add(btnPause, BorderLayout.EAST);
+
+        add(pnlHeader);
 
         // Infos sur le crapaud
         pnlCrapaudInfos = new JPanel();
