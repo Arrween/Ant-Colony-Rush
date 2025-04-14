@@ -7,7 +7,7 @@ import java.util.Random;
 public class GestionnaireRessources extends InterruptibleThread {
     private Terrain terrain;
     private Random rdm;
-    private final int DELAY = 2000; // Vérification toutes les 2 secondes
+    private final int DELAY = 1000; // Vérification toutes les 2 secondes
 
     public GestionnaireRessources(Terrain terrain) {
         this.terrain = terrain;
