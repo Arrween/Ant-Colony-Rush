@@ -3,20 +3,42 @@ package model;
 import controller.GestionScore;
 import java.awt.*;
 import javax.swing.*;
+import controller.GestionScore;
+import java.awt.image.BufferedImage;
+
 
 public class Ressource extends ObjetFixe {
     private int poids;
     private int valeurNutritive;
-    private Image imageRessource; // L'image représentant la ressource
+    private BufferedImage[] imageRessource; // L'image représentant la ressource
     private boolean isMoving = false; // Indique si la ressource est en déplacement
+    private int currentFrame = 0; // Frame actuelle de l'animation
+    private long lastFrameTime = 0; // Temps du dernier changement de frame
+    private static final long FRAME_DURATION = 1000; // Durée de chaque frame en millisecondes (0.5 secondes)
 
     public Ressource(int poids, int vn, int x, int y) {
         super(x, y, 0);
         this.poids = poids;
         this.valeurNutritive = vn;
 
-        this.imageRessource = new ImageIcon(getClass().getResource("/resources/Resources/ressource" + poids + ".png"))
-                .getImage();
+        try {
+            if (poids == 1){
+                this.imageRessource = ImageSplitter.getSixImages(1);
+            }
+            else if (poids == 2){
+                this.imageRessource = ImageSplitter.getSixImages(3); 
+            }
+            else if (poids == 3){
+                this.imageRessource = ImageSplitter.getSixImages(0); 
+            }
+            else if (poids == 4){
+                this.imageRessource = ImageSplitter.getSixImages(15); 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.imageRessource = new BufferedImage[6]; // Valeur par défaut en cas d'erreur
+        }
+
     }
 
     public boolean isMoving() {
@@ -27,8 +49,31 @@ public class Ressource extends ObjetFixe {
         this.isMoving = moving;
     }
 
-    @Override
+    public boolean isAnimationComplete() {
+        // Vérifie si l'animation a atteint le dernier frame
+        return currentFrame >= 6;
+    }
+
     public Image getImage() {
+        // Gérer l'animation des frames une seule fois
+        long currentTime = System.currentTimeMillis();
+        if (currentFrame < 6) { // Vérifie si l'animation est encore en cours
+            if (currentTime - lastFrameTime >= FRAME_DURATION) {
+                currentFrame++; // Passer à la frame suivante
+                lastFrameTime = currentTime;
+            }
+        }
+        // Si l'animation est terminée, afficher la dernière frame (frame 6)
+        return currentFrame < 6 ? imageRessource[currentFrame] : imageRessource[5];
+    }
+
+    public boolean canBeCollected() {
+        // La ressource ne peut être collectée que si l'animation est terminée
+        return isAnimationComplete();
+    }
+    
+
+    public BufferedImage[] getAnnimRessource() {
         return imageRessource;
     }
 
