@@ -17,6 +17,7 @@ public class PanneauDeTableauDeBord extends JPanel {
     private Score score;
     private Crapaud crapaud;
     private Timer satieteAnimationTimer;
+    private JLabel lblMeilleurScore;
 
     public PanneauDeTableauDeBord(Score scoreInstance, Crapaud crapaud) {
         this.score = scoreInstance;
@@ -26,22 +27,40 @@ public class PanneauDeTableauDeBord extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JPanel pnlHeader = new JPanel(new BorderLayout());
-        pnlHeader.setPreferredSize(new Dimension(300, 50));
+        pnlHeader.setPreferredSize(new Dimension(300, 80));
 
-        // Chrono
-        lblChrono = new JLabel("Temps : 00:00", SwingConstants.LEFT);
-        lblChrono.setFont(new Font("Arial", Font.BOLD, 16));
-        pnlHeader.add(lblChrono, BorderLayout.WEST);
+        // Score et meilleur score
+
+        JPanel pnlScore = new JPanel();
+        pnlScore.setLayout(new BoxLayout(pnlScore, BoxLayout.Y_AXIS));
+        pnlScore.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Score
-        lblScore = new JLabel("Score : 0", SwingConstants.CENTER);
+        lblScore = new JLabel("Score : 0", SwingConstants.LEFT);
         lblScore.setFont(new Font("Arial", Font.BOLD, 16));
-        pnlHeader.add(lblScore, BorderLayout.CENTER);
+        pnlScore.add(lblScore);
+
+        // Meilleur score
+        lblMeilleurScore = new JLabel("Record : " + score.getMeilleurScore(), SwingConstants.CENTER);
+        lblMeilleurScore.setFont(new Font("Arial", Font.BOLD, 16));
+        pnlScore.add(lblMeilleurScore);
+
+        pnlHeader.add(pnlScore, BorderLayout.SOUTH);
+
+        JPanel pnlChronoPause = new JPanel(new BorderLayout());
+        pnlChronoPause.setPreferredSize(new Dimension(300, 40));
+
+        // Chrono
+        lblChrono = new JLabel("Temps : 00:00", SwingConstants.CENTER);
+        lblChrono.setFont(new Font("Arial", Font.BOLD, 16));
+        pnlChronoPause.add(lblChrono, BorderLayout.WEST);
 
         // Pause
         JButton btnPause = new JButton("Pause");
         btnPause.setFont(new Font("Arial", Font.BOLD, 14));
-        pnlHeader.add(btnPause, BorderLayout.EAST);
+        pnlChronoPause.add(btnPause, BorderLayout.EAST);
+
+        pnlHeader.add(pnlChronoPause, BorderLayout.NORTH);
 
         add(pnlHeader);
 
@@ -101,6 +120,7 @@ public class PanneauDeTableauDeBord extends JPanel {
 
     public void mettreAJourScore(int score) {
         lblScore.setText("Score : " + score);
+        lblMeilleurScore.setText("Record : " + this.score.getMeilleurScore());
     }
 
     private void mettreAJourCrapaudInfos() {
