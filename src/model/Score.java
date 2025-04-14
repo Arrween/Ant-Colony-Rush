@@ -5,11 +5,13 @@ public class Score {
     public static final int FOURMI_AJOUT = 60;
     private int meilleurScore;
     private Sauvegarde sauvegarde;
+    private int difficulte;
 
-    public Score(Nid nid) {
+    public Score(Nid nid, int difficulte) {
         this.nid = nid; // Associer le Nid
+        this.difficulte = difficulte; // Stocker la difficulté choisie
         this.sauvegarde = new Sauvegarde("src/textes/meilleur_score.txt");
-        this.meilleurScore = sauvegarde.chargerMeilleurScore();
+        this.meilleurScore = sauvegarde.chargerScorePourDifficulte(difficulte);
     }
 
     // Getter pour les Score
@@ -43,7 +45,7 @@ public class Score {
         if ( score > meilleurScore) {
             System.out.println("Nouveau record atteint : " + getScore());
             meilleurScore = score;
-            sauvegarde.sauvegarderMeilleurScore(meilleurScore);
+            sauvegarde.sauvegarderScorePourDifficulte(difficulte,score);
         }
     }
 

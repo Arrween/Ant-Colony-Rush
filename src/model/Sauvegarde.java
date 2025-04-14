@@ -1,8 +1,8 @@
 package model;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sauvegarde {
 
@@ -20,55 +20,49 @@ public class Sauvegarde {
         }
     }
 
-    // Méthode pour sauvegarder une liste de chaînes de caractères dans un fichier
-    public void sauvegarder(List<String> contenu) {
+    // Méthode pour sauvegarder les scores par difficulté
+    public void sauvegarderScores(Map<Integer, Integer> scores) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(cheminFichier))) {
-            for (String ligne : contenu) {
-                writer.write(ligne);
+            for (Map.Entry<Integer, Integer> entry : scores.entrySet()) {
+                writer.write(entry.getKey() + ": " + entry.getValue());
                 writer.newLine();
             }
-            System.out.println("Données sauvegardées dans " + cheminFichier);
+            System.out.println("Scores sauvegardés dans " + cheminFichier);
         } catch (IOException e) {
-            System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+            System.err.println("Erreur lors de la sauvegarde des scores : " + e.getMessage());
         }
     }
 
-    // Méthode pour charger les données depuis un fichier
-    public List<String> charger() {
-        List<String> contenu = new ArrayList<>();
+    // Méthode pour charger les scores par difficulté
+    public Map<Integer, Integer> chargerScores() {
+        Map<Integer, Integer> scores = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(cheminFichier))) {
             String ligne;
             while ((ligne = reader.readLine()) != null) {
-                contenu.add(ligne);
+                String[] parts = ligne.split(": ");
+                if (parts.length == 2) {
+                    int difficulte = Integer.parseInt(parts[0].trim());
+                    int score = Integer.parseInt(parts[1].trim());
+                    scores.put(difficulte, score);
+                }
             }
-            System.out.println("Données chargées depuis " + cheminFichier);
-        } catch (IOException e) {
-            System.err.println("Erreur lors du chargement : " + e.getMessage());
-        }
-        return contenu;
-    }
-
-    // Méthode pour sauvegarder le meilleur score
-    public void sauvegarderMeilleurScore(int score) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(cheminFichier))) {
-            writer.write(String.valueOf(score)); // Écrire uniquement le score
-            System.out.println("Meilleur score sauvegardé : " + score);
-        } catch (IOException e) {
-            System.err.println("Erreur lors de la sauvegarde du meilleur score : " + e.getMessage());
-        }
-    }
-
-    // Méthode pour charger le meilleur score
-    public int chargerMeilleurScore() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(cheminFichier))) {
-            String ligne = reader.readLine();
-            if (ligne != null && !ligne.isEmpty()) {
-                return Integer.parseInt(ligne.trim()); // Convertir la ligne en entier
-            }
+            System.out.println("Scores chargés depuis " + cheminFichier);
         } catch (IOException | NumberFormatException e) {
-            System.err.println("Erreur lors du chargement du meilleur score : " + e.getMessage());
+            System.err.println("Erreur lors du chargement des scores : " + e.getMessage());
         }
-        return 0; // Retourne 0 si aucun score valide n'est trouvé
+        return scores;
     }
 
+    // Méthode pour sauvegarder un score spécifique à une difficulté
+    public void sauvegarderScorePourDifficulte(int difficulte, int score) {
+        Map<Integer, Integer> scores = chargerScores();
+        scores.put(difficulte, score);
+        sauvegarderScores(scores);
+    }
+
+    // Méthode pour charger un score spécifique à une difficulté
+    public int chargerScorePourDifficulte(int difficulte) {
+        Map<Integer, Integer> scores = chargerScores();
+        return scores.getOrDefault(difficulte, 0); // Retourne 0 si aucun score n'est trouvé
+    }
 }

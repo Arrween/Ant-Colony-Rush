@@ -92,7 +92,7 @@ public class StartMenuController {
         MusicPlayer.playMusic(); // Lecture de la musique de jeu
         MusicPlayer.playDaySound(); // Lecture du son de jour
 
-        Score score = new Score(terrain.getNid());
+        Score score = new Score(terrain.getNid(), difficulte.ordinal() + 1);
 
         // Créer un FourmiController
         PanneauCartesFourmis panneauCartes = new PanneauCartesFourmis(terrain.getNid(), null);
