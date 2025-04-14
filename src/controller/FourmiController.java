@@ -1,9 +1,9 @@
 package controller;
 
-import model.Abri;
 import model.Fourmi;
-import model.ObjetFixe;
-import view.PanneauCartesFourmis;
+import model.objetsFixes.Abri;
+import model.objetsFixes.ObjetFixe;
+import view.panels.PanneauCartesFourmis;
 
 public class FourmiController {
     private PanneauCartesFourmis panneauCartes;

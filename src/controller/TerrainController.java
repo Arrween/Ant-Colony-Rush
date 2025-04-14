@@ -7,12 +7,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
-import model.Abri;
-import model.Nid;
-import model.ObjetFixe;
-import model.Ressource;
+
 import model.Terrain;
-import view.TerrainPanel;
+import model.objetsFixes.Abri;
+import model.objetsFixes.Nid;
+import model.objetsFixes.ObjetFixe;
+import model.objetsFixes.Ressource;
+import view.panels.TerrainPanel;
 
 public class TerrainController extends MouseAdapter implements ActionListener, KeyListener {
 
