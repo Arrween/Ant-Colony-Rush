@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import model.Difficulte;
 import model.Fourmi;
-
 import model.GestionnaireCrapaud;
 import model.GestionnaireDeplacement;
 import model.GestionnaireEnergie;
@@ -16,6 +15,7 @@ import model.GestionnaireSelection;
 import model.MusicPlayer;
 import model.Score;
 import model.Terrain;
+import model.ThreadSet;
 import view.DifficultePanel;
 import view.JeuFrame;
 import view.MenuDemarrage;
@@ -92,38 +92,21 @@ public class StartMenuController {
         MusicPlayer.playMusic(); // Lecture de la musique de jeu
         MusicPlayer.playDaySound(); // Lecture du son de jour
 
-        // Création des gestionnaires (Threads)
-        GestionnaireEnergie gestionnaireEnergie = new GestionnaireEnergie(terrain);
-        GestionnaireDeplacement gestionnaireDeplacement = new GestionnaireDeplacement(terrain, terrainPanel);
-        GestionnaireCrapaud gestionnaireCrapaud = new GestionnaireCrapaud(terrain);
-        GestionnaireRessources gestionnaireRessources = new GestionnaireRessources(terrain);
-        GestionnaireFourmisMortes gestionnaireFourmisMortes = new GestionnaireFourmisMortes(terrain, terrainPanel);
-        GestionnaireSelection gestionnaireSelection = new GestionnaireSelection(terrain);
-
         Score score = new Score(terrain.getNid());
 
         // Créer un FourmiController
         PanneauCartesFourmis panneauCartes = new PanneauCartesFourmis(terrain.getNid(), null);
         FourmiController fourmiController = new FourmiController(panneauCartes);
 
-        // thread de gestion du score
-        GestionScore gestionScore = new GestionScore(terrain, score, terrain.getNid());
-        gestionScore.start();
+        // création et démarrage des Threads modèles
+        ThreadSet threadSet = new ThreadSet(terrain, terrainPanel, score, terrain.getNid());
+        threadSet.startAll();
 
         // Création de la fenêtre de jeu
-        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel, gestionScore, score, fourmiController);
+        JeuFrame jeuFrame = new JeuFrame(terrain, terrainPanel, threadSet.getGestionScore(), score, threadSet, fourmiController);
 
-        // Thread de redessin régulier
+        // création et démarrage du Thread view
         RedessinJeuFrame redessinJeuFrame = new RedessinJeuFrame(jeuFrame);
-
-        // Démarrer les threads
-        gestionnaireEnergie.start();
-        gestionnaireDeplacement.start();
-        gestionnaireCrapaud.start();
-        gestionnaireRessources.start();
-        gestionnaireFourmisMortes.start();
-        gestionnaireSelection.start();
-
         redessinJeuFrame.start();
 
         // Fermer la fenêtre du menu de démarrage
