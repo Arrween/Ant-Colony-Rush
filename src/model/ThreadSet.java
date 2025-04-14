@@ -23,7 +23,7 @@ public class ThreadSet {
         this.gestionnaireRessources = new GestionnaireRessources(t);
         this.gestionnaireFourmisMortes = new GestionnaireFourmisMortes(t, tp);
         this.gestionnaireSelection = new GestionnaireSelection(t);
-        this.gestionScore = new GestionScore(s, n);
+        this.gestionScore = new GestionScore(t, s, n);
     }
 
     public void startAll() {

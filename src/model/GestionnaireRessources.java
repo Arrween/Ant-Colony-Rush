@@ -30,6 +30,9 @@ public class GestionnaireRessources extends InterruptibleThread {
                     if (ressourcesManquantes > 0) {
                         terrain.ajouterRessources(1);
                     }
+                    /*
+                     * ajouter proba de 20% que ce soit terrain.ajouteRessourceTemporaire()
+                     */
                 }
             }
 
