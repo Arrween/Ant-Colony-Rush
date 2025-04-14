@@ -5,7 +5,7 @@ import java.util.Random;
 public class GestionnaireRessources extends Thread {
     private Terrain terrain;
     private Random rdm;
-    private final int DELAY = 2000; // Vérification toutes les 2 secondes
+    private final int DELAY = 1000; // Vérification toutes les 2 secondes
 
     public GestionnaireRessources(Terrain terrain) {
         this.terrain = terrain;
@@ -19,7 +19,14 @@ public class GestionnaireRessources extends Thread {
                 if (terrain.nb_ressources < Terrain.NB_RESSOURCES_MAX) {
                     int ressourcesManquantes = Terrain.NB_RESSOURCES_MAX - terrain.nb_ressources;
                     if (ressourcesManquantes > 0) {
-                        terrain.ajouterRessources(1);
+                        if (rdm.nextInt(5) == 0) {
+                            // Créer une ressource temporaire
+                            terrain.ajouterRessourceTemporaire();
+                        } else {
+                             // Créer une ressource normale
+                             terrain.ajouterRessources(1);
+                        }
+                        
                     }
                 }
             }
