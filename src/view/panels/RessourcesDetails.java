@@ -59,11 +59,14 @@ public class RessourcesDetails extends JPanel {
         add(pnlCentre, BorderLayout.CENTER);
 
         // Bas : Bouton Retour
-        btnRetour = new JButton("Retour");
+        JButton btnRetour = new JButton("Retour");
         btnRetour.addActionListener(e -> {
             Container parent = RessourcesDetails.this.getParent();
-            if (parent instanceof ConteneurPanneauDeControle) {
-                ((ConteneurPanneauDeControle) parent).afficherTableauDeBord();
+            while (parent != null && !(parent instanceof ConteneurPanneauDeControle)) {
+                parent = parent.getParent();
+            }
+            if (parent instanceof ConteneurPanneauDeControle conteneur) {
+                conteneur.afficherTableauDeBord();
             }
         });
 

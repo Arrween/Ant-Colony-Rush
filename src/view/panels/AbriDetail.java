@@ -64,8 +64,11 @@ public class AbriDetail extends JPanel {
         JButton btnRetour = new JButton("Retour");
         btnRetour.addActionListener(e -> {
             Container parent = AbriDetail.this.getParent();
-            if (parent instanceof ConteneurPanneauDeControle) {
-                ((ConteneurPanneauDeControle) parent).afficherTableauDeBord();
+            while (parent != null && !(parent instanceof ConteneurPanneauDeControle)) {
+                parent = parent.getParent();
+            }
+            if (parent instanceof ConteneurPanneauDeControle conteneur) {
+                conteneur.afficherTableauDeBord();
             }
         });
         JPanel pnlBas = new JPanel();

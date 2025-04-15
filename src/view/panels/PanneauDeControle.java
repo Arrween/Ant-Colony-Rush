@@ -22,11 +22,13 @@ public class PanneauDeControle extends JPanel {
         JPanel panneauEntete = new JPanel(new BorderLayout());
 
         JButton btnRetour = new JButton("Retour");
-        btnRetour.setPreferredSize(new Dimension(80, 40));
         btnRetour.addActionListener(e -> {
             Container parent = PanneauDeControle.this.getParent();
-            if (parent instanceof ConteneurPanneauDeControle) {
-                ((ConteneurPanneauDeControle) parent).afficherTableauDeBord();
+            while (parent != null && !(parent instanceof ConteneurPanneauDeControle)) {
+                parent = parent.getParent();
+            }
+            if (parent instanceof ConteneurPanneauDeControle conteneur) {
+                conteneur.afficherTableauDeBord();
             }
         });
         panneauEntete.add(btnRetour, BorderLayout.EAST);
