@@ -7,55 +7,61 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import model.Fourmi;
 import model.objetsFixes.Abri;
 import model.objetsFixes.Nid;
 import model.objetsFixes.ObjetFixe;
 
 public class PanneauCartesFourmis extends JPanel {
-    private List<CardFourmis> cartesFourmis; // Liste des cartes
-    private JPanel pnlCartes; // Panneau contenant les cartes
-    private FourmiController controller; // Contrôleur pour gérer les actions (optionnel)
+    private List<CardFourmis> cartesFourmis;
+    private JPanel pnlCartes;
+    private FourmiController controller;
 
-    // Constructeur pour un nid (avec gestion des destinations)
+    // Constantes de style
+    private static final Color BEIGE = new Color(245, 245, 220);
+    private static final Color DARK_BROWN = new Color(101, 67, 33);
+    private static final Font CONTROL_HEADER = new Font("Segoe UI", Font.BOLD, 14);
+
+    // Constructeur pour un nid
     public PanneauCartesFourmis(Nid nid, DestinationSelectionnee ds) {
-        this(nid.getFourmis(), ds, nid, true);
+        this(nid.getFourmis(), ds, nid);
     }
 
-    // Constructeur pour un abri (avec gestion des destinations)
+    // Constructeur pour un abri
     public PanneauCartesFourmis(Abri abri, DestinationSelectionnee ds) {
-        this(abri.getFourmis(), ds, abri, true);
+        this(abri.getFourmis(), ds, abri);
     }
 
     // Constructeur générique
-    private PanneauCartesFourmis(List<Fourmi> fourmis, DestinationSelectionnee ds, ObjetFixe objF,
-            boolean avecControleur) {
+    private PanneauCartesFourmis(List<Fourmi> fourmis, DestinationSelectionnee ds, ObjetFixe objF) {
         setLayout(new BorderLayout());
+        setBackground(BEIGE);
+
         cartesFourmis = new ArrayList<>();
+        controller = new FourmiController(this);
 
-        // Initialiser le contrôleur uniquement si nécessaire
-        if (avecControleur) {
-            controller = new FourmiController(this);
-        }
-
-        // Titre du panneau
+        // Titre
         JLabel lblTitre = new JLabel("Détails des Fourmis", SwingConstants.CENTER);
-        lblTitre.setFont(new Font("Arial", Font.BOLD, 16));
+        lblTitre.setFont(CONTROL_HEADER);
+        lblTitre.setForeground(DARK_BROWN);
+        lblTitre.setBorder(new EmptyBorder(5, 5, 5, 5));
         add(lblTitre, BorderLayout.NORTH);
 
-        // Panneau pour afficher les cartes
+        // Panel où seront empilées toutes les CardFourmis
         pnlCartes = new JPanel();
         pnlCartes.setLayout(new BoxLayout(pnlCartes, BoxLayout.Y_AXIS));
+        pnlCartes.setBackground(BEIGE);
+
+        // On enrobe dans un JScrollPane
         JScrollPane scrollPane = new JScrollPane(pnlCartes);
+        scrollPane.setBorder(null); // pas de bordure visible
         add(scrollPane, BorderLayout.CENTER);
 
-        // Ajouter les cartes pour chaque fourmi
         for (Fourmi fourmi : fourmis) {
-            CardFourmis card = new CardFourmis(fourmi, ds, objF, controller);
-            cartesFourmis.add(card);
+            ajouterCarte(fourmi, ds, objF);
         }
 
-        // Afficher les cartes triées par énergie décroissante
         afficherCartesTriees();
     }
 
@@ -64,9 +70,11 @@ public class PanneauCartesFourmis extends JPanel {
         pnlCartes.removeAll();
         for (CardFourmis card : cartesFourmis) {
             pnlCartes.add(card);
+            // Petit espace entre chaque carte
+            pnlCartes.add(Box.createVerticalStrut(5));
         }
-        revalidate();
-        repaint();
+        pnlCartes.revalidate();
+        pnlCartes.repaint();
     }
 
     public void mettreAJourCartes() {
@@ -79,11 +87,10 @@ public class PanneauCartesFourmis extends JPanel {
     public void ajouterCarte(Fourmi fourmi, DestinationSelectionnee ds, ObjetFixe objF) {
         CardFourmis nouvelleCarte = new CardFourmis(fourmi, ds, objF, controller);
         cartesFourmis.add(nouvelleCarte);
-        afficherCartesTriees(); // Réorganiser et afficher les cartes
     }
 
     public void supprimerCarte(Fourmi fourmi) {
         cartesFourmis.removeIf(card -> card.getFourmi().getId() == fourmi.getId());
-        afficherCartesTriees(); // Réorganiser et afficher les cartes restantes
+        afficherCartesTriees();
     }
 }

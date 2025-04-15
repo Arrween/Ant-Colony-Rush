@@ -4,68 +4,69 @@ import controller.DestinationSelectionnee;
 import controller.FourmiController;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import model.Fourmi;
 import model.objetsFixes.ObjetFixe;
 import view.animations.BarreEnergieAnimation;
 
 public class CardFourmis extends JPanel {
-    private JProgressBar barreEnergie; // Barre d'énergie
-    private JLabel lblNumeroFourmi; // Numéro de la fourmi
-    private JButton btnExpedition; // Bouton pour envoyer en expédition
-    private Fourmi fourmi; // Référence à la fourmi
-    private Thread threadEnergie; // Thread pour animer la barre d'énergie
+    private JProgressBar barreEnergie;
+    private JLabel lblNumeroFourmi;
+    private JButton btnExpedition;
+    private Fourmi fourmi;
+    private Thread threadEnergie; 
+
+    private static final Color BEIGE = new Color(245, 245, 220);
+    private static final Color DARK_BROWN = new Color(101, 67, 33);
+    private static final Color GREEN = new Color(0, 128, 0);
+    private static final Font CONTROL_FONT  = new Font("Segoe UI", Font.PLAIN, 13);
+    private static final Font CONTROL_BOLD  = new Font("Segoe UI", Font.BOLD, 14);
 
     public CardFourmis(Fourmi fourmi, DestinationSelectionnee ds, ObjetFixe objF, FourmiController controller) {
         this.fourmi = fourmi;
+        setLayout(new BorderLayout(5, 5));
+        setBackground(BEIGE);
+        setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(GREEN, 1),
+            new EmptyBorder(5, 5, 5, 5)
+        ));
 
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        setPreferredSize(new Dimension(300, 80)); // Taille fixe pour chaque carte
-
-        // En-tête : Numéro de la fourmi
         lblNumeroFourmi = new JLabel("Fourmi #" + fourmi.getId(), SwingConstants.CENTER);
-        lblNumeroFourmi.setFont(new Font("Arial", Font.BOLD, 14));
+        lblNumeroFourmi.setFont(CONTROL_BOLD);
+        lblNumeroFourmi.setForeground(DARK_BROWN);
         add(lblNumeroFourmi, BorderLayout.NORTH);
 
-        // Centre : Barre d'énergie
         barreEnergie = new JProgressBar(0, Fourmi.MAX_ENERGIE);
         barreEnergie.setValue(fourmi.getEnergie());
         barreEnergie.setStringPainted(true);
-        barreEnergie.setForeground(new Color(0, 200, 0)); // Couleur verte
-        barreEnergie.setBackground(new Color(200, 200, 200)); // Couleur de fond
+        barreEnergie.setForeground(GREEN);
         add(barreEnergie, BorderLayout.CENTER);
 
-        // Bas : Bouton "Envoyer en expédition"
         btnExpedition = new JButton("Envoyer en expédition");
+        btnExpedition.setFont(CONTROL_FONT);
+        btnExpedition.setBackground(BEIGE);
+        btnExpedition.setForeground(DARK_BROWN);
         btnExpedition.addActionListener(e -> {
             controller.envoyerEnExpedition(fourmi, objF, ds);
         });
         add(btnExpedition, BorderLayout.SOUTH);
 
-        // Lancer l'animation de la barre d'énergie
-        lancerAnimationEnergie();
-    }
-
-    // Méthode pour lancer l'animation de la barre d'énergie
-    private void lancerAnimationEnergie() {
+        // Lancement de l’animation
         BarreEnergieAnimation animation = new BarreEnergieAnimation(barreEnergie, fourmi);
-        animation.start(); // Démarrer le thread directement
+        animation.start();
     }
 
-    // Méthode pour arrêter l'animation (par exemple, lorsque la carte est
-    // supprimée)
-    public void arreterAnimation() {
-        if (threadEnergie != null && threadEnergie.isAlive()) {
-            threadEnergie.interrupt();
-        }
-    }
-
-    // Méthode pour mettre à jour l'énergie de la fourmi
     public void mettreAJourEnergie() {
         barreEnergie.setValue(fourmi.getEnergie());
     }
 
     public Fourmi getFourmi() {
         return fourmi;
+    }
+
+    public void arreterAnimation() {
+        if (threadEnergie != null && threadEnergie.isAlive()) {
+            threadEnergie.interrupt();
+        }
     }
 }
