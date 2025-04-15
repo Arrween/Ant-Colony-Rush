@@ -74,7 +74,7 @@ public class PanneauDeTableauDeBord extends JPanel {
 
         // Bouton pause redimensionné (60x30)
         pauseBtn = new BoutonImage("/resources/Menu/pause.png", "/resources/Menu/pause_hover.png");
-        //pauseBtn.setPreferredSize(new Dimension(60, 30));
+        // pauseBtn.setPreferredSize(new Dimension(60, 30));
         pnlChronoPause.add(pauseBtn, BorderLayout.EAST);
 
         pnlHeader.add(pnlChronoPause, BorderLayout.NORTH);
@@ -89,9 +89,8 @@ public class PanneauDeTableauDeBord extends JPanel {
         titledBorder.setTitleFont(CONTROL_HEADER);
         titledBorder.setTitleColor(DARK_BROWN);
         pnlCrapaudInfos.setBorder(BorderFactory.createCompoundBorder(
-            titledBorder,
-            new EmptyBorder(10, 10, 10, 10)
-        ));
+                titledBorder,
+                new EmptyBorder(10, 10, 10, 10)));
 
         JLabel lblSatiete = new JLabel("Satiété : ", SwingConstants.CENTER);
         lblSatiete.setFont(CONTROL_HEADER);
@@ -119,7 +118,7 @@ public class PanneauDeTableauDeBord extends JPanel {
             mettreAJourScore(score.getScore());
             mettreAJourCrapaudInfos();
 
-            if (secondesEcoulees >= 300 || scoreGestionnaire.isGameOver()) {
+            if (secondesEcoulees >= 5 || scoreGestionnaire.isGameOver()) {
                 timer.stop();
                 afficherFenetreFinDeJeu();
             }
@@ -202,11 +201,10 @@ public class PanneauDeTableauDeBord extends JPanel {
         JFrame ancienneFenetre = (JFrame) SwingUtilities.getWindowAncestor(this);
 
         FenetreFinDeJeu fenetreFinDeJeu = new FenetreFinDeJeu(
-            message,
-            ancienneFenetre,
-            e -> SwingUtilities.invokeLater(() -> new MenuDemarrage().setVisible(true)),
-            e -> System.exit(0)
-        );
+                message,
+                ancienneFenetre,
+                e -> SwingUtilities.invokeLater(() -> new MenuDemarrage().setVisible(true)),
+                e -> System.exit(0));
         fenetreFinDeJeu.setVisible(true);
     }
 }

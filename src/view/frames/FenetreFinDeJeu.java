@@ -7,6 +7,8 @@ import javax.swing.*;
 
 public class FenetreFinDeJeu extends JFrame {
 
+    private static final Color BEIGE = new Color(245, 245, 220);
+
     public FenetreFinDeJeu(String message, JFrame ancienneFenetre, ActionListener rejouerListener,
             ActionListener quitterListener) {
         setTitle("Fin du Jeu");
@@ -15,13 +17,17 @@ public class FenetreFinDeJeu extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
+        getContentPane().setBackground(BEIGE);
+
         // Message de fin
         JLabel lblMessage = new JLabel(message, SwingConstants.CENTER);
         lblMessage.setFont(new Font("Arial", Font.BOLD, 16));
+        lblMessage.setBackground(BEIGE);
         add(lblMessage, BorderLayout.CENTER);
 
         // Boutons
         JPanel pnlBoutons = new JPanel();
+        pnlBoutons.setBackground(BEIGE);
         JButton btnRejouer = new JButton("Rejouer");
         JButton btnQuitter = new JButton("Quitter");
 
