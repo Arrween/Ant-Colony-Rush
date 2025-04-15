@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import model.deplacements.Deplacement;
 import model.deplacements.DeplacementSimple;
 import model.objetsFixes.Abri;
@@ -48,8 +47,8 @@ public class Terrain {
         nb_ressources = difficulte.getNbRessources();
 
         // Initialisation du crapaud
-        int startX = RANDOM.nextInt(LARGEUR);
-        int startY = RANDOM.nextInt(HAUTEUR);
+        int startX = RANDOM.nextInt(LARGEUR - 100 );
+        int startY = RANDOM.nextInt(HAUTEUR - 100);
         int visionRange = 100; // Valeur à ajuster selon vos besoins
         crapaud = new Crapaud(this, startX, startY, visionRange);
     }

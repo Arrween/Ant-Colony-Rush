@@ -30,8 +30,6 @@ public class GestionnaireRessources extends InterruptibleThread {
                 }
                 continue;
             }
-            
-            System.out.println("gestionnaire ressources running");
 
             synchronized (terrain) {
                 if (terrain.nb_ressources < Terrain.NB_RESSOURCES_MAX) {
