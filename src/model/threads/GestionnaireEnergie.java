@@ -22,8 +22,6 @@ public class GestionnaireEnergie extends InterruptibleThread {
                 continue;
             }
 
-            System.out.println("GestionnaireEnergie running");
-
             t.majEnergieFourmis();
             try {
                 Thread.sleep(DELAY);

@@ -70,13 +70,13 @@ public class MusicPlayer {
     private static void loadSound(String key, String path) {
         try {
             File soundPath = new File(path);
-            System.out.println("Tentative de chargement du son depuis : " + soundPath.getAbsolutePath());
+            //System.out.println("Tentative de chargement du son depuis : " + soundPath.getAbsolutePath());
             if (soundPath.exists()) {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(soundPath);
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInput);
                 soundClips.put(key, clip);
-                System.out.println("Son chargé pour la clé: " + key);
+                //System.out.println("Son chargé pour la clé: " + key);
             } else {
                 System.out.println("Fichier non trouvé pour le chemin: " + path);
             }
@@ -88,7 +88,7 @@ public class MusicPlayer {
     private static void playSound(String key) {
         Clip clip = soundClips.get(key);
         if (clip != null) {
-            System.out.println("Lecture du son: " + key);
+            //System.out.println("Lecture du son: " + key);
             clip.setFramePosition(0);
             clip.start();
         } else {
@@ -112,7 +112,7 @@ public class MusicPlayer {
     public static void stop(String key) {
         Clip clipToStop = soundClips.get(key);
         if (clipToStop != null && clipToStop.isRunning()) {
-            System.out.println("Arrêt du son: " + key);
+            //System.out.println("Arrêt du son: " + key);
             clipToStop.stop();
             clipToStop.setFramePosition(0);
         } else {
