@@ -49,6 +49,14 @@ public class MusicPlayer {
         } else {
             loadSound("music_menu", path);
         }
+
+        path = "resources/Son/askherkher.wav";
+        soundPath = new File(path);
+        if (!soundPath.exists()) {
+            System.out.println("Le fichier de son n'existe pas : " + soundPath.getAbsolutePath());
+        } else {
+            loadSound("zinou", path);
+        }
     }
 
     private static void loadSound(String key, String path) {
@@ -115,6 +123,10 @@ public class MusicPlayer {
     public static void playMusic() {
         playSound("music");
 
+    }
+
+    public static void playZinou() {
+        playSound("zinou");
     }
 
     public static void playMusicMenu() {
