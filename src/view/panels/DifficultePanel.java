@@ -1,40 +1,57 @@
 package view.panels;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class DifficultePanel extends JPanel {
     private JButton startButton;
     private JButton difficulteButton;
-    private String difficulteSelectionnee = "Facile"; // Difficulté par défaut
+    private String difficulteSelectionnee = "Facile";
 
     public DifficultePanel() {
         setLayout(new BorderLayout());
 
-        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/resources/Ant/imageStart.jpg"));
+        // Image de fond
+        ImageIcon rawIcon = new ImageIcon(getClass().getResource("/resources/Menu/bg.png"));
+        Image image = rawIcon.getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH);
+        ImageIcon backgroundIcon = new ImageIcon(image);
+
         JLabel backgroundLabel = new JLabel(backgroundIcon);
         backgroundLabel.setLayout(new GridBagLayout());
         add(backgroundLabel, BorderLayout.CENTER);
 
-        // Création d'un panel pour les boutons, transparent pour laisser voir le fond
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+        // Panel de boutons
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 20, 20));
         buttonPanel.setOpaque(false);
 
-        startButton = new JButton("Start");
-        startButton.setFont(new Font("Arial", Font.BOLD, 20));
-
-        difficulteButton = new JButton("Difficulté : " + difficulteSelectionnee);
-        difficulteButton.setFont(new Font("Arial", Font.BOLD, 20));
+        // Boutons avec hover
+        startButton = createImageButton("/resources/Menu/start.png", "/resources/Menu/start_hover.png");
+        difficulteButton = createImageButton("/resources/Menu/difficulty.png", "/resources/Menu/difficulty_hover.png");
 
         buttonPanel.add(startButton);
         buttonPanel.add(difficulteButton);
 
-        // Ajout du panel de boutons au centre du fond
         backgroundLabel.add(buttonPanel, new GridBagConstraints());
     }
 
-    // Méthodes d'enregistrement des écouteurs
+    // Création d'un bouton image avec rollover
+    private JButton createImageButton(String normalPath, String hoverPath) {
+        ImageIcon icon = new ImageIcon(getClass().getResource(normalPath));
+        ImageIcon rolloverIcon = new ImageIcon(getClass().getResource(hoverPath));
+
+        JButton button = new JButton(icon);
+        button.setRolloverIcon(rolloverIcon);
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        return button;
+    }
+
+    // Listeners
     public void setStartButtonListener(ActionListener listener) {
         startButton.addActionListener(listener);
     }
@@ -43,10 +60,10 @@ public class DifficultePanel extends JPanel {
         difficulteButton.addActionListener(listener);
     }
 
-    // Accesseurs pour la difficulté sélectionnée
+    // Difficulté
     public void setSelectedDifficulty(String difficulty) {
         this.difficulteSelectionnee = difficulty;
-        difficulteButton.setText("Difficulté : " + difficulty);
+        // Tu pourrais changer l'image ici selon la difficulté
     }
 
     public String getDifficulteSelectionnee() {
