@@ -167,13 +167,15 @@ public class TerrainPanel extends JPanel {
 
         // Affichage du crapaud
         model.Crapaud crapaud = terrain.getCrapaud();
+        boolean isAsleep = crapaud.isAsleep();
         if (crapaud != null) {
             Graphics2D g2d = (Graphics2D) g;
-            int diametre = 2 * crapaud.getVisionRange();
-            g2d.setColor(new Color(255, 0, 0, 50));
-            g2d.fillArc(crapaud.getX() - crapaud.getVisionRange(), crapaud.getY() - crapaud.getVisionRange(), diametre,
-                    diametre, crapaud.getDirectionAngle() - 45, 90);
-
+            if (!isAsleep) {
+                int diametre = 2 * crapaud.getVisionRange();
+                g2d.setColor(new Color(255, 0, 0, 50));
+                g2d.fillArc(crapaud.getX() - crapaud.getVisionRange(), crapaud.getY() - crapaud.getVisionRange(), diametre,
+                        diametre, crapaud.getDirectionAngle() - 45, 90);
+            }
             java.awt.image.BufferedImage frame = crapaud.getCurrentFrame();
             int x = crapaud.getX();
             int y = crapaud.getY();

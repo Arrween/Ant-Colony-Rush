@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
 import model.deplacements.Deplacement;
-import model.objetsFixes.Abri;
-import model.objetsFixes.Nid;
 import model.objetsFixes.ObjetFixe;
 import model.objetsFixes.Ressource;
 import view.animations.CrapaudIdleAnimation;
@@ -83,31 +81,17 @@ public class Crapaud {
         int newY = y + dy;
 
         // Vérification des limites du terrain
-        if (newX < 0 || newX + 50 > Terrain.LARGEUR) {
+        if (newX < 50 || newX + 50 > Terrain.LARGEUR) {
             dx = -dx;
             newX = x + dx;
         }
-        if (newY < 0 || newY + 50 > Terrain.HAUTEUR) {
+        if (newY < 50 || newY + 50 > Terrain.HAUTEUR) {
             dy = -dy;
             newY = y + dy;
         }
 
         ArrayList<ObjetFixe> objets = Terrain.getObjetsFixes();
-
-        // Interaction avec les objets fixes
-        for (ObjetFixe obj : objets) {
-            if (obj.hitBoxCliquee(newX, newY)) {
-                // En cas de ressource, changer de direction
-                if (obj instanceof Ressource) {
-                    randomizeDirection();
-                }
-                // En cas d'abri ou de nid, effectuer un saut (double déplacement)
-                if (obj instanceof Abri || obj instanceof Nid) {
-                    newX = x + 2 * dx;
-                    newY = y + 2 * dy;
-                }
-            }
-        }
+        
         x = newX;
         y = newY;
 
@@ -125,10 +109,8 @@ public class Crapaud {
             double distance = Math.hypot(depl.getX() - x, depl.getY() - y);
             if (distance <= visionRange && isInVisionCone(depl.getX(), depl.getY())) {
                 terrain.expeditions.remove(depl);
-                satiete++;
-                if (satiete >= MAX_SATIETE) {
-                    fallAsleep();
-                }
+                satiete = 10; 
+                fallAsleep();
                 idleAnimation.updateFrame();
                 return; // on ne mange qu'une chose par appel
             }
@@ -142,10 +124,9 @@ public class Crapaud {
                 if (r.getNbrFourmis() > 0) {
                     // la ressource contient au moins une fourmi
                     r.removeOneAnt();
-                    satiete++;
-                    if (satiete >= MAX_SATIETE) {
-                        fallAsleep();
-                    }
+                    MusicPlayer.playZinou2();
+                    satiete = 10;
+                    fallAsleep();
                     idleAnimation.updateFrame();
                     return; // on ne mange qu'une chose par appel
                 }
@@ -162,6 +143,8 @@ public class Crapaud {
                 // la ressource est visible, le crapaud la mange, les fourmis à l'intérieur
                 // disparaissent
                 terrain.removeRessource(r.getId());
+                MusicPlayer.playZinou2();
+
                 satiete += 2; // chaque ressource donne 2 points au crapaud indépendamment de sa valeur
                               // nutritive
                 // on verifie s'il a maintenant dépassé le seuil de satiete
@@ -208,6 +191,7 @@ public class Crapaud {
     private void fallAsleep() {
         isAsleep = true;
         remainingSleepTime = DUREE_SIESTE;
+        MusicPlayer.playZinou();
     }
 
     public boolean isAsleep() {
@@ -225,12 +209,13 @@ public class Crapaud {
     }
 
     public int getDirectionAngle() {
-        double angleRad = Math.atan2(-dy, dx);
-        int angleDeg = (int) Math.toDegrees(angleRad);
-        if (angleDeg < 0) {
-            angleDeg += 360;
-        }
-        return angleDeg;
+            double angleRad = Math.atan2(-dy, dx);
+            int angleDeg = (int) Math.toDegrees(angleRad);
+            if (angleDeg < 0) {
+                angleDeg += 360;
+            }
+            return angleDeg;
+        
     }
 
     // Je veux récuperer l'etat du crapaud pour l'afficher dans le panel
