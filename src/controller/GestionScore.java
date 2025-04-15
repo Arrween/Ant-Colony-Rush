@@ -1,4 +1,5 @@
 package controller;
+
 import model.Score;
 import model.Terrain;
 import model.deplacements.DeplacementRessource;
@@ -6,6 +7,7 @@ import model.deplacements.DeplacementSimple;
 import model.objetsFixes.Nid;
 import model.objetsFixes.Ressource;
 import model.threads.InterruptibleThread;
+import model.threads.ThreadSet;
 
 public class GestionScore extends InterruptibleThread {
     private Score score;
@@ -14,11 +16,20 @@ public class GestionScore extends InterruptibleThread {
     public final int DELAY = 100;
     private GestionScore gestionScore;
     private Terrain terrain;
+    private ThreadSet threadSet;
 
     public GestionScore(Terrain terrain, Score score, Nid nid) {
         this.score = score;
         this.nid = nid;
         this.terrain = terrain;
+    }
+
+    public void setThreadSet(ThreadSet threadSet) {
+        this.threadSet = threadSet;
+    }
+
+    public ThreadSet getThreadSet() {
+        return threadSet;
     }
 
     public Score getScore() {

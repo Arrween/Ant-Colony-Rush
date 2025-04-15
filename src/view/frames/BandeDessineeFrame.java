@@ -9,11 +9,11 @@ import java.awt.event.ActionListener;
 public class BandeDessineeFrame extends JFrame {
     private int currentPage = 0; // Index de la page actuelle
     private final String[] pages = {
-        "src/resources/BD/1.png",
-        "src/resources/BD/2.png",
-        "src/resources/BD/3.png",
-        "src/resources/BD/4.png",
-        "src/resources/BD/5.png"
+            "src/resources/BD/1.png",
+            "src/resources/BD/2.png",
+            "src/resources/BD/3.png",
+            "src/resources/BD/4.png",
+            "src/resources/BD/5.png"
     };
     private JLabel imageLabel;
 

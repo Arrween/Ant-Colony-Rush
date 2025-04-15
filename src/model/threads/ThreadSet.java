@@ -1,13 +1,10 @@
 package model.threads;
 
-import java.util.ArrayList;
-
 import controller.GestionScore;
+import java.util.ArrayList;
 import model.Score;
 import model.Terrain;
 import model.objetsFixes.Nid;
-import view.RedessinJeuFrame;
-import view.frames.JeuFrame;
 import view.panels.TerrainPanel;
 
 public class ThreadSet {
@@ -39,7 +36,7 @@ public class ThreadSet {
         gestionScore.start();
     }
 
-    private ArrayList<InterruptibleThread> getAllThreads() {
+    public ArrayList<InterruptibleThread> getAllThreads() {
         ArrayList<InterruptibleThread> threads = new ArrayList<>();
         threads.add(gestionnaireEnergie);
         threads.add(gestionnaireDeplacement);
@@ -64,5 +61,13 @@ public class ThreadSet {
     public GestionScore getGestionScore() {
         return gestionScore;
     }
-    
+
+    public void stopAll() {
+        for (InterruptibleThread thread : getAllThreads()) {
+            thread.interrupt();
+            thread.setRunning(false);
+            System.out.println("Arrêt du thread : " + thread.getClass().getSimpleName());
+        }
+    }
+
 }

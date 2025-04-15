@@ -2,7 +2,6 @@ package model.objetsFixes;
 
 import java.awt.*;
 import javax.swing.*;
-
 import model.Fourmi;
 
 public class Abri extends ObjetFixe {

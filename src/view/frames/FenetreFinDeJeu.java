@@ -4,6 +4,7 @@ import controller.StartMenuController;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import view.components.BoutonImage;
 
 public class FenetreFinDeJeu extends JFrame {
 
@@ -12,7 +13,7 @@ public class FenetreFinDeJeu extends JFrame {
     public FenetreFinDeJeu(String message, JFrame ancienneFenetre, ActionListener rejouerListener,
             ActionListener quitterListener) {
         setTitle("Fin du Jeu");
-        setSize(400, 200);
+        setSize(800, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -26,10 +27,10 @@ public class FenetreFinDeJeu extends JFrame {
         add(lblMessage, BorderLayout.CENTER);
 
         // Boutons
-        JPanel pnlBoutons = new JPanel();
+        JPanel pnlBoutons = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         pnlBoutons.setBackground(BEIGE);
-        JButton btnRejouer = new JButton("Rejouer");
-        JButton btnQuitter = new JButton("Quitter");
+        BoutonImage btnRejouer = new BoutonImage("/resources/Menu/start.png", "/resources/Menu/start_hover.png");
+        BoutonImage btnQuitter = new BoutonImage("/resources/Menu/quit.png", "/resources/Menu/quit_hover.png");
 
         btnRejouer.addActionListener(e -> {
             // Fermer l'ancienne fenêtre
@@ -48,8 +49,9 @@ public class FenetreFinDeJeu extends JFrame {
 
         btnQuitter.addActionListener(quitterListener);
 
-        pnlBoutons.add(btnRejouer);
-        pnlBoutons.add(btnQuitter);
-        add(pnlBoutons, BorderLayout.SOUTH);
+        pnlBoutons.add(btnRejouer, BorderLayout.WEST); // Bouton "Rejouer" à gauche
+        pnlBoutons.add(btnQuitter, BorderLayout.EAST); // Bouton "Quitter" à droite
+
+        add(pnlBoutons, BorderLayout.SOUTH); // Ajouter le panneau des boutons en bas de la fenêtre
     }
 }

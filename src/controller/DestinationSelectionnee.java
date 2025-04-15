@@ -2,7 +2,6 @@ package controller;
 
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
-
 import model.Terrain;
 import model.objetsFixes.Nid;
 import model.objetsFixes.ObjetFixe;

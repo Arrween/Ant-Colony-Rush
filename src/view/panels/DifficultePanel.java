@@ -45,7 +45,7 @@ public class DifficultePanel extends JPanel {
         difficulteButton.addActionListener(listener);
     }
 
-    // Setter pour la difficulté 
+    // Setter pour la difficulté
     public void setSelectedDifficulty(String difficulty) {
         this.difficulteSelectionnee = difficulty;
     }

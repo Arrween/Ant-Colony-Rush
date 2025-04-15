@@ -173,7 +173,8 @@ public class TerrainPanel extends JPanel {
             if (!isAsleep) {
                 int diametre = 2 * crapaud.getVisionRange();
                 g2d.setColor(new Color(255, 0, 0, 50));
-                g2d.fillArc(crapaud.getX() - crapaud.getVisionRange(), crapaud.getY() - crapaud.getVisionRange(), diametre,
+                g2d.fillArc(crapaud.getX() - crapaud.getVisionRange(), crapaud.getY() - crapaud.getVisionRange(),
+                        diametre,
                         diametre, crapaud.getDirectionAngle() - 45, 90);
             }
             java.awt.image.BufferedImage frame = crapaud.getCurrentFrame();

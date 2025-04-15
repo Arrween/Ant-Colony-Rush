@@ -14,4 +14,9 @@ public abstract class InterruptibleThread extends Thread {
     public boolean isRunning() {
         return isRunning;
     }
+
+    // Je surcharge
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
 }

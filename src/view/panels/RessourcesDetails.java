@@ -12,6 +12,8 @@ public class RessourcesDetails extends JPanel {
     private JLabel lblFourmisAssociees;
     private JLabel lblImage;
     private BoutonImage btnRetour;
+    private JPanel pnlFourmisIcons; // Nouveau champ pour stocker le panneau d'icônes
+    private Ressource ressource; // Référence à la ressource
 
     // Constantes de style
     private static final Color BEIGE = new Color(245, 245, 220);
@@ -20,6 +22,7 @@ public class RessourcesDetails extends JPanel {
     private static final Font CONTROL_HEADER = new Font("Segoe UI", Font.BOLD, 16);
 
     public RessourcesDetails(Ressource ressource) {
+        this.ressource = ressource;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 500));
         setBackground(BEIGE);
@@ -56,6 +59,16 @@ public class RessourcesDetails extends JPanel {
         pnlCentre.add(lblFourmisAssociees);
         pnlCentre.add(Box.createVerticalStrut(20));
 
+        // Initialiser le panneau d'icônes de fourmis
+        pnlFourmisIcons = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        pnlFourmisIcons.setBackground(BEIGE);
+        pnlFourmisIcons.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pnlCentre.add(pnlFourmisIcons);
+        pnlCentre.add(Box.createVerticalStrut(20));
+
+        // Première mise à jour des icônes
+        mettreAJourFourmis();
+
         lblImage = new JLabel();
         lblImage.setHorizontalAlignment(SwingConstants.CENTER);
         lblImage.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -85,5 +98,30 @@ public class RessourcesDetails extends JPanel {
         pnlBas.setBackground(BEIGE);
         pnlBas.add(btnRetour);
         add(pnlBas, BorderLayout.SOUTH);
+    }
+
+    // Nouvelle méthode pour mettre à jour l'affichage des fourmis
+    public void mettreAJourFourmis() {
+        // Mettre à jour le label textuel
+        lblFourmisAssociees.setText("Fourmis associées : " + ressource.getNbrFourmis());
+
+        // Mettre à jour les icônes
+        pnlFourmisIcons.removeAll();
+
+        // Recharger l'image de fourmi
+        ImageIcon antIcon = new ImageIcon(getClass().getResource("/resources/Ant/ant_lonely.png"));
+        Image scaledAnt = antIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon scaledAntIcon = new ImageIcon(scaledAnt);
+
+        // Ajouter les nouvelles icônes
+        int nbFourmis = ressource.getNbrFourmis();
+        for (int i = 0; i < nbFourmis; i++) {
+            JLabel antLabel = new JLabel(scaledAntIcon);
+            pnlFourmisIcons.add(antLabel);
+        }
+
+        // Rafraîchir l'affichage
+        pnlFourmisIcons.revalidate();
+        pnlFourmisIcons.repaint();
     }
 }

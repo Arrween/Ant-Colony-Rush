@@ -2,7 +2,6 @@ package model.threads;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Fourmi;
 import model.Terrain;
 import model.deplacements.Deplacement;

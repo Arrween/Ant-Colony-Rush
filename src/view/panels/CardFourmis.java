@@ -14,22 +14,21 @@ public class CardFourmis extends JPanel {
     private JLabel lblNumeroFourmi;
     private JButton btnExpedition;
     private Fourmi fourmi;
-    private Thread threadEnergie; 
+    private Thread threadEnergie;
 
     private static final Color BEIGE = new Color(245, 245, 220);
     private static final Color DARK_BROWN = new Color(101, 67, 33);
     private static final Color GREEN = new Color(0, 128, 0);
-    private static final Font CONTROL_FONT  = new Font("Segoe UI", Font.PLAIN, 13);
-    private static final Font CONTROL_BOLD  = new Font("Segoe UI", Font.BOLD, 14);
+    private static final Font CONTROL_FONT = new Font("Segoe UI", Font.PLAIN, 13);
+    private static final Font CONTROL_BOLD = new Font("Segoe UI", Font.BOLD, 14);
 
     public CardFourmis(Fourmi fourmi, DestinationSelectionnee ds, ObjetFixe objF, FourmiController controller) {
         this.fourmi = fourmi;
         setLayout(new BorderLayout(5, 5));
         setBackground(BEIGE);
         setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(GREEN, 1),
-            new EmptyBorder(5, 5, 5, 5)
-        ));
+                BorderFactory.createLineBorder(GREEN, 1),
+                new EmptyBorder(5, 5, 5, 5)));
 
         lblNumeroFourmi = new JLabel("Fourmi #" + fourmi.getId(), SwingConstants.CENTER);
         lblNumeroFourmi.setFont(CONTROL_BOLD);

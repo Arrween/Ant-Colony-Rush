@@ -23,7 +23,7 @@ public class GestionnaireCrapaud extends InterruptibleThread {
                 }
                 continue;
             }
-            
+
             c.decrSatiete();
             for (int i = 0; i < DELAY_DECR_SATIETE; i++) {
                 c.update(DELAY_ACTION);

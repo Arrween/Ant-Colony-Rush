@@ -91,7 +91,7 @@ public class Crapaud {
         }
 
         ArrayList<ObjetFixe> objets = Terrain.getObjetsFixes();
-        
+
         x = newX;
         y = newY;
 
@@ -109,7 +109,7 @@ public class Crapaud {
             double distance = Math.hypot(depl.getX() - x, depl.getY() - y);
             if (distance <= visionRange && isInVisionCone(depl.getX(), depl.getY())) {
                 terrain.expeditions.remove(depl);
-                satiete = 10; 
+                satiete = 10;
                 fallAsleep();
                 idleAnimation.updateFrame();
                 return; // on ne mange qu'une chose par appel
@@ -209,13 +209,13 @@ public class Crapaud {
     }
 
     public int getDirectionAngle() {
-            double angleRad = Math.atan2(-dy, dx);
-            int angleDeg = (int) Math.toDegrees(angleRad);
-            if (angleDeg < 0) {
-                angleDeg += 360;
-            }
-            return angleDeg;
-        
+        double angleRad = Math.atan2(-dy, dx);
+        int angleDeg = (int) Math.toDegrees(angleRad);
+        if (angleDeg < 0) {
+            angleDeg += 360;
+        }
+        return angleDeg;
+
     }
 
     // Je veux récuperer l'etat du crapaud pour l'afficher dans le panel
@@ -228,4 +228,5 @@ public class Crapaud {
             return "normal";
         }
     }
+
 }

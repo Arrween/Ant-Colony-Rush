@@ -16,7 +16,7 @@ public class BoutonImage extends JButton {
         // Récupération des icônes
         ImageIcon icon = new ImageIcon(getClass().getResource(normalPath));
         ImageIcon rolloverIcon = new ImageIcon(getClass().getResource(hoverPath));
-        
+
         // Configuration du bouton
         setIcon(icon);
         setRolloverIcon(rolloverIcon);

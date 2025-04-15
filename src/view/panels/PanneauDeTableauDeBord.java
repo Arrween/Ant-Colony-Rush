@@ -1,12 +1,15 @@
 package view.panels;
 
 import controller.GestionScore;
+import controller.StartMenuController;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import model.Crapaud;
+import model.MusicPlayer;
 import model.Score;
+import model.threads.ThreadSet;
 import view.components.BoutonImage;
 import view.frames.FenetreFinDeJeu;
 import view.frames.MenuDemarrage;
@@ -118,7 +121,7 @@ public class PanneauDeTableauDeBord extends JPanel {
             mettreAJourScore(score.getScore());
             mettreAJourCrapaudInfos();
 
-            if (secondesEcoulees >= 5 || scoreGestionnaire.isGameOver()) {
+            if (secondesEcoulees >= 300 || scoreGestionnaire.isGameOver()) {
                 timer.stop();
                 afficherFenetreFinDeJeu();
             }
@@ -198,13 +201,54 @@ public class PanneauDeTableauDeBord extends JPanel {
                 ? "Temps écoulé ! Fin du jeu."
                 : "Plus de fourmis et score insuffisant ! Fin du jeu.";
 
-        JFrame ancienneFenetre = (JFrame) SwingUtilities.getWindowAncestor(this);
+        // Arrêter tous les threads via ThreadSet
+        if (scoreGestionnaire != null) {
+            ThreadSet threadSet = scoreGestionnaire.getThreadSet();
+            if (threadSet != null) {
+                threadSet.stopAll();
+            }
+        }
 
-        FenetreFinDeJeu fenetreFinDeJeu = new FenetreFinDeJeu(
-                message,
-                ancienneFenetre,
-                e -> SwingUtilities.invokeLater(() -> new MenuDemarrage().setVisible(true)),
-                e -> System.exit(0));
-        fenetreFinDeJeu.setVisible(true);
+        // Arrêter tous les timers Swing
+        if (timer != null) {
+            timer.stop();
+        }
+        if (satieteAnimationTimer != null) {
+            satieteAnimationTimer.stop();
+        }
+
+        // S'assurer que tous les sons sont arrêtés
+        MusicPlayer.stopAllSounds();
+        // MusicPlayer.stopZinou();
+        // MusicPlayer.stopAmbiance();
+        // MusicPlayer.stopAmbianceJourNuit();
+        // MusicPlayer.stopAmbianceNuit();
+        // MusicPlayer.stopAmbianceJour();
+
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Fermer la fenêtre principale
+        JFrame ancienneFenetre = (JFrame) SwingUtilities.getWindowAncestor(this);
+        if (ancienneFenetre != null) {
+            ancienneFenetre.dispose();
+        }
+
+        // Afficher la fenêtre de fin de jeu
+        SwingUtilities.invokeLater(() -> {
+            FenetreFinDeJeu fenetreFinDeJeu = new FenetreFinDeJeu(
+                    message,
+                    ancienneFenetre,
+                    e -> {
+                        MenuDemarrage menuDemarrage = new MenuDemarrage();
+                        new StartMenuController(menuDemarrage);
+                        menuDemarrage.setVisible(true);
+                    },
+                    e -> System.exit(0));
+            fenetreFinDeJeu.setVisible(true);
+        });
     }
 }

@@ -18,7 +18,7 @@ public class AbriDetail extends JPanel {
     private static final Color DARK_BROWN = new Color(101, 67, 33);
     private static final Font CONTROL_FONT = new Font("Segoe UI", Font.PLAIN, 14);
     private static final Font CONTROL_HEADER = new Font("Segoe UI", Font.BOLD, 16);
-    
+
     public AbriDetail(Abri abri, DestinationSelectionnee ds) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 500));
@@ -32,7 +32,8 @@ public class AbriDetail extends JPanel {
         lblTitre.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pnlEntete.add(lblTitre, BorderLayout.NORTH);
 
-        lblCapacite = new JLabel("Capacité : " + abri.getNbFourmis() + " / " + abri.getCapacite(), SwingConstants.CENTER);
+        lblCapacite = new JLabel("Capacité : " + abri.getNbFourmis() + " / " + abri.getCapacite(),
+                SwingConstants.CENTER);
         lblCapacite.setFont(CONTROL_FONT);
         lblCapacite.setForeground(DARK_BROWN);
         pnlEntete.add(lblCapacite, BorderLayout.SOUTH);
@@ -68,7 +69,6 @@ public class AbriDetail extends JPanel {
         }
         add(pnlCentre, BorderLayout.CENTER);
 
-        // Bouton Retour redimensionné (60x30)
         BoutonImage btnRetour = new BoutonImage("/resources/Menu/back.png", "/resources/Menu/back_hover.png");
         btnRetour.addActionListener(e -> {
             Container parent = AbriDetail.this.getParent();
