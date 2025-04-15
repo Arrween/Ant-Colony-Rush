@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-
 import model.MusicPlayer;
 import model.Score;
 import model.Terrain; // Assurez-vous d'importer la classe MusicPlayer
@@ -16,13 +15,13 @@ import model.objetsFixes.Abri;
 import model.objetsFixes.Nid;
 import model.objetsFixes.Ressource;
 import model.threads.ThreadSet;
+import view.animations.PanneauAnimationJourNuit;
 import view.panels.AbriDetail;
 import view.panels.ConteneurPanneauDeControle;
 import view.panels.PanneauDeControle;
 import view.panels.PausePanel;
 import view.panels.RessourcesDetails;
 import view.panels.TerrainPanel;
-import model.Terrain;
 
 public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListener {
     private Terrain terrain;
@@ -34,6 +33,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
     private GestionScore gestionScore;
     private FourmiController fourmiController; // Ajout d'un contrôleur pour les fourmis
     private boolean isRunning = true; // Variable pour play/pause
+    private PanneauAnimationJourNuit panneauAnimationJourNuit; // Panneau pour l'animation jour/nuit
 
     // Variable pour suivre l'état courant (jour/nuit)
     private boolean nightMode = false;
@@ -86,6 +86,7 @@ public class JeuFrame extends JFrame implements TerrainPanel.ControlPanelListene
                     MusicPlayer.stopNightSound();
                     MusicPlayer.playDaySound();
                 }
+
             }
         });
         nightTimer.start();
