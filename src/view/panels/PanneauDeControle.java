@@ -24,14 +24,13 @@ public class PanneauDeControle extends JPanel {
         this.gestionScore = gestionScore;
 
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(300, 500));
+        setPreferredSize(new Dimension(400, 500));
         setBackground(BEIGE);
 
         // En-tête : bouton Retour redimensionné (60x30)
         JPanel panneauEntete = new JPanel(new BorderLayout());
         panneauEntete.setBackground(BEIGE);
         BoutonImage btnRetour = new BoutonImage("/resources/Menu/back.png", "/resources/Menu/back_hover.png");
-        btnRetour.setPreferredSize(new Dimension(60, 30));
         btnRetour.addActionListener(e -> {
             Container parent = PanneauDeControle.this.getParent();
             if (parent instanceof ConteneurPanneauDeControle) {
@@ -48,7 +47,6 @@ public class PanneauDeControle extends JPanel {
 
         // Bas : bouton "Ajouter des fourmis" redimensionné (250x30)
         btnAjouterFourmis = new BoutonImage("/resources/Menu/add.png", "/resources/Menu/add_hover.png");
-        btnAjouterFourmis.setPreferredSize(new Dimension(250, 30));
         btnAjouterFourmis.addActionListener(e -> {
             if (gestionScore.getScore().AjoutFourmiPossible()) {
                 Fourmi nouvelleFourmi = nid.ajouterFourmi();

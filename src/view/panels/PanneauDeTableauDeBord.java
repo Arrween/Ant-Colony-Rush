@@ -74,7 +74,7 @@ public class PanneauDeTableauDeBord extends JPanel {
 
         // Bouton pause redimensionné (60x30)
         pauseBtn = new BoutonImage("/resources/Menu/pause.png", "/resources/Menu/pause_hover.png");
-        pauseBtn.setPreferredSize(new Dimension(60, 30));
+        //pauseBtn.setPreferredSize(new Dimension(60, 30));
         pnlChronoPause.add(pauseBtn, BorderLayout.EAST);
 
         pnlHeader.add(pnlChronoPause, BorderLayout.NORTH);

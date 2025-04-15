@@ -70,7 +70,6 @@ public class AbriDetail extends JPanel {
 
         // Bouton Retour redimensionné (60x30)
         BoutonImage btnRetour = new BoutonImage("/resources/Menu/back.png", "/resources/Menu/back_hover.png");
-        btnRetour.setPreferredSize(new Dimension(60, 30));
         btnRetour.addActionListener(e -> {
             Container parent = AbriDetail.this.getParent();
             if (parent instanceof ConteneurPanneauDeControle) {
