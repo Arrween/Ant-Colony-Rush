@@ -1,12 +1,13 @@
 package view.panels;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import view.components.BoutonImage;
 
 public class DifficultePanel extends JPanel {
-    private JButton startButton;
-    private JButton difficulteButton;
+    private BoutonImage startButton;
+    private BoutonImage difficulteButton;
     private String difficulteSelectionnee = "Facile";
 
     public DifficultePanel() {
@@ -25,9 +26,9 @@ public class DifficultePanel extends JPanel {
         JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 20, 20));
         buttonPanel.setOpaque(false);
 
-        // Boutons avec hover
-        startButton = createImageButton("/resources/Menu/start.png", "/resources/Menu/start_hover.png");
-        difficulteButton = createImageButton("/resources/Menu/difficulty.png", "/resources/Menu/difficulty_hover.png");
+        // Création des boutons avec la nouvelle classe BoutonImage
+        startButton = new BoutonImage("/resources/Menu/start.png", "/resources/Menu/start_hover.png");
+        difficulteButton = new BoutonImage("/resources/Menu/difficulty.png", "/resources/Menu/difficulty_hover.png");
 
         buttonPanel.add(startButton);
         buttonPanel.add(difficulteButton);
@@ -35,23 +36,7 @@ public class DifficultePanel extends JPanel {
         backgroundLabel.add(buttonPanel, new GridBagConstraints());
     }
 
-    // Création d'un bouton image avec rollover
-    private JButton createImageButton(String normalPath, String hoverPath) {
-        ImageIcon icon = new ImageIcon(getClass().getResource(normalPath));
-        ImageIcon rolloverIcon = new ImageIcon(getClass().getResource(hoverPath));
-
-        JButton button = new JButton(icon);
-        button.setRolloverIcon(rolloverIcon);
-        button.setOpaque(false);
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        return button;
-    }
-
-    // Listeners
+    // Méthodes pour l'enregistrement des écouteurs
     public void setStartButtonListener(ActionListener listener) {
         startButton.addActionListener(listener);
     }
@@ -60,10 +45,9 @@ public class DifficultePanel extends JPanel {
         difficulteButton.addActionListener(listener);
     }
 
-    // Difficulté
+    // Setter pour la difficulté 
     public void setSelectedDifficulty(String difficulty) {
         this.difficulteSelectionnee = difficulty;
-        // Tu pourrais changer l'image ici selon la difficulté
     }
 
     public String getDifficulteSelectionnee() {
