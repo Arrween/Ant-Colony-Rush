@@ -124,6 +124,7 @@ public class Crapaud {
                 if (r.getNbrFourmis() > 0) {
                     // la ressource contient au moins une fourmi
                     r.removeOneAnt();
+                    MusicPlayer.playZinou2();
                     satiete = 10;
                     fallAsleep();
                     idleAnimation.updateFrame();
@@ -142,6 +143,8 @@ public class Crapaud {
                 // la ressource est visible, le crapaud la mange, les fourmis à l'intérieur
                 // disparaissent
                 terrain.removeRessource(r.getId());
+                MusicPlayer.playZinou2();
+
                 satiete += 2; // chaque ressource donne 2 points au crapaud indépendamment de sa valeur
                               // nutritive
                 // on verifie s'il a maintenant dépassé le seuil de satiete
@@ -188,6 +191,7 @@ public class Crapaud {
     private void fallAsleep() {
         isAsleep = true;
         remainingSleepTime = DUREE_SIESTE;
+        MusicPlayer.playZinou();
     }
 
     public boolean isAsleep() {

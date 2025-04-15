@@ -57,6 +57,14 @@ public class MusicPlayer {
         } else {
             loadSound("zinou", path);
         }
+
+        path = "resources/Son/zinou2.wav";
+        soundPath = new File(path);
+        if (!soundPath.exists()) {
+            System.out.println("Le fichier de son n'existe pas : " + soundPath.getAbsolutePath());
+        } else {
+            loadSound("zinou2", path);
+        }
     }
 
     private static void loadSound(String key, String path) {
@@ -127,6 +135,10 @@ public class MusicPlayer {
 
     public static void playZinou() {
         playSound("zinou");
+    }
+
+    public static void playZinou2() {
+        playSound("zinou2");
     }
 
     public static void playMusicMenu() {
