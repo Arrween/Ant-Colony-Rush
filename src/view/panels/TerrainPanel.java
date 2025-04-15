@@ -170,7 +170,10 @@ public class TerrainPanel extends JPanel {
         boolean isAsleep = crapaud.isAsleep();
         if (crapaud != null) {
             Graphics2D g2d = (Graphics2D) g;
-            if (!isAsleep) {
+            if (isAsleep) {
+                g.drawImage(Crapaud.zzzIcon, crapaud.getX(), crapaud.getY() - TAILLE_CRAPAUD / 2,
+                        TAILLE_CRAPAUD/2, TAILLE_CRAPAUD/2, this);
+            } else {
                 int diametre = 2 * crapaud.getVisionRange();
                 g2d.setColor(new Color(255, 0, 0, 50));
                 g2d.fillArc(crapaud.getX() - crapaud.getVisionRange(), crapaud.getY() - crapaud.getVisionRange(), diametre,

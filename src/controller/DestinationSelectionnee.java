@@ -34,7 +34,7 @@ public class DestinationSelectionnee {
         this.depart = dep;
         this.idFourmi = id;
         this.onDestinationValidee = callback;
-        System.out.println("Destination selection active.");
+        //System.out.println("Destination selection active.");
     }
 
     // Méthode à appeler lors d'un clic pour traiter la sélection de destination

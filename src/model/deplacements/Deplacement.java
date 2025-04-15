@@ -89,7 +89,6 @@ public abstract class Deplacement {
                 currentY = destY;
             }
         }
-        System.out.println("Fourmi " + numero + " se déplace vers (" + currentX + ", " + currentY + ")");
     }
 
     // Choix de la direction de l'animation
