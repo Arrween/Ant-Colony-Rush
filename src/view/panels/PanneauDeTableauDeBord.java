@@ -121,7 +121,7 @@ public class PanneauDeTableauDeBord extends JPanel {
             mettreAJourScore(score.getScore());
             mettreAJourCrapaudInfos();
 
-            if (secondesEcoulees >= 300 || scoreGestionnaire.isGameOver()) {
+            if (secondesEcoulees >= 180 || scoreGestionnaire.isGameOver()) {
                 timer.stop();
                 afficherFenetreFinDeJeu();
             }

@@ -2,14 +2,10 @@ package model;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 import model.deplacements.Deplacement;
 import model.objetsFixes.ObjetFixe;
 import model.objetsFixes.Ressource;
@@ -32,7 +28,7 @@ public class Crapaud {
     private boolean isAsleep;
 
     private CrapaudIdleAnimation idleAnimation;
-    public final static Image zzzIcon = new ImageIcon(Crapaud.class.getResource("/resources/Frog/zZz.png")).getImage();
+    public final static Image zzzIcon = new ImageIcon(Crapaud.class.getResource("/resources/Frog/zZz - Copie.png")).getImage();
 
     private static final Random random = new Random();
 

@@ -47,8 +47,8 @@ public class Terrain {
         nb_ressources = difficulte.getNbRessources();
 
         // Initialisation du crapaud
-        int startX = RANDOM.nextInt(LARGEUR - 100);
-        int startY = RANDOM.nextInt(HAUTEUR - 100);
+        int startX = RANDOM.nextInt(500) + 150;
+        int startY = RANDOM.nextInt(500) + 150;
         int visionRange = 100; // Valeur à ajuster selon vos besoins
         crapaud = new Crapaud(this, startX, startY, visionRange);
     }

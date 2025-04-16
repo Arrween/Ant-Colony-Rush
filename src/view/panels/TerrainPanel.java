@@ -28,7 +28,7 @@ public class TerrainPanel extends JPanel {
     // Champs pour la transition smooth du mode nuit
     private int currentAlpha = 0; // Opacité actuelle de la surcouche (0 = jour, jusqu'à 150 = nuit complète)
     private int targetAlpha = 0; // Opacité cible : 0 pour le jour, DESIRED_ALPHA pour la nuit
-    private final int DESIRED_ALPHA = 170; // Valeur d'opacité souhaitée en mode nuit
+    private final int DESIRED_ALPHA = 150; // Valeur d'opacité souhaitée en mode nuit
     private final int alphaStep = 5; // Pas d'incrémentation à chaque tick
 
     // Timer pour la transition progressif de l'alpha

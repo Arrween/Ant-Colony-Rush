@@ -9,12 +9,9 @@ public abstract class Deplacement {
     protected int currentX, currentY, destX, destY, depX, depY;
     protected ObjetFixe dest;
     protected boolean isDone = false;
-
     private static int compteur = 0;
     private int numero;
-
     protected SpriteAnimation animationFourmi;
-
     public static final int VITESSE = 5; // Vitesse de déplacement de la fourmi ou du convoi
 
     public Deplacement(Terrain t, ObjetFixe dest, ObjetFixe depart) {
