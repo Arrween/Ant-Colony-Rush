@@ -2,6 +2,7 @@ package model.objetsFixes;
 
 import java.util.ArrayList;
 import java.util.Random;
+import model.Difficulte;
 import model.Terrain;
 
 public class GenerationAbri {
@@ -10,7 +11,7 @@ public class GenerationAbri {
     private static final int HAUTEUR = Terrain.HAUTEUR;
     private static final int LARGEUR = Terrain.LARGEUR;
 
-    public static Abri genererAbri(int difficulte) {
+    public static Abri genererAbri(Difficulte difficulte) {
         int[] capacité = { 1, 2, 3 };
         Abri abri = null;
         int RandomIndex = aleatoire.nextInt(3);

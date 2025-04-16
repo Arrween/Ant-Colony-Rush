@@ -29,7 +29,7 @@ public class FenetreFinDeJeu extends JFrame {
         // Boutons
         JPanel pnlBoutons = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         pnlBoutons.setBackground(BEIGE);
-        BoutonImage btnRejouer = new BoutonImage("/resources/Menu/start.png", "/resources/Menu/start_hover.png");
+        BoutonImage btnRejouer = new BoutonImage("/resources/Menu/restart.png", "/resources/Menu/restart_hover.png");
         BoutonImage btnQuitter = new BoutonImage("/resources/Menu/quit.png", "/resources/Menu/quit_hover.png");
 
         btnRejouer.addActionListener(e -> {

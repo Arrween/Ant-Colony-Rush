@@ -47,7 +47,7 @@ public class Terrain {
         nb_ressources = difficulte.getNbRessources();
 
         // Initialisation du crapaud
-        int startX = RANDOM.nextInt(LARGEUR - 100 );
+        int startX = RANDOM.nextInt(LARGEUR - 100);
         int startY = RANDOM.nextInt(HAUTEUR - 100);
         int visionRange = 100; // Valeur à ajuster selon vos besoins
         crapaud = new Crapaud(this, startX, startY, visionRange);
@@ -67,7 +67,7 @@ public class Terrain {
 
     public void ajouterAbris(int nombre) {
         for (int i = 0; i < nombre; i++) {
-            Abri abris = GenerationAbri.genererAbri(difficulte.getNbAbris());
+            Abri abris = GenerationAbri.genererAbri(difficulte);
             elts.add(abris);
         }
     }
